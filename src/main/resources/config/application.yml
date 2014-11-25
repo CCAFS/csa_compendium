@@ -1,0 +1,8 @@
+########################################################################################
+######                 CSA Prioritization Tool - Configuration                    ######
+######                    Carlos Ardila - CIAT/CCAFS - 2014                       ######
+########################################################################################
+
+# Disable the spring security default configuration from spring-boot-actuator
+management.security.enabled: true
+security.basic.enabled: false

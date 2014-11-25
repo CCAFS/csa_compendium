@@ -1,0 +1,24 @@
+## Production environment
+
+logging:
+    level: ERROR    
+
+server:
+    port: 80
+
+spring:
+    profiles: prod
+
+    datasource:
+        platform: postgres
+        url: jdbc:postgresql://localhost:5432/csa_compendium
+        username: admin
+        password: rident25
+
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        openInView: true
+        show_sql: true
+        generate-ddl: false        
+        hibernate:
+            ddl-auto: none
