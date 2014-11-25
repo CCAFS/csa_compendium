@@ -24,7 +24,7 @@ apply plugin: 'spring-boot'
 
 war {
 	archiveName = 'ROOT.war'
-	destinationDir = file('build/webapps')
+	destinationDir = file('webapps')
 }
 
 // Location of the libraries for the application. They are tried from top to bottom.
