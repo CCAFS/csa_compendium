@@ -6,13 +6,12 @@ description = "This is the CSA Prioritization Tool build file. It uses spring bo
 
 buildscript {
     repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "http://repo.spring.io/libs-release" }
+        jcenter()
+        maven { url "http://repo.spring.io/libs-snapshot" } 
     }
     dependencies {
         // Spring boot integration with gradle
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.9.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.0.RC2")
         // Plugin to reload changed classes with out restarting
         classpath("org.springframework:springloaded:1.2.1.RELEASE")
     }
@@ -23,17 +22,23 @@ apply plugin: 'war'
 apply plugin: 'spring-boot'
 
 war {
-	archiveName = 'ROOT.war'
-	destinationDir = file('webapps')
+    archiveName = 'ROOT.war'
+    destinationDir = file('webapps')
+}
+
+bootRepackage {
+    mainClass = 'org.cgiar.ccafs.csa.CSAToolApplication'
 }
 
 // Location of the libraries for the application. They are tried from top to bottom.
 repositories {
     mavenLocal()
-    mavenCentral()
-    maven { url "http://repo.spring.io/libs-release" }
-    maven { url "http://repository.primefaces.org" }
-    maven { url "http://lightadmin.org/nexus/content/repositories/snapshots" }
+    jcenter()
+    maven { 
+        url "http://repo.spring.io/libs-release"
+        url "http://repository.primefaces.org"
+        url "http://lightadmin.org/nexus/content/repositories/snapshots" 
+    }    
 }
 
 /*
@@ -44,7 +49,7 @@ repositories {
 */
 dependencies {
 
-    compile "org.springframework.boot:spring-boot-starter:1.1.9.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter:1.2.0.RC2"
     
     compile "org.springframework:spring-webmvc:4.1.2.RELEASE"
     compile "org.springframework:spring-aspects:4.1.2.RELEASE"
@@ -58,9 +63,9 @@ dependencies {
     compile "com.sun.faces:jsf-impl:2.2.8-02"
 
     // Includes primefaces
-	//compile "org.primefaces.extensions:primefaces-extensions:3.0.0"
-	//compile 'org.primefaces.extensions:master-pom:3.5.0'
-	compile "org.primefaces:primefaces:5.1"
+    //compile "org.primefaces.extensions:primefaces-extensions:3.0.0"
+    //compile 'org.primefaces.extensions:master-pom:3.5.0'
+    compile "org.primefaces:primefaces:5.1"
 
     compile ("org.springframework.data:spring-data-jpa:1.7.1.RELEASE") {
         exclude module: "aspectjrt"
@@ -73,7 +78,7 @@ dependencies {
     //compile "com.zaxxer:HikariCP-java6:2.2.5"
        
     compile "org.hibernate:hibernate-validator:5.1.3.Final"
-    //compile "org.postgresql:postgresql:9.3-1102-jdbc41"
+    compile "org.postgresql:postgresql:9.3-1102-jdbc41"
     compile "com.h2database:h2:1.4.182"
 
     compile "com.fasterxml.jackson.core:jackson-databind:2.4.3"
@@ -81,8 +86,8 @@ dependencies {
     // This needs to remain 2.1.4 to make lightadmin to work 
     compile "org.springframework.data:spring-data-rest-webmvc:2.1.4.RELEASE"
 
-	compile "org.lightadmin:lightadmin:1.1.0.BUILD-SNAPSHOT"
-	
+    compile "org.lightadmin:lightadmin:1.1.0.BUILD-SNAPSHOT"
+    
     testCompile "org.springframework:spring-test:4.1.2.RELEASE"
     testCompile "junit:junit:4.11"
     testCompile "org.mockito:mockito-core:1.10.8"

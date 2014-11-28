@@ -2,20 +2,19 @@ package org.cgiar.ccafs.csa;
 
 import java.io.IOException;
 import java.util.Arrays;
+
 import javax.annotation.PostConstruct;
+
 import org.cgiar.ccafs.csa.config.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
 import org.springframework.core.env.Environment;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 
@@ -23,10 +22,8 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguratio
  * This is a bootstrap class that can be used to run the application as a
  * Standalone embedded server. It also holds Environment and the REST configuration
  */
-@Configuration
-@ComponentScan
-@EnableAutoConfiguration
 @Import(RepositoryRestMvcConfiguration.class)
+@SpringBootApplication
 public class CSAToolApplication extends SpringBootServletInitializer {
 
 	private final Logger log = LoggerFactory.getLogger(CSAToolApplication.class);
@@ -61,11 +58,11 @@ public class CSAToolApplication extends SpringBootServletInitializer {
 		app.setAdditionalProfiles(addDefaultProfile());
 
 		ConfigurableApplicationContext context = app.run(args);
-		/*String[] beanNames = context.getBeanDefinitionNames();
+		String[] beanNames = context.getBeanDefinitionNames();
 		Arrays.sort(beanNames);
 		for (String beanName : beanNames) {
 			System.out.println(beanName);
-		}*/
+		}
 	}
 
 	@Override
