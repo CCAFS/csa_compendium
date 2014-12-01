@@ -3,10 +3,6 @@
 logging:
     level: DEBUG
     file: ${OPENSHIFT_DATA_DIR}/logs/app.log
-
-server:
-    address: ${OPENSHIFT_DIY_IP}
-    port: ${OPENSHIFT_DIY_PORT}
     
 spring:
     datasource:
