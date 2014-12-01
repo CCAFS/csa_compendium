@@ -1,26 +1,23 @@
 ## Development environment
-
+    
 server:
     port: 8080
 
 logging:
     level: DEBUG
 
-spring:
-    profiles: dev
-
     datasource:
         platform: h2
-        url: jdbc:h2:~/compendium;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        url: jdbc:h2:~/compendium
         username: csa_admin
         password:
 
     jpa:
         database-platform: org.hibernate.dialect.H2Dialect
-        openInView: false
+        openInView: true
         show-sql: true
         generate-ddl: true
         hibernate:
-            ddl-auto: none
+            #ddl-auto: none
             naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
 

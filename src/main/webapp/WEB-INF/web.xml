@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-                  http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1"
-         id="CSA_Tool"
-         metadata-complete="true">
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         metadata-complete="false"
+         id="CSA_Platform_Compendium">
 
-    <display-name>CSA Prioritization Tool and Compendium</display-name>
+    <display-name>CSA Prioritization Platform and Compendium</display-name>
 
     <description>
         This is a CGIAR/CIAT application to provide decision tools to farmers and

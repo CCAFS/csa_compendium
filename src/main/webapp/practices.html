@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Climate Smart Agriculture - Decision Support Platform</title>
+	<title>Agricultura Adapatad al Clima - Plataforma de Apoyo a la Decisión</title>
 	<link rel="stylesheet" href="public/css/main.css">
 	<script type="text/javascript" src="public/js/modernizr.custom.83290.js"></script>
 </head>
@@ -16,12 +16,11 @@
 			<nav>
 				<ul class="effect1">
 					<li><a href="index.html">Home</a></li>
-					<li>About us</li>
-					<li>Compendium</li>
-					<li>Prioritization Tool</li>
-					<li><a href="http://ccafs.cgiar.org/resources/tools-maps-models-and-data#.VHMtn4uG9Kc">Other Tools</a></li>
-					<li>Glossary</li>
-					<li>Contact</li>
+					<li>Acerca de</li>
+					<li>Compendio</li>
+					<li>Herramienta de Priorización</li>
+					<li><a href="http://ccafs.cgiar.org/resources/tools-maps-models-and-data#.VHMtn4uG9Kc">Otras Herramientas</a></li>					
+					<li>Contacto</li>
 				</ul>
 			</nav>
 		</div>
@@ -30,204 +29,253 @@
 		<section>			
 			<div class="content">
 				<div id="search-results">
-					<h2 class="title">CSA Compendium Search Results</h2>
+					<h2 class="title">Resultados de Búsqueda Compendio ASAC</h2>
 
 					<div id="legend">
-                    	<div class="title"><strong>Indicators</strong></div>
+                    	<div class="title"><strong>Indicadores</strong></div>
                         <ul>
-                            <li><div class="code"><span class="text">YLD</span></div><span class="text"> Yield</span></li>
-                            <li><div class="code"><span class="text">VAR</span></div><span class="text"> Variability</span></li>
-                            <li><div class="code"><span class="text">LAB</span></div><span class="text"> Labour</span></li>
-                            <li><div class="code"><span class="text">INC</span></div><span class="text"> Income</span></li>
-                            <li><div class="code"><span class="text">FAC</span></div><span class="text"> Food Access</span></li>
-                            <li><div class="code"><span class="text">WUE</span></div><span class="text"> Water Use Efficiency</span></li>
-                            <li><div class="code"><span class="text">NUE</span></div><span class="text"> Nutrient Efficiency</span></li>
-                            <li><div class="code"><span class="text">EUE</span></div><span class="text"> Energy Use Efficiency</span></li>
-                            <li><div class="code"><span class="text">ERS</span></div><span class="text"> Soil Erosion</span></li>
-                            <li><div class="code"><span class="text">EMS</span></div><span class="text"> Emissions Intensity</span></li>
+                            <li><div class="code"><span class="text">REN</span></div><span class="text"> Rendimiento</span></li>
+                            <li><div class="code"><span class="text">VAR</span></div><span class="text"> Variabilidad</span></li>
+                            <li><div class="code"><span class="text">EMP</span></div><span class="text"> Empleo</span></li>
+                            <li><div class="code"><span class="text">IECO</span></div><span class="text"> Ingreso económico</span></li>
+                            <li><div class="code"><span class="text">RES</span></div><span class="text"> Resiliencia</span></li>
+                            <li><div class="code"><span class="text">UEA</span></div><span class="text"> Uso eficiente del agua</span></li>
+                            <li><div class="code"><span class="text">UEF</span></div><span class="text"> Uso eficiente de fertilizantes</span></li>
+                            <li><div class="code"><span class="text">BD</span></div><span class="text"> Biodiversidad</span></li>
+                            <li><div class="code"><span class="text">ERS</span></div><span class="text"> Erosión del suelo</span></li>
+                            <li><div class="code"><span class="text">CSL</span></div><span class="text"> Calidad del suelo</span></li>
+                            <li><div class="code"><span class="text">EMS</span></div><span class="text"> Intensidad de emisiones</span></li>
                         </ul>
+                        
+                        <div class="title"><input id="btn-search" type="button" value="Continue" onClick="window.location.href='portfolios.html'"></div>
                     </div>
 					<div id="search-results-table">
 						<div class="table-head">
-							<div class="practices">Practices</div>
+							<div class="practices">Prácticas</div>
 							<div class="indicators">
-								<div class="indicators-head">Indicators<br><small>(Percentage Change)</small></div>
-								<div class="indicator">YLD</div>
+								<div class="indicators-head">Indicadores<br>
+							    <small>(Cámbio Ponderado)</small></div>
+								<div class="indicator">REN</div>
 								<div class="indicator">VAR</div>
-                                <div class="indicator">LAB</div>                                
-								<div class="indicator">INC</div>
-                                
-								<div class="indicator">FAC</div>
-								<div class="indicator">WUE</div>
-                                <div class="indicator">NUE</div>
-								<div class="indicator">EUE</div>								
+                                <div class="indicator">EMP</div>                                
+								<div class="indicator">IECO</div>
+								<div class="indicator">RES</div>
+								<div class="indicator">UEA</div>
+                                <div class="indicator">UEF</div>
+								<div class="indicator">BD</div>								
                                 <div class="indicator">ERS</div>
-                                
-								<div class="indicator">EMS</div>
+								<div class="indicator">CSL</div>
+                                <div class="indicator">EMS</div>
 							</div>
 							<!--<div class="view">View</div>-->
 						</div>                                               
 						<div class="table-body">
 							<div class="row">
-								<div class="practices">Multi-strata Agroforestry</div>
+								<div class="practices">Sistemas Agroforestales</div>
 								<div class="indicators">
-									<div class="indicator">4</div>
-									<div class="indicator">4</div>
-									<div class="indicator">0</div>
-									<div class="indicator">-5</div>
-									<div class="indicator">-6</div>
-									<div class="indicator"></div>
-									<div class="indicator">0</div>
-									<div class="indicator">3</div>
 									<div class="indicator">5</div>
-                                    <div class="indicator">1</div>
+									<div class="indicator">3</div>
+									<div class="indicator">4</div>
+									<div class="indicator">4</div>
+									<div class="indicator">5</div>
+									<div class="indicator">N/A</div>
+									<div class="indicator">2</div>
+									<div class="indicator">5</div>
+									<div class="indicator">5</div>
+                                    <div class="indicator">3</div>
+                                    <div class="indicator">5</div>
 								</div>
 								<!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
 							</div>
                             
                             <div class="row">
-								<div class="practices">Water Reservoirs </div>
+								<div class="practices">Rerservorios/estanques</div>
 								<div class="indicators">
+									<div class="indicator">5</div>
+									<div class="indicator">2</div>
 									<div class="indicator">4</div>
+									<div class="indicator">5</div>
 									<div class="indicator">4</div>
-									<div class="indicator">0</div>
-									<div class="indicator">-5</div>
-									<div class="indicator">-6</div>
-									<div class="indicator"></div>
-									<div class="indicator">0</div>
-									<div class="indicator"></div>
-									<div class="indicator"></div>
-                                    <div class="indicator"></div>
+									<div class="indicator">5</div>
+									<div class="indicator">3</div>
+									<div class="indicator">1</div>
+									<div class="indicator">2</div>
+                                    <div class="indicator">3</div>
+                                    <div class="indicator">3</div>
 								</div>
 								<!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
 							</div>
                             <div class="row">
-								<div class="practices">Drip Irrigation</div>
+								<div class="practices">Manejo Integrado de plagas</div>
 								<div class="indicators">
-									<div class="indicator">4</div>
-									<div class="indicator">4</div>
-									<div class="indicator">0</div>
-									<div class="indicator">-5</div>
-									<div class="indicator">-6</div>
-									<div class="indicator"></div>
-									<div class="indicator">0</div>
-									<div class="indicator"></div>
-									<div class="indicator"></div>
-                                    <div class="indicator"></div>
+									<div class="indicator">4.3</div>
+									<div class="indicator">3.8</div>
+									<div class="indicator">2.7</div>
+									<div class="indicator">4.8</div>
+									<div class="indicator">3.7</div>
+									<div class="indicator">N/A</div>
+									<div class="indicator">4<br>
+									</div>
+									<div class="indicator">3<br>
+									</div>
+									<div class="indicator">N/A<br>
+									</div>
+                                    <div class="indicator">3.3</div>
+                                    <div class="indicator">4.2</div>
 								</div>
 								<!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
 							</div>
                             <div class="row">
-								<div class="practices">Living Fences</div>
+								<div class="practices">Variedades tolerantes al calor y estrés hídrico</div>
 								<div class="indicators">
-									<div class="indicator">4</div>
-									<div class="indicator">4</div>
-									<div class="indicator">0</div>
-									<div class="indicator">-5</div>
-									<div class="indicator">-6</div>
-									<div class="indicator"></div>
-									<div class="indicator">0</div>
-									<div class="indicator"></div>
-									<div class="indicator"></div>
-                                    <div class="indicator"></div>
+									<div class="indicator">5<br>
+									</div>
+									<div class="indicator">3.5<br>
+									</div>
+									<div class="indicator">3.3<br>
+									</div>
+									<div class="indicator">4<br>
+									</div>
+									<div class="indicator">3.3</div>
+									<div class="indicator">3</div>
+									<div class="indicator">1.5<br>
+									</div>
+									<div class="indicator">2</div>
+									<div class="indicator">N/A</div>
+                                    <div class="indicator">3</div>
+                                    <div class="indicator">4.5</div>
 								</div>
 								<!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
 							</div>                        
                             <div class="row">
-								<div class="practices">Integrated Plage Management</div>
+								<div class="practices">Riego por goteo/ microaspersión</div>
 								<div class="indicators">
-									<div class="indicator">4</div>
-									<div class="indicator">4</div>
-									<div class="indicator">0</div>
-									<div class="indicator">-5</div>
-									<div class="indicator">-6</div>
-									<div class="indicator"></div>
-									<div class="indicator">0</div>
-									<div class="indicator"></div>
-									<div class="indicator"></div>
-                                    <div class="indicator"></div>
+									<div class="indicator">5<br>
+									</div>
+									<div class="indicator">3<br>
+									</div>
+									<div class="indicator">4<br>
+									</div>
+									<div class="indicator">5</div>
+									<div class="indicator">3<br>
+									</div>
+									<div class="indicator">5</div>
+									<div class="indicator">5<br>
+									</div>
+									<div class="indicator">1</div>
+									<div class="indicator">2</div>
+                                    <div class="indicator">3</div>
+                                    <div class="indicator">4</div>
 								</div>
 								<!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
 							</div>
                             <div class="row">
-								<div class="practices">Crop Rotation</div>
+								<div class="practices">Bancos de semillas</div>
 								<div class="indicators">
-									<div class="indicator">4</div>
-									<div class="indicator">4</div>
-									<div class="indicator">0</div>
-									<div class="indicator">-5</div>
-									<div class="indicator">-6</div>
-									<div class="indicator"></div>
-									<div class="indicator">0</div>
-									<div class="indicator"></div>
-									<div class="indicator"></div>
-                                    <div class="indicator"></div>
+									<div class="indicator">4.5</div>
+									<div class="indicator">2.5<br>
+									</div>
+									<div class="indicator">2.5<br>
+									</div>
+									<div class="indicator">3<br>
+									</div>
+									<div class="indicator">4<br>
+									</div>
+									<div class="indicator">1</div>
+									<div class="indicator">1<br>
+									</div>
+									<div class="indicator">2.5</div>
+									<div class="indicator">1</div>
+                                    <div class="indicator">1</div>
+                                    <div class="indicator">1</div>
 								</div>
 								<!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
 							</div>
                             <div class="row">
-								<div class="practices">Seed Banks</div>
+								<div class="practices">Zanjas en contorno</div>
 								<div class="indicators">
-									<div class="indicator">4</div>
-									<div class="indicator">4</div>
-									<div class="indicator">0</div>
-									<div class="indicator">-5</div>
-									<div class="indicator">-6</div>
-									<div class="indicator"></div>
-									<div class="indicator">0</div>
-									<div class="indicator"></div>
-									<div class="indicator"></div>
-                                    <div class="indicator"></div>
+									<div class="indicator">3.5<br>
+									</div>
+									<div class="indicator">2.5<br>
+									</div>
+									<div class="indicator">2<br>
+									</div>
+									<div class="indicator">2.5</div>
+									<div class="indicator">4<br>
+									</div>
+									<div class="indicator">1</div>
+									<div class="indicator">1<br>
+									</div>
+									<div class="indicator">1.5</div>
+									<div class="indicator">1</div>
+                                    <div class="indicator">1.5</div>
+                                    <div class="indicator">2</div>
 								</div>
 								<!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
 							</div>
                             <div class="row">
-								<div class="practices">Heat Tolerance</div>
+								<div class="practices">Variedades tolerantes a plagas y enfermedades</div>
 								<div class="indicators">
-									<div class="indicator">4</div>
-									<div class="indicator">4</div>
-									<div class="indicator">0</div>
-									<div class="indicator">-5</div>
-									<div class="indicator">-6</div>
-									<div class="indicator"></div>
-									<div class="indicator">0</div>
-									<div class="indicator"></div>
-									<div class="indicator"></div>
-                                    <div class="indicator"></div>
+									<div class="indicator">5<br>
+									</div>
+									<div class="indicator">3.5<br>
+									</div>
+									<div class="indicator">3.3<br>
+									</div>
+									<div class="indicator">4<br>
+									</div>
+									<div class="indicator">3.3<br>
+									</div>
+									<div class="indicator">3</div>
+									<div class="indicator">1.5<br>
+									</div>
+									<div class="indicator">2</div>
+									<div class="indicator">N/A</div>
+                                    <div class="indicator">3</div>
+                                    <div class="indicator">4.5</div>
 								</div>
 								<!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
 							</div>
 
 							<div class="row">
-								<div class="practices">Intercropping</div>
+								<div class="practices">Cultivos mixtos/intercalados</div>
 								<div class="indicators">
-									<div class="indicator">0</div>
-									<div class="indicator"></div>
-									<div class="indicator">10</div>
-									<div class="indicator"></div>
-									<div class="indicator"></div>
-									<div class="indicator">-5</div>
-									<div class="indicator"></div>
-									<div class="indicator">0</div>
-									<div class="indicator"></div>
-                                    <div class="indicator"></div>
+									<div class="indicator">5<br>
+									</div>
+									<div class="indicator">2.5</div>
+									<div class="indicator">3<br>
+									</div>
+									<div class="indicator">4</div>
+									<div class="indicator">4</div>
+									<div class="indicator">1.5<br>
+									</div>
+									<div class="indicator">2</div>
+									<div class="indicator">2</div>
+									<div class="indicator">1.5</div>
+                                    <div class="indicator">2</div>
+                                    <div class="indicator">2.25</div>
 								</div>
 								<!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
 							</div>
 
 							<div class="row">
-								<div class="practices">Silvopastoral Systems</div>
+								<div class="practices">Sistemas Silvopastoriles</div>
 								<div class="indicators">
 									<div class="indicator">5</div>
-									<div class="indicator"></div>
-									<div class="indicator"></div>
-									<div class="indicator"></div>
-									<div class="indicator">8</div>
-									<div class="indicator"></div>
-									<div class="indicator">9</div>
-									<div class="indicator"></div>
-									<div class="indicator">8</div>
-                                  	<div class="indicator">4</div>
+									<div class="indicator">3</div>
+									<div class="indicator">3</div>
+									<div class="indicator">4<br>
+									</div>
+									<div class="indicator">3.75<br>
+									</div>
+									<div class="indicator">1</div>
+									<div class="indicator">4<br>
+									</div>
+									<div class="indicator">3.75</div>
+									<div class="indicator">2.5<br>
+									</div>
+                                  	<div class="indicator">3.5</div>
+                                    <div class="indicator">4.5</div>
 								</div>
 								<!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
 							</div>
@@ -246,7 +294,6 @@
 			<div id="partners">
 				<a href="http://www.cgiar.org/"><img src="public/img/logos/cgiar.png" alt="" class="logo"></a>
 				<a href="http://ccafs.cgiar.org/"><img src="public/img/logos/ccafs.png" alt="" class="logo"></a>
-				<a href="http://www.worldbank.org/"><img src="public/img/logos/wb.png" alt="" class="logo"></a>
 			</div>
 
 		</div>

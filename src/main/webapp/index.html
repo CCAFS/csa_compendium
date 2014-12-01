@@ -44,21 +44,20 @@
 						<div id="select-block-1" class="select-block">
 							<!-- Region Inputs -->
 							<label for="region">Region: </label>
-							<select name="" id="region">
-								<option value="">- All -</option> 
+							<select id="region">
+								<option value="" selected>- All -</option> 
 								<option value="">Sub-Saharan Africa</option>
 								<option value="">Middle East and North Africa</option>
 								<option value="">Eastern Europe and Central Asia (West, Central)</option>
-								<option value="">Eastern Europe and Central Asia (Central, East)</option>
 								<option value="">South Asia</option>
 								<option value="">East Asia and Pacific</option>
 								<option value="">Latin America and Caribbean</option>
 							</select>
 							
 							<!-- Theme Inputs -->
-							<label for="theme">Practice Theme: </label>
-							<select name="" id="theme">
-								<option value="">- All -</option>
+						  <label for="theme">Practice Theme: </label>
+							<select id="theme">
+								<option value="" selected>- All -</option>
 								<option value="">Agroforestry </option>
 								<option value="">Agronomy</option>
 								<option value="">Food Energy Systems</option>
@@ -68,23 +67,30 @@
 							</select>
 
 							<!-- Category System Inputs -->
-							<label for="article">Production System Category: </label>
-							<select name="" id="article">
-								<option value="">- All -</option>  
+						  <label for="article">Production System Category: </label>
+							<select id="article">
+								<option value="" selected>- All -</option>  
 								<option value="">Animals</option>
+								<option>Berries</option>
 								<option value="">Cereals</option>
-								<option value="" selected>Fruits</option>
+								<option>Fibre Crops</option>
+								<option value="">Fruits</option>
+								<option>Nuts, seeds</option>
 								<option value="">Oil crops</option>
+								<option>Pulses</option>
 								<option value="">Roots, tubers</option>
-								<option value="">Other</option>
-							</select>
+								<option>Spices</option>
+								<option>Vegetables</option>
+								<option>FES</option>
+                            </select>
 
 							<!-- Filter Inputs -->
-							<label for="filter">Filter: </label>
-							<select name="" id="filter">
-								<option value="">- All -</option> 
-								<option value="" selected >Journal Articles</option>
-							</select>
+						  <label for="filter">Filter: </label>
+							<select id="filter">
+								<option value="" selected>- All -</option>
+								<option>Market Orientation</option>
+								<option value="">Type of Article</option>
+                            </select>
 							
 						</div>
 						<div id="select-block-2" class="select-block">
@@ -92,21 +98,62 @@
 
 							<!-- Country Inputs -->
 							<label for="country">Country: </label>
-							<select name="" id="country">
-								<option value="">- All -</option> 
-								<option value="CO" selected >Colombia</option> 
-							</select>
+							<select id="country">
+								<option value="" selected>- All -</option>
+								<option>Antigua</option>
+								<option>Argentina</option>
+								<option>Bahamas</option>
+								<option>Barbados</option>
+								<option>Belize</option>
+								<option>Bermuda</option>
+								<option>Bolivia</option>
+								<option>Brazil</option>
+								<option>Cayman Islands</option>
+								<option>Chile</option>
+								<option>Colombia</option>
+								<option>Costa Rica</option>
+								<option>Cuba</option>
+								<option>Dominica</option>
+								<option>Dominican Republic</option>
+								<option>Ecuador</option>
+								<option>El Salvador</option>
+								<option>Grenada</option>
+								<option>Guatemala</option>
+								<option>Guyana</option>
+								<option>Haiti</option>
+								<option>Honduras</option>
+								<option>Jamaica</option>
+								<option>Mexico</option>
+								<option>Netherlands Antilles</option>
+								<option>Nicaragua</option>
+								<option>Panama</option>
+								<option>Paraguay</option>
+								<option>Peru</option>
+								<option>Saints Kitts and Nevis</option>
+								<option>Saint Lucia</option>
+								<option>Saint Vincent and Grenadines</option>
+								<option>Suriname</option>
+								<option>Trinidad and Tobago</option>
+								<option>Uruguay</option>
+								<option>Venezuela</option>
+                            </select>
 							
 							<!-- Theme Level Inputs -->
-							<label for="theme-level">Practice Level:</label>
-							<select name="" id="theme-level">
-								<option value="">- All -</option> 
+						  <label for="theme-level">Practice Level:</label>
+							<select id="theme-level">
+								<option value="" selected>- All -</option>
+								<option>Crop Rotations</option>
+								<option>Diversification</option>
+								<option>Green Manures</option>
+								<option>Inorganic inouts</option>
+								<option>Mulching</option>
+								<option>Small Scale Irrigation</option> 
 							</select>
 							
 							<!-- Crops & Livestock Inputs -->
-							<label for="article-value">Crops and Livestock :</label>
-							<select name="" id="article-value">
-								<option value="">- All -</option>  
+						  <label for="article-value">Crops and Livestock :</label>
+							<select id="article-value">
+								<option value="" selected>- All -</option>  
 								<option value="" > Apples </option>
 								<option value="" > Apricots </option>
 								<option value="" > Avocados </option>
@@ -137,19 +184,26 @@
 								<option value="" > Watermelons </option>
 								<option value="" > Yellow Passion fruit </option>
 								<option value="" > Fruit trees (general) </option>
-								<option value="" > musklmelon </option>
-								<option value="" > pomegranate </option>
-								<option value="" > sapota </option>
-								<option value="" > peach-palm </option>
+								<option value="" > Musklmelon </option>
+								<option value="" > Pomegranate </option>
+								<option value="" > Sapota </option>
+								<option value="" > Peach-palm </option>
 								<option value="" > Ber/Chinee Apple/Jujube/Indian plum/Masau </option>
-								<option value="" > cherry tree </option>
+								<option value="" > Cherry Tree </option>
 								
 							</select>
 
 							<!-- Filter value Inputs -->
-							<label for="filter-value">Filter Value: </label>
-							<select name="" id="filter-value">
-								<option value="">- All -</option>  
+						  <label for="filter-value">Filter Value: </label>
+							<select id="filter-value">
+								<option value="" selected>- All -</option>
+								<option>Book Chapter</option>
+								<option>Journal</option>
+								<option>Peer Reviewed</option>
+								<option>Report</option>
+								<option>Tesis/Dissertation</option>
+								<option>Unpublished Data</option>
+								<option>Working Paper</option>  
 							</select>
 
 						</div>
@@ -163,7 +217,7 @@
 						</div>
 						<div id="select-block-4" class="select-block">
 							<label for="current-search">Current search:</label>
-							<select id="current-search" multiple="true"> </select>
+							<select id="current-search"> </select>
 						</div>
 						<div class="clearfix"></div>
 
@@ -178,7 +232,6 @@
 			<div id="partners">
 				<a href="http://www.cgiar.org/"><img src="public/img/logos/cgiar.png" alt="" class="logo"></a>
 				<a href="http://ccafs.cgiar.org/"><img src="public/img/logos/ccafs.png" alt="" class="logo"></a>
-				<a href="http://www.worldbank.org/"><img src="public/img/logos/wb.png" alt="" class="logo"></a>
 			</div>
 
 		</div>

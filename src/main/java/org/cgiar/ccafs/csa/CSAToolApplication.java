@@ -26,7 +26,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguratio
 @SpringBootApplication
 public class CSAToolApplication extends SpringBootServletInitializer {
 
-	private final Logger log = LoggerFactory.getLogger(CSAToolApplication.class);
+	private final static Logger log = LoggerFactory.getLogger(CSAToolApplication.class);
 
 	@Autowired
 	private Environment env;
@@ -78,7 +78,8 @@ public class CSAToolApplication extends SpringBootServletInitializer {
 		if (profile == null) {
 			profile = Constants.SPRING_PROFILE_DEVELOPMENT;
 		}
-
+		
+		log.error("Perfil: " + profile);
 		return profile;
 	}
 
