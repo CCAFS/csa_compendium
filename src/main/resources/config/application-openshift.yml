@@ -9,7 +9,7 @@ server:
     port: ${OPENSHIFT_DIY_PORT}
 
     datasource:
-        platform: postgres
+        platform: postgresql
         url: jdbc:postgresql://${OPENSHIFT_POSTGRESQL_DB_HOST}:${OPENSHIFT_POSTGRESQL_DB_PORT}/${OPENSHIFT_APP_NAME}
         username: ${OPENSHIFT_POSTGRESQL_DB_USERNAME}
         password: ${OPENSHIFT_POSTGRESQL_DB_PASSWORD}
