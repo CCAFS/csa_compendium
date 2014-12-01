@@ -7,7 +7,8 @@ logging:
 server:
     address: ${OPENSHIFT_DIY_IP}
     port: ${OPENSHIFT_DIY_PORT}
-
+    
+spring:
     datasource:
         platform: postgresql
         url: jdbc:postgresql://${OPENSHIFT_POSTGRESQL_DB_HOST}:${OPENSHIFT_POSTGRESQL_DB_PORT}/${OPENSHIFT_APP_NAME}
@@ -24,5 +25,5 @@ server:
         show_sql: true
         generate-ddl: true
         hibernate:
-            #ddl-auto: none
+            ddl-auto: auto
             naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
