@@ -1,120 +1,118 @@
 package org.cgiar.ccafs.csa.domain;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * The persistent class for the implementations database table.
- * 
  */
 @Entity
-@Table(schema = "public", name="treatments")
+@Table(name = "treatments")
 public class Treatment implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="TREATMENTS_ID_GENERATOR", sequenceName="TREATMENTS_ID_SEQ", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="TREATMENTS_ID_GENERATOR")
-	private Integer id;
-	
-	@Column(name = "control_for_treatments")
-	protected boolean controlForTreatments;
-	
-	@Column(name = "block_number")
-	protected int blockNumber;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@ManyToMany
-	@JoinTable(
-		name="treatment_production_systems"
-		, joinColumns={
-			@JoinColumn(name="treatment_id")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="production_system_id")
-			}
-		)
-	protected List<ProductionSystem> productionSystems;
-	
-	@ManyToOne
-	@JoinColumn(name="practice_id")
-	protected Practice practice;
+    @Column(name = "control_for_treatments")
+    private boolean controlForTreatments;
 
-	@ManyToOne
-	@JoinColumn(name="control_id")
-	protected Treatment control;
-	
-	@ManyToOne
-	@JoinColumn(name="experiment_id")
-	protected ExperimentArticle experimentArticle;
+    @Column(name = "block_number")
+    private int blockNumber;
 
-	@OneToMany(mappedBy="treatment")
-	protected List<Outcome> outcomes;
+    @ManyToMany
+    @JoinTable(
+            name = "treatment_production_systems"
+            , joinColumns = {
+            @JoinColumn(name = "treatment_id")
+    }
+            , inverseJoinColumns = {
+            @JoinColumn(name = "production_system_id")
+    }
+    )
+    private List<ProductionSystem> productionSystems;
 
-	public Integer getId() {
-		return this.id;
-	}
-	
-	public boolean isControlForTreatments() {
-		return controlForTreatments;
-	}
+    @ManyToOne
+    @JoinColumn(name = "practice_id")
+    private Practice practice;
 
-	public void setControlForTreatments(boolean controlForTreatments) {
-		this.controlForTreatments = controlForTreatments;
-	}
+    @ManyToOne
+    @JoinColumn(name = "control_id")
+    private Treatment control;
 
-	public int getBlockNumber() {
-		return blockNumber;
-	}
+    @ManyToOne
+    @JoinColumn(name = "experiment_id")
+    private ExperimentArticle experimentArticle;
 
-	public void setBlockNumber(int blockNumber) {
-		this.blockNumber = blockNumber;
-	}
+    @OneToMany(mappedBy = "treatment")
+    private List<Outcome> outcomes;
 
-	public Treatment getControl() {
-		return control;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public void setControl(Treatment control) {
-		this.control = control;
-	}
+    public boolean isControlForTreatments() {
+        return controlForTreatments;
+    }
 
-	public List<ProductionSystem> getAgriculturalResources() {
-		return productionSystems;
-	}
+    public void setControlForTreatments(boolean controlForTreatments) {
+        this.controlForTreatments = controlForTreatments;
+    }
 
-	public Practice getPractice() {
-		return this.practice;
-	}
+    public int getBlockNumber() {
+        return blockNumber;
+    }
 
-	public void setPractice(Practice practice) {
-		this.practice = practice;
-	}
+    public void setBlockNumber(int blockNumber) {
+        this.blockNumber = blockNumber;
+    }
 
-	public ExperimentArticle getExperiment() {
-		return experimentArticle;
-	}
+    public Treatment getControl() {
+        return control;
+    }
 
-	public void setExperiment(ExperimentArticle experimentArticle) {
-		this.experimentArticle = experimentArticle;
-	}
+    public void setControl(Treatment control) {
+        this.control = control;
+    }
 
-	public List<Outcome> getOutcomes() {
-		return this.outcomes;
-	}
+    public List<ProductionSystem> getAgriculturalResources() {
+        return productionSystems;
+    }
 
-	public Outcome addOutcome(Outcome outcome) {
-		getOutcomes().add(outcome);
-		outcome.setTreatment(this);
+    public Practice getPractice() {
+        return this.practice;
+    }
 
-		return outcome;
-	}
+    public void setPractice(Practice practice) {
+        this.practice = practice;
+    }
 
-	public Outcome removeOutcome(Outcome outcome) {
-		getOutcomes().remove(outcome);
-		outcome.setTreatment(null);
+    public ExperimentArticle getExperiment() {
+        return experimentArticle;
+    }
 
-		return outcome;
-	}
+    public void setExperiment(ExperimentArticle experimentArticle) {
+        this.experimentArticle = experimentArticle;
+    }
+
+    public List<Outcome> getOutcomes() {
+        return this.outcomes;
+    }
+
+    public Outcome addOutcome(Outcome outcome) {
+        getOutcomes().add(outcome);
+        outcome.setTreatment(this);
+
+        return outcome;
+    }
+
+    public Outcome removeOutcome(Outcome outcome) {
+        getOutcomes().remove(outcome);
+        outcome.setTreatment(null);
+
+        return outcome;
+    }
 
 }

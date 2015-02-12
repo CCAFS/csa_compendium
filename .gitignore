@@ -18,5 +18,6 @@ build/
 .project
 .springBeans
 gradle-app.setting
+.nb-gradle-properties
 *.iml
-
+.nb-gradle/

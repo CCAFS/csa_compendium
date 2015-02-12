@@ -8,8 +8,8 @@ import org.lightadmin.api.config.unit.EntityMetadataConfigurationUnit;
 import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
 
 public class UnitAdministration extends AdministrationConfiguration<MeasureUnit> {
-	
-	@Override
+
+    @Override
     public ScreenContextConfigurationUnit screenContext(ScreenContextConfigurationUnitBuilder screenContextBuilder) {
         return screenContextBuilder.screenName("Types of Measure Units used").build();
     }

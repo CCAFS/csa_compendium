@@ -1,262 +1,186 @@
-<!doctype html>
-<html class="no-js" lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Climate Smart Agriculture - Decision Support Platform</title> 
-	<script type="text/javascript" src="public/js/modernizr.custom.83290.js"></script>
-	<link rel="stylesheet" href="public/css/main.css">
-</head>
-<body> 
-	<header>
-		<div class="content">
-			<div id="login">
-				<div class="button"><a href="/admin">Login</a></div>
-			</div>
-			<img src="public/img/logo.png" alt="Climate Smart Agriculture">
-			<nav>
-				<ul class="effect1">
-					<li><a href="index.xhtml">Home</a></li>
-					<li>About us</li>
-					<li>Compendium</li>
-					<li>Prioritization Tool</li>
-					<li><a href="http://ccafs.cgiar.org/resources/tools-maps-models-and-data#.VHMtn4uG9Kc">Other Tools</a></li>
-					<li>Glossary</li>
-					<li>Contact</li>
-				</ul>
-			</nav>
-		</div>
-	</header>
-	<article>
-		<section>
-			<div class="content">
-				<div id="slider-home">
-					<img src="public/img/images/slider-home.png" height="206" width="921" alt="">
-				</div>
-				<div id="intro">
-				  <p>The Climate Smart Agriculture Decision Support Platform was constructed to provide access to a broad database of CSA practices that have been tested around the world. This information is aimed at aiding endeavors such as identify what CSA options exist for different contexts and gaps in research. We welcome you to search our database and contribute your own information to the compendium. Our prioritization tool and complementary stakeholder engagement process were developed to identify best options for mainstreaming CSA. </p>
-				</div>
-				<div id="search-block">
-					<form action="practices.html">
-						<div class="keywords">
-							<label for="keywords">Keywords: </label>
-							<input type="text" name="" id="keywords">
-						</div>
-						<div id="select-block-1" class="select-block">
-							<!-- Region Inputs -->
-							<label for="region">Region: </label>
-							<select id="region">
-								<option value="" selected>- All -</option> 
-								<option value="">Sub-Saharan Africa</option>
-								<option value="">Middle East and North Africa</option>
-								<option value="">Eastern Europe and Central Asia (West, Central)</option>
-								<option value="">South Asia</option>
-								<option value="">East Asia and Pacific</option>
-								<option value="">Latin America and Caribbean</option>
-							</select>
-							
-							<!-- Theme Inputs -->
-						  <label for="theme">Practice Theme: </label>
-							<select id="theme">
-								<option value="" selected>- All -</option>
-								<option value="">Agroforestry </option>
-								<option value="">Agronomy</option>
-								<option value="">Food Energy Systems</option>
-								<option value="">Livestock</option>
-								<option value="">Post Harvest</option>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
 
-							</select>
+<ui:composition template="/main.xhtml">
+    <ui:define name="content">
 
-							<!-- Category System Inputs -->
-						  <label for="article">Production System Category: </label>
-							<select id="article">
-								<option value="" selected>- All -</option>  
-								<option value="">Animals</option>
-								<option>Berries</option>
-								<option value="">Cereals</option>
-								<option>Fibre Crops</option>
-								<option value="">Fruits</option>
-								<option>Nuts, seeds</option>
-								<option value="">Oil crops</option>
-								<option>Pulses</option>
-								<option value="">Roots, tubers</option>
-								<option>Spices</option>
-								<option>Vegetables</option>
-								<option>FES</option>
-                            </select>
+        <div id="slider-home">
+            <h:graphicImage library="images" name="slider-home.png" height="206" width="921" alt="CSA Framework"/>
+        </div>
+        <div id="intro">
+            <p>The Climate Smart Agriculture Decision Support Platform was constructed to provide access to a broad database of CSA practices that have been tested around the world. This information is aimed at aiding endeavors such as identify what CSA options exist for different contexts and gaps in research. We welcome you to search our database and contribute your own information to the compendium. Our prioritization tool and complementary stakeholder engagement process were developed to identify best options for mainstreaming CSA. </p>
+        </div>
+        <div id="search-block">
+            <h:form id="search_form">
+                <div class="keywords">
+                    <label for="keywords">Keywords: </label>
+                    <input type="text" name="" id="keywords" />
+                </div>
+                <div id="select-block-1" class="select-block">
 
-							<!-- Filter Inputs -->
-						  <label for="filter">Filter: </label>
-							<select id="filter">
-								<option value="" selected>- All -</option>
-								<option>Market Orientation</option>
-								<option value="">Type of Article</option>
-                            </select>
-							
-						</div>
-						<div id="select-block-2" class="select-block">
-							
+                    <!-- Region Inputs -->
+                    <h:outputLabel for="regionList" value="Region:" />
+                    <h:selectOneMenu id="regionList" label="Region" >
+                        <f:selectItem itemValue="#{null}" itemLabel="- All -" noSelectionOption="true"/>
+                        <f:selectItems value="#{searchController.regions}" var="region"
+                                       itemLabel="#{region.name}" itemValue="#{region.code}" />
+                    </h:selectOneMenu>
 
-							<!-- Country Inputs -->
-							<label for="country">Country: </label>
-							<select id="country">
-								<option value="" selected>- All -</option>
-								<option>Antigua</option>
-								<option>Argentina</option>
-								<option>Bahamas</option>
-								<option>Barbados</option>
-								<option>Belize</option>
-								<option>Bermuda</option>
-								<option>Bolivia</option>
-								<option>Brazil</option>
-								<option>Cayman Islands</option>
-								<option>Chile</option>
-								<option>Colombia</option>
-								<option>Costa Rica</option>
-								<option>Cuba</option>
-								<option>Dominica</option>
-								<option>Dominican Republic</option>
-								<option>Ecuador</option>
-								<option>El Salvador</option>
-								<option>Grenada</option>
-								<option>Guatemala</option>
-								<option>Guyana</option>
-								<option>Haiti</option>
-								<option>Honduras</option>
-								<option>Jamaica</option>
-								<option>Mexico</option>
-								<option>Netherlands Antilles</option>
-								<option>Nicaragua</option>
-								<option>Panama</option>
-								<option>Paraguay</option>
-								<option>Peru</option>
-								<option>Saints Kitts and Nevis</option>
-								<option>Saint Lucia</option>
-								<option>Saint Vincent and Grenadines</option>
-								<option>Suriname</option>
-								<option>Trinidad and Tobago</option>
-								<option>Uruguay</option>
-								<option>Venezuela</option>
-                            </select>
-							
-							<!-- Theme Level Inputs -->
-						  <label for="theme-level">Practice Level:</label>
-							<select id="theme-level">
-								<option value="" selected>- All -</option>
-								<option>Crop Rotations</option>
-								<option>Diversification</option>
-								<option>Green Manures</option>
-								<option>Inorganic inouts</option>
-								<option>Mulching</option>
-								<option>Small Scale Irrigation</option> 
-							</select>
-							
-							<!-- Crops & Livestock Inputs -->
-						  <label for="article-value">Crops and Livestock :</label>
-							<select id="article-value">
-								<option value="" selected>- All -</option>  
-								<option value="" > Apples </option>
-								<option value="" > Apricots </option>
-								<option value="" > Avocados </option>
-								<option value="" > Bananas </option>
-								<option value="" > Cashew apple </option>
-								<option value="" > Figs </option>
-								<option value="" > Fruit, citrus (general/other) </option>
-								<option value="" > Fruit (general/other) </option>
-								<option value="" > Fruit, pome (general/other) </option>
-								<option value="" > Grapefruit (inc. pomelos) </option>
-								<option value="" > Grapes </option>
-								<option value="" > Kiwi fruit </option>
-								<option value="" > Lemons and limes </option>
-								<option value="" > Mangoes, mangosteens, guavas </option>
-								<option value="" > Melons, other (inc.cantaloupes) </option>
-								<option value="" > Nectarines </option>
-								<option value="" > Oranges </option>
-								<option value="" > Papayas </option>
-								<option value="" > Peach </option>
-								<option value="" > Pears </option>
-								<option value="" > Persimmons </option>
-								<option value="" > Pineapples </option>
-								<option value="" > Plantains </option>
-								<option value="" > Plums and sloes </option>
-								<option value="" > Quinces </option>
-								<option value="" > Tangerines, mandarins, clementines, satsumas </option>
-								<option value="" > Tomatoes </option>
-								<option value="" > Watermelons </option>
-								<option value="" > Yellow Passion fruit </option>
-								<option value="" > Fruit trees (general) </option>
-								<option value="" > Musklmelon </option>
-								<option value="" > Pomegranate </option>
-								<option value="" > Sapota </option>
-								<option value="" > Peach-palm </option>
-								<option value="" > Ber/Chinee Apple/Jujube/Indian plum/Masau </option>
-								<option value="" > Cherry Tree </option>
-								
-							</select>
+                    <!-- Theme Inputs -->
+                    <h:outputLabel for="themeList" value="Practice Theme:" />
+                    <h:selectOneMenu id="themeList" label="Practice Theme">
+                        <f:selectItem itemValue="#{null}" itemLabel="- All -" noSelectionOption="true"/>
+                        <f:selectItems value="#{searchController.themes}" var="theme"
+                                       itemLabel="#{theme.name}" itemValue="#{theme.id}" />
+                    </h:selectOneMenu>
 
-							<!-- Filter value Inputs -->
-						  <label for="filter-value">Filter Value: </label>
-							<select id="filter-value">
-								<option value="" selected>- All -</option>
-								<option>Book Chapter</option>
-								<option>Journal</option>
-								<option>Peer Reviewed</option>
-								<option>Report</option>
-								<option>Tesis/Dissertation</option>
-								<option>Unpublished Data</option>
-								<option>Working Paper</option>  
-							</select>
+                    <!-- Category System Inputs -->
+                    <h:outputLabel for="categoryList" value="Production System Category:" />
+                    <h:selectOneMenu id="categoryList" label="Production System Category">
+                        <f:selectItem itemValue="#{null}" itemLabel="- All -" noSelectionOption="true"/>
+                        <f:selectItems value="#{searchController.productionSystemCategories}" var="category"
+                                       itemLabel="#{category.name}" itemValue="#{category.id}" />
+                    </h:selectOneMenu>
 
-						</div>
-						<div id="select-block-3" class="select-block">
+                    <!-- Filter Inputs -->
+                    <h:outputLabel for="contextVariableList" value="Context Variable:" />
+                    <h:selectOneMenu id="contextVariableList" label="Context Variable" value="#{searchController.selectedContextVariable}">
+                        <f:selectItems value="#{searchController.contextVariables}" var="contextVariable"
+                                       itemLabel="#{contextVariable.name}" itemValue="#{contextVariable.id}" />
+                        <f:ajax listener="#{searchController.updateContextValues}" render="contextValuesList" />
+                    </h:selectOneMenu>
 
-							<input id="btn-add-country" class="btn-add" type="button" value="Add"><br>
-							<input id="btn-add-filter-value" class="btn-add" type="button" value="Add"><br>
-							<input id="btn-add-theme-level" class="btn-add" type="button" value="Add"><br>
-							<input id="btn-add-article-value" class="btn-add" type="button" value="Add"><br>
-							 
-						</div>
-						<div id="select-block-4" class="select-block">
-							<label for="current-search">Current search:</label>
-							<select id="current-search"> </select>
-						</div>
-						<div class="clearfix"></div>
+                </div>
+                <div id="select-block-2" class="select-block">
 
-						<input id="btn-search" type="submit" value="Search Practices">
-					</form>
-				</div>
-			</div>
-		</section>
-	</article>
-	<footer>
-		<div class="content">
-			<div id="partners">
-				<a href="http://www.cgiar.org/"><img src="public/img/logos/cgiar.png" alt="" class="logo"></a>
-				<a href="http://ccafs.cgiar.org/"><img src="public/img/logos/ccafs.png" alt="" class="logo"></a>
-			</div>
 
-		</div>
-	</footer>
+                    <!-- Country Inputs -->
+                    <label for="country">Country: </label>
+                    <select id="country">
+                        <option value="" selected="selected">- All -</option>
+                        <option>Antigua</option>
+                        <option>Argentina</option>
+                        <option>Bahamas</option>
+                        <option>Barbados</option>
+                        <option>Belize</option>
+                        <option>Bermuda</option>
+                        <option>Bolivia</option>
+                        <option>Brazil</option>
+                        <option>Cayman Islands</option>
+                        <option>Chile</option>
+                        <option>Colombia</option>
+                        <option>Costa Rica</option>
+                        <option>Cuba</option>
+                        <option>Dominica</option>
+                        <option>Dominican Republic</option>
+                        <option>Ecuador</option>
+                        <option>El Salvador</option>
+                        <option>Grenada</option>
+                        <option>Guatemala</option>
+                        <option>Guyana</option>
+                        <option>Haiti</option>
+                        <option>Honduras</option>
+                        <option>Jamaica</option>
+                        <option>Mexico</option>
+                        <option>Netherlands Antilles</option>
+                        <option>Nicaragua</option>
+                        <option>Panama</option>
+                        <option>Paraguay</option>
+                        <option>Peru</option>
+                        <option>Saints Kitts and Nevis</option>
+                        <option>Saint Lucia</option>
+                        <option>Saint Vincent and Grenadines</option>
+                        <option>Suriname</option>
+                        <option>Trinidad and Tobago</option>
+                        <option>Uruguay</option>
+                        <option>Venezuela</option>
+                    </select>
 
-	<!-- Libraries -->
-	
-	<script type="text/javascript" src="public/js/jquery/jquery-1.11.1.min.js"></script>		
+                    <!-- Theme Level Inputs -->
+                    <label for="theme-level">Practice Level:</label>
+                    <select id="theme-level">
+                        <option value="" selected="selected">- All -</option>
+                        <option>Crop Rotations</option>
+                        <option>Diversification</option>
+                        <option>Green Manures</option>
+                        <option>Inorganic inouts</option>
+                        <option>Mulching</option>
+                        <option>Small Scale Irrigation</option>
+                    </select>
 
-	<!--<script>
+                    <!-- Crops & Livestock Inputs -->
+                    <label for="article-value">Crops and Livestock :</label>
+                    <select id="article-value">
+                        <option value="" selected="selected">- All -</option>
+                        <option value=""> Apples</option>
+                        <option value=""> Apricots</option>
+                        <option value=""> Avocados</option>
+                        <option value=""> Bananas</option>
+                        <option value=""> Cashew apple</option>
+                        <option value=""> Figs</option>
+                        <option value=""> Fruit, citrus (general/other)</option>
+                        <option value=""> Fruit (general/other)</option>
+                        <option value=""> Fruit, pome (general/other)</option>
+                        <option value=""> Grapefruit (inc. pomelos)</option>
+                        <option value=""> Grapes</option>
+                        <option value=""> Kiwi fruit</option>
+                        <option value=""> Lemons and limes</option>
+                        <option value=""> Mangoes, mangosteens, guavas</option>
+                        <option value=""> Melons, other (inc.cantaloupes)</option>
+                        <option value=""> Nectarines</option>
+                        <option value=""> Oranges</option>
+                        <option value=""> Papayas</option>
+                        <option value=""> Peach</option>
+                        <option value=""> Pears</option>
+                        <option value=""> Persimmons</option>
+                        <option value=""> Pineapples</option>
+                        <option value=""> Plantains</option>
+                        <option value=""> Plums and sloes</option>
+                        <option value=""> Quinces</option>
+                        <option value=""> Tangerines, mandarins, clementines, satsumas</option>
+                        <option value=""> Tomatoes</option>
+                        <option value=""> Watermelons</option>
+                        <option value=""> Yellow Passion fruit</option>
+                        <option value=""> Fruit trees (general)</option>
+                        <option value=""> Musklmelon</option>
+                        <option value=""> Pomegranate</option>
+                        <option value=""> Sapota</option>
+                        <option value=""> Peach-palm</option>
+                        <option value=""> Ber/Chinee Apple/Jujube/Indian plum/Masau</option>
+                        <option value=""> Cherry Tree</option>
 
-	var curretSearch = [];
+                    </select>
 
-	$("#current-search").select2({
-		    placeholder: "Filters"
-		}); 
-	$(".btn-add").on("click", function(e){
-		e.preventDefault();
-		curretSearch.push("Colombia");
-		$("#current-search").val(curretSearch).trigger("change");
-		//$("#current-search").select2({tags:curretSearch});
+                    <!-- Context Variables Values Inputs -->
+                    <h:outputLabel for="contextValuesList" value="Value:" />
+                    <h:selectOneMenu id="contextValuesList" label="Value">
+                        <f:selectItems value="#{searchController.contextValues}" var="contextValue"
+                                       itemLabel="#{contextValue.name}" itemValue="#{contextValue.id}" />
+                    </h:selectOneMenu>
 
-		console.log(curretSearch);
-	});  
-	</script>-->
+                </div>
+                <div id="select-block-3" class="select-block">
 
-</body>
+                    <input id="btn-add-country" class="btn-add" type="button" value="Add" /><br/>
+                    <input id="btn-add-filter-value" class="btn-add" type="button" value="Add" /><br/>
+                    <input id="btn-add-theme-level" class="btn-add" type="button" value="Add" /><br/>
+                    <input id="btn-add-article-value" class="btn-add" type="button" value="Add" /><br/>
+
+                </div>
+                <div id="select-block-4" class="select-block">
+                    <label for="current-search">Current search:</label>
+                    <select id="current-search"> </select>
+                </div>
+                <div class="clearfix"></div>
+
+                <input id="btn-search" type="button" value="Search Practices" onclick="window.location.href='practices.xhtml'"/>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
 </html>
+

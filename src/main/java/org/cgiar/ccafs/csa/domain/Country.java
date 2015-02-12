@@ -1,54 +1,52 @@
 package org.cgiar.ccafs.csa.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 /**
  * The persistent class for the countries database table.
- * 
  */
 @Entity
-@Table(schema = "public", name="countries")
+@Table(name = "countries")
 public class Country implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	protected String code;
+    @Id
+    private String code;
 
-	protected String name;
+    private String name;
 
-	@ManyToOne
-	@JoinColumn(name="region_code")
-	protected Region region;
+    @ManyToOne
+    @JoinColumn(name = "region_code")
+    private Region region;
 
-	public String getCode() {
-		return this.code;
-	}
-	
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public String getCode() {
+        return this.code;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public Region getRegion() {
-		return this.region;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setRegion(Region region) {
-		this.region = region;
-	}
+    public Region getRegion() {
+        return this.region;
+    }
 
-	@Override
-	public String toString() {
-		return name;
-	}
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

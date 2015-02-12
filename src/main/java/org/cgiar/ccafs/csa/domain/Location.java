@@ -1,79 +1,74 @@
 package org.cgiar.ccafs.csa.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
-
 
 /**
  * The persistent class for the locations database table.
- * 
  */
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public abstract class Location implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+@Table(name = "locations")
+public class Location {
 
-	@Id
-	@SequenceGenerator(name="LOCATIONS_ID_GENERATOR", sequenceName="LOCATIONS_ID_SEQ", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="LOCATIONS_ID_GENERATOR")
-	private Integer id;
+    private static final long serialVersionUID = 1L;
 
-	protected float latitude;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	protected float longitude;
-	
-	protected float altitude;
-	
-	protected String place;
+    private float latitude;
 
-	@ManyToOne
-	@JoinColumn(name="country_code")
-	protected Country country;
+    private float longitude;
 
-	public Integer getId() {
-		return this.id;
-	}
+    private float altitude;
 
-	public float getLatitude() {
-		return latitude;
-	}
-	
-	public void setLatitude(float latitude) {
-		this.latitude = latitude;
-	}
+    private String place;
 
-	public float getLongitude() {
-		return longitude;
-	}
+    @ManyToOne
+    @JoinColumn(name = "country_code")
+    private Country country;
 
-	public void setLongitude(float longitude) {
-		this.longitude = longitude;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public float getAltitude() {
-		return altitude;
-	}
+    public float getLatitude() {
+        return latitude;
+    }
 
-	public void setAltitude(float altitude) {
-		this.altitude = altitude;
-	}
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
 
-	public String getPlace() {
-		return this.place;
-	}
+    public float getLongitude() {
+        return longitude;
+    }
 
-	public void setPlace(String place) {
-		this.place = place;
-	}
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
+    }
 
-	public Country getCountry() {
-		return this.country;
-	}
+    public float getAltitude() {
+        return altitude;
+    }
 
-	public void setCountry(Country country) {
-		this.country = country;
-	}
+    public void setAltitude(float altitude) {
+        this.altitude = altitude;
+    }
+
+    public String getPlace() {
+        return this.place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public Country getCountry() {
+        return this.country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
 
 }

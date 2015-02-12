@@ -1,10 +1,5 @@
 package org.cgiar.ccafs.csa.web.admin;
 
-import static org.cgiar.ccafs.csa.web.admin.AdministrationTemplates.infoFormView;
-import static org.cgiar.ccafs.csa.web.admin.AdministrationTemplates.infoListView;
-import static org.cgiar.ccafs.csa.web.admin.AdministrationTemplates.infoQuickView;
-import static org.cgiar.ccafs.csa.web.admin.AdministrationTemplates.infoShowView;
-
 import org.cgiar.ccafs.csa.domain.ProductionSystemCategory;
 import org.lightadmin.api.config.AdministrationConfiguration;
 import org.lightadmin.api.config.builder.EntityMetadataConfigurationUnitBuilder;
@@ -15,9 +10,11 @@ import org.lightadmin.api.config.unit.EntityMetadataConfigurationUnit;
 import org.lightadmin.api.config.unit.FieldSetConfigurationUnit;
 import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
 
+import static org.cgiar.ccafs.csa.web.admin.AdministrationTemplates.*;
+
 public class CategoryAdministration extends AdministrationConfiguration<ProductionSystemCategory> {
-	
-	@Override
+
+    @Override
     public ScreenContextConfigurationUnit screenContext(ScreenContextConfigurationUnitBuilder screenContextBuilder) {
         return screenContextBuilder.screenName("Production System Categories").build();
     }
@@ -30,12 +27,12 @@ public class CategoryAdministration extends AdministrationConfiguration<Producti
                 .singularName("Category")
                 .build();
     }
-    
+
     @Override
     public FieldSetConfigurationUnit listView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return infoListView(fragmentBuilder).build();
     }
-    
+
     @Override
     public FieldSetConfigurationUnit quickView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return infoQuickView(fragmentBuilder).build();

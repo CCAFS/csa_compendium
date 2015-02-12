@@ -11,8 +11,8 @@ import org.lightadmin.api.config.unit.FieldSetConfigurationUnit;
 import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
 
 public class InitialConditionAdministration extends AdministrationConfiguration<InitialCondition> {
-	
-	@Override
+
+    @Override
     public ScreenContextConfigurationUnit screenContext(ScreenContextConfigurationUnitBuilder screenContextBuilder) {
         return screenContextBuilder.screenName("Initial Conditions for Experiments").build();
     }
@@ -25,48 +25,48 @@ public class InitialConditionAdministration extends AdministrationConfiguration<
                 .singularName("Experiment Condition")
                 .build();
     }
-    
+
     @Override
     public FieldSetConfigurationUnit listView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
-        		field("id").caption("ID").
-        		field("experimentArticle").caption("Experiment").
-        		field("condition").caption("Condition").
-        		field("value").caption("Value").
-        		field("measureUnit").caption("Measure Unit").
-        		build();
+                field("id").caption("ID").
+                field("experimentArticle").caption("Experiment").
+                field("condition").caption("Condition").
+                field("value").caption("Value").
+                field("measureUnit").caption("Measure Unit").
+                build();
     }
-    
+
     @Override
     public FieldSetConfigurationUnit quickView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-    	return fragmentBuilder.
-        		field("experimentArticle").caption("Experiment").
-        		field("condition").caption("Condition").
-        		field("value").caption("Value").
-        		field("measureUnit").caption("Measure Unit").
-        		build();
+        return fragmentBuilder.
+                field("experimentArticle").caption("Experiment").
+                field("condition").caption("Condition").
+                field("value").caption("Value").
+                field("measureUnit").caption("Measure Unit").
+                build();
     }
 
     @Override
     public FieldSetConfigurationUnit showView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-    	return fragmentBuilder.
-        		field("experimentArticle").caption("Experiment").
-        		field("condition").caption("Condition").
-        		field("value").caption("Value").
-        		field("measureUnit").caption("Measure Unit").
-        		field("state").caption("State").
-        		build();
+        return fragmentBuilder.
+                field("experimentArticle").caption("Experiment").
+                field("condition").caption("Condition").
+                field("value").caption("Value").
+                field("measureUnit").caption("Measure Unit").
+                field("state").caption("State").
+                build();
     }
 
     @Override
     public FieldSetConfigurationUnit formView(PersistentFieldSetConfigurationUnitBuilder fragmentBuilder) {
-    	return fragmentBuilder.
-        		field("experimentArticle").caption("Experiment").
-        		field("condition").caption("Condition").
-        		field("value").caption("Value").
-        		field("measureUnit").caption("Measure Unit").
-        		field("state").caption("State").
-        		build();
+        return fragmentBuilder.
+                field("experimentArticle").caption("Experiment").
+                field("condition").caption("Condition").
+                field("value").caption("Value").
+                field("measureUnit").caption("Measure Unit").
+                field("state").caption("State").
+                build();
     }
 
 }

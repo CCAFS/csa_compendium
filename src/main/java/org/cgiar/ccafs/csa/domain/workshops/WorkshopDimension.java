@@ -1,62 +1,58 @@
 package org.cgiar.ccafs.csa.domain.workshops;
 
-import java.io.Serializable;
+import org.cgiar.ccafs.csa.domain.Dimension;
 
 import javax.persistence.*;
-
-import org.cgiar.ccafs.csa.domain.Dimension;
+import java.io.Serializable;
 
 
 /**
  * The persistent class for the workshop_dimensions database table.
- * 
  */
 @Entity
-@Table(schema = "workshops", name="workshop_dimensions")
+@Table(name = "workshop_dimensions")
 public class WorkshopDimension implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="WORKSHOP_DIMENSIONS_ID_GENERATOR", 
-		sequenceName="WORKSHOPS.WORKSHOP_DIMENSIONS_ID_SEQ", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="WORKSHOP_DIMENSIONS_ID_GENERATOR")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@Enumerated(EnumType.STRING)
-	protected Dimension dimension;
+    @Enumerated(EnumType.STRING)
+    private Dimension dimension;
 
-	protected float weight;
+    private float weight;
 
-	@ManyToOne
-	@JoinColumn(name="workshop_id")
-	protected Workshop workshop;
+    @ManyToOne
+    @JoinColumn(name = "workshop_id")
+    private Workshop workshop;
 
-	public Integer getId() {
-		return this.id;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public Dimension getDimension() {
-		return this.dimension;
-	}
+    public Dimension getDimension() {
+        return this.dimension;
+    }
 
-	public void setDimension(Dimension dimension) {
-		this.dimension = dimension;
-	}
+    public void setDimension(Dimension dimension) {
+        this.dimension = dimension;
+    }
 
-	public float getWeight() {
-		return this.weight;
-	}
+    public float getWeight() {
+        return this.weight;
+    }
 
-	public void setWeight(float weight) {
-		this.weight = weight;
-	}
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
 
-	public Workshop getWorkshop() {
-		return this.workshop;
-	}
+    public Workshop getWorkshop() {
+        return this.workshop;
+    }
 
-	public void setWorkshop(Workshop workshop) {
-		this.workshop = workshop;
-	}
+    public void setWorkshop(Workshop workshop) {
+        this.workshop = workshop;
+    }
 
 }

@@ -1,23 +1,30 @@
 package org.cgiar.ccafs.csa.domain;
 
+import org.cgiar.ccafs.csa.domain.workshops.WorkshopBarrier;
+
 import javax.persistence.*;
 
 /**
  * The persistent class for the barriers database table.
- * 
  */
 @Entity
-@Table(schema = "public", name="barriers")
+@Table(name = "barriers")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "compendium", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorValue(value = "1")
 public class Barrier extends AbstractInformationEntity {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="BARRIERS_ID_GENERATOR", sequenceName="BARRIERS_ID_SEQ", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="BARRIERS_ID_GENERATOR")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@Override
-	public Integer getId() {
-		return this.id;
-	}
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
+
+    public boolean belongsToCompendium() {
+        return !(this instanceof WorkshopBarrier);
+    }
 }

@@ -6,5 +6,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(collectionResourceRel = "indicators", path = "indicators")
 public interface IndicatorRepository extends PagingAndSortingRepository<Indicator, Integer> {
-	
+
 }

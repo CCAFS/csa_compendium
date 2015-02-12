@@ -11,8 +11,8 @@ import org.lightadmin.api.config.unit.FieldSetConfigurationUnit;
 import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
 
 public class OutcomeAdministration extends AdministrationConfiguration<Outcome> {
-	
-	@Override
+
+    @Override
     public ScreenContextConfigurationUnit screenContext(ScreenContextConfigurationUnitBuilder screenContextBuilder) {
         return screenContextBuilder.screenName("Treatments Outcomes").build();
     }
@@ -25,62 +25,62 @@ public class OutcomeAdministration extends AdministrationConfiguration<Outcome> 
                 .singularName("Outcome")
                 .build();
     }
-    
+
     @Override
     public FieldSetConfigurationUnit listView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         //TODO Create composite fields for display
-    	
-    	return fragmentBuilder.
-        		field("id").caption("ID").
-        		field("indicator").caption("Indicator").
-        		field("treatment").caption("Treatment").
-        		field("measureUnit").caption("Measure Unit").
-        		field("initialValue").caption("Initial Value").
-        		field("finalValue").caption("Final Value").
-        		build();
+
+        return fragmentBuilder.
+                field("id").caption("ID").
+                field("indicator").caption("Indicator").
+                field("treatment").caption("Treatment").
+                field("measureUnit").caption("Measure Unit").
+                field("initialValue").caption("Initial Value").
+                field("finalValue").caption("Final Value").
+                build();
     }
-    
+
     @Override
     public FieldSetConfigurationUnit quickView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-    	return fragmentBuilder.
-        		field("id").caption("ID").
-        		field("indicator").caption("Indicator").
-        		field("treatment").caption("Treatment").
-        		field("measureUnit").caption("Measure Unit").
-        		field("initialValue").caption("Initial Value").
-        		field("finalValue").caption("Final Value").
-        		build();
+        return fragmentBuilder.
+                field("id").caption("ID").
+                field("indicator").caption("Indicator").
+                field("treatment").caption("Treatment").
+                field("measureUnit").caption("Measure Unit").
+                field("initialValue").caption("Initial Value").
+                field("finalValue").caption("Final Value").
+                build();
     }
 
     @Override
     public FieldSetConfigurationUnit showView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-    	return fragmentBuilder.
-        		field("id").caption("ID").
-        		field("indicator").caption("Indicator").
-        		field("treatment").caption("Treatment").
-        		field("measureUnit").caption("Measure Unit").
-        		field("startDate").caption("Start Date").
-        		field("endDate").caption("End Date").
-        		field("initialValue").caption("Initial Value").
-        		field("finalValue").caption("Final Value").
-        		field("result").caption("Result").
-        		field("change").caption("Change").
-        		build();
+        return fragmentBuilder.
+                field("id").caption("ID").
+                field("indicator").caption("Indicator").
+                field("treatment").caption("Treatment").
+                field("measureUnit").caption("Measure Unit").
+                field("startDate").caption("Start Date").
+                field("endDate").caption("End Date").
+                field("initialValue").caption("Initial Value").
+                field("finalValue").caption("Final Value").
+                field("result").caption("Result").
+                field("perceivedChange").caption("Perceived Change").
+                build();
     }
 
     @Override
     public FieldSetConfigurationUnit formView(PersistentFieldSetConfigurationUnitBuilder fragmentBuilder) {
-    	return fragmentBuilder.
-        		field("id").caption("ID").
-        		field("indicator").caption("Indicator").
-        		field("treatment").caption("Treatment").
-        		field("measureUnit").caption("Measure Unit").
-        		field("startDate").caption("Start Date").
-        		field("endDate").caption("End Date").
-        		field("initialValue").caption("Initial Value").
-        		field("finalValue").caption("Final Value").
-        		field("result").caption("Result").
-        		field("change").caption("Change").
-        		build();
+        return fragmentBuilder.
+                field("id").caption("ID").
+                field("indicator").caption("Indicator").
+                field("treatment").caption("Treatment").
+                field("measureUnit").caption("Measure Unit").
+                field("startDate").caption("Start Date").
+                field("endDate").caption("End Date").
+                field("initialValue").caption("Initial Value").
+                field("finalValue").caption("Final Value").
+                field("result").caption("Result").
+                field("perceivedChange").caption("Perceived Change").
+                build();
     }
 }

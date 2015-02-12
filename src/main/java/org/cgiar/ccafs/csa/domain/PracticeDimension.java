@@ -1,59 +1,55 @@
 package org.cgiar.ccafs.csa.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * The persistent class for the practice_dimensions database table.
- * 
  */
 @Entity
-@Table(schema = "public", name="practice_dimensions")
+@Table(name = "practice_dimensions")
 public class PracticeDimension implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="PRACTICE_DIMENSIONS_ID_GENERATOR", 
-		sequenceName="PRACTICE_DIMENSIONS_ID_SEQ", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PRACTICE_DIMENSIONS_ID_GENERATOR")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@Enumerated(EnumType.STRING)
-	protected Dimension dimension;
+    @Enumerated(EnumType.STRING)
+    private Dimension dimension;
 
-	protected float weight;
+    private float weight;
 
-	@ManyToOne
-	@JoinColumn(name="practice_id")
-	protected Practice practice;
+    @ManyToOne
+    @JoinColumn(name = "practice_id")
+    private Practice practice;
 
-	public Integer getId() {
-		return this.id;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public Dimension getDimension() {
-		return this.dimension;
-	}
+    public Dimension getDimension() {
+        return this.dimension;
+    }
 
-	public void setDimension(Dimension dimension) {
-		this.dimension = dimension;
-	}
+    public void setDimension(Dimension dimension) {
+        this.dimension = dimension;
+    }
 
-	public float getWeight() {
-		return this.weight;
-	}
+    public float getWeight() {
+        return this.weight;
+    }
 
-	public void setWeight(float weight) {
-		this.weight = weight;
-	}
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
 
-	public Practice getPractice() {
-		return this.practice;
-	}
+    public Practice getPractice() {
+        return this.practice;
+    }
 
-	public void setPractice(Practice practice) {
-		this.practice = practice;
-	}
+    public void setPractice(Practice practice) {
+        this.practice = practice;
+    }
 
 }

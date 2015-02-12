@@ -5,7 +5,267 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+
+<ui:composition template="/main.xhtml">
+    <ui:define name="content">
+        <div id="search-results">
+            <h2 class="title">Resultados de Búsqueda Compendio ASAC</h2>
+
+            <div id="legend">
+                <div class="title"><strong>Indicadores</strong></div>
+                <ul>
+                    <li><div class="code"><span class="text">REN</span></div><span class="text"> Rendimiento</span></li>
+                    <li><div class="code"><span class="text">VAR</span></div><span class="text"> Variabilidad</span></li>
+                    <li><div class="code"><span class="text">EMP</span></div><span class="text"> Empleo</span></li>
+                    <li><div class="code"><span class="text">IECO</span></div><span class="text"> Ingreso económico</span></li>
+                    <li><div class="code"><span class="text">RES</span></div><span class="text"> Resiliencia</span></li>
+                    <li><div class="code"><span class="text">UEA</span></div><span class="text"> Uso eficiente del agua</span></li>
+                    <li><div class="code"><span class="text">UEF</span></div><span class="text"> Uso eficiente de fertilizantes</span></li>
+                    <li><div class="code"><span class="text">BD</span></div><span class="text"> Biodiversidad</span></li>
+                    <li><div class="code"><span class="text">ERS</span></div><span class="text"> Erosión del suelo</span></li>
+                    <li><div class="code"><span class="text">CSL</span></div><span class="text"> Calidad del suelo</span></li>
+                    <li><div class="code"><span class="text">EMS</span></div><span class="text"> Intensidad de emisiones</span></li>
+                </ul>
+
+                <div class="title"><input id="btn-search" type="button" value="Continue" onClick="window.location.href='pillars.xhtml'" /></div>
+            </div>
+            <div id="search-results-table">
+                <div class="table-head">
+                    <div class="practices">Prácticas</div>
+                    <div class="indicators">
+                        <div class="indicators-head">Indicadores<br/>
+                            <small>(Cámbio Ponderado)</small></div>
+                        <div class="indicator">REN</div>
+                        <div class="indicator">VAR</div>
+                        <div class="indicator">EMP</div>
+                        <div class="indicator">IECO</div>
+                        <div class="indicator">RES</div>
+                        <div class="indicator">UEA</div>
+                        <div class="indicator">UEF</div>
+                        <div class="indicator">BD</div>
+                        <div class="indicator">ERS</div>
+                        <div class="indicator">CSL</div>
+                        <div class="indicator">EMS</div>
+                    </div>
+                    <!--<div class="view">View</div>-->
+                </div>
+                <div class="table-body">
+                    <div class="row">
+                        <div class="practices">Sistemas Agroforestales</div>
+                        <div class="indicators">
+                            <div class="indicator">5</div>
+                            <div class="indicator">3</div>
+                            <div class="indicator">4</div>
+                            <div class="indicator">4</div>
+                            <div class="indicator">5</div>
+                            <div class="indicator">N/A</div>
+                            <div class="indicator">2</div>
+                            <div class="indicator">5</div>
+                            <div class="indicator">5</div>
+                            <div class="indicator">3</div>
+                            <div class="indicator">5</div>
+                        </div>
+                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
+                    </div>
+
+                    <div class="row">
+                        <div class="practices">Rerservorios/estanques</div>
+                        <div class="indicators">
+                            <div class="indicator">5</div>
+                            <div class="indicator">2</div>
+                            <div class="indicator">4</div>
+                            <div class="indicator">5</div>
+                            <div class="indicator">4</div>
+                            <div class="indicator">5</div>
+                            <div class="indicator">3</div>
+                            <div class="indicator">1</div>
+                            <div class="indicator">2</div>
+                            <div class="indicator">3</div>
+                            <div class="indicator">3</div>
+                        </div>
+                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
+                    </div>
+                    <div class="row">
+                        <div class="practices">Manejo Integrado de plagas</div>
+                        <div class="indicators">
+                            <div class="indicator">4.3</div>
+                            <div class="indicator">3.8</div>
+                            <div class="indicator">2.7</div>
+                            <div class="indicator">4.8</div>
+                            <div class="indicator">3.7</div>
+                            <div class="indicator">N/A</div>
+                            <div class="indicator">4<br/>
+                            </div>
+                            <div class="indicator">3<br/>
+                            </div>
+                            <div class="indicator">N/A<br/>
+                            </div>
+                            <div class="indicator">3.3</div>
+                            <div class="indicator">4.2</div>
+                        </div>
+                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
+                    </div>
+                    <div class="row">
+                        <div class="practices">Variedades tolerantes al calor y estrés hídrico</div>
+                        <div class="indicators">
+                            <div class="indicator">5<br />
+                            </div>
+                            <div class="indicator">3.5<br />
+                            </div>
+                            <div class="indicator">3.3<br />
+                            </div>
+                            <div class="indicator">4<br />
+                            </div>
+                            <div class="indicator">3.3</div>
+                            <div class="indicator">3</div>
+                            <div class="indicator">1.5<br />
+                            </div>
+                            <div class="indicator">2</div>
+                            <div class="indicator">N/A</div>
+                            <div class="indicator">3</div>
+                            <div class="indicator">4.5</div>
+                        </div>
+                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
+                    </div>
+                    <div class="row">
+                        <div class="practices">Riego por goteo/ microaspersión</div>
+                        <div class="indicators">
+                            <div class="indicator">5<br />
+                            </div>
+                            <div class="indicator">3<br />
+                            </div>
+                            <div class="indicator">4<br />
+                            </div>
+                            <div class="indicator">5</div>
+                            <div class="indicator">3<br />
+                            </div>
+                            <div class="indicator">5</div>
+                            <div class="indicator">5<br />
+                            </div>
+                            <div class="indicator">1</div>
+                            <div class="indicator">2</div>
+                            <div class="indicator">3</div>
+                            <div class="indicator">4</div>
+                        </div>
+                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
+                    </div>
+                    <div class="row">
+                        <div class="practices">Bancos de semillas</div>
+                        <div class="indicators">
+                            <div class="indicator">4.5</div>
+                            <div class="indicator">2.5<br />
+                            </div>
+                            <div class="indicator">2.5<br />
+                            </div>
+                            <div class="indicator">3<br />
+                            </div>
+                            <div class="indicator">4<br />
+                            </div>
+                            <div class="indicator">1</div>
+                            <div class="indicator">1<br />
+                            </div>
+                            <div class="indicator">2.5</div>
+                            <div class="indicator">1</div>
+                            <div class="indicator">1</div>
+                            <div class="indicator">1</div>
+                        </div>
+                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
+                    </div>
+                    <div class="row">
+                        <div class="practices">Zanjas en contorno</div>
+                        <div class="indicators">
+                            <div class="indicator">3.5<br />
+                            </div>
+                            <div class="indicator">2.5<br />
+                            </div>
+                            <div class="indicator">2<br />
+                            </div>
+                            <div class="indicator">2.5</div>
+                            <div class="indicator">4<br />
+                            </div>
+                            <div class="indicator">1</div>
+                            <div class="indicator">1<br />
+                            </div>
+                            <div class="indicator">1.5</div>
+                            <div class="indicator">1</div>
+                            <div class="indicator">1.5</div>
+                            <div class="indicator">2</div>
+                        </div>
+                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
+                    </div>
+                    <div class="row">
+                        <div class="practices">Variedades tolerantes a plagas y enfermedades</div>
+                        <div class="indicators">
+                            <div class="indicator">5<br />
+                            </div>
+                            <div class="indicator">3.5<br />
+                            </div>
+                            <div class="indicator">3.3<br />
+                            </div>
+                            <div class="indicator">4<br />
+                            </div>
+                            <div class="indicator">3.3<br />
+                            </div>
+                            <div class="indicator">3</div>
+                            <div class="indicator">1.5<br />
+                            </div>
+                            <div class="indicator">2</div>
+                            <div class="indicator">N/A</div>
+                            <div class="indicator">3</div>
+                            <div class="indicator">4.5</div>
+                        </div>
+                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
+                    </div>
+
+                    <div class="row">
+                        <div class="practices">Cultivos mixtos/intercalados</div>
+                        <div class="indicators">
+                            <div class="indicator">5<br />
+                            </div>
+                            <div class="indicator">2.5</div>
+                            <div class="indicator">3<br />
+                            </div>
+                            <div class="indicator">4</div>
+                            <div class="indicator">4</div>
+                            <div class="indicator">1.5<br />
+                            </div>
+                            <div class="indicator">2</div>
+                            <div class="indicator">2</div>
+                            <div class="indicator">1.5</div>
+                            <div class="indicator">2</div>
+                            <div class="indicator">2.25</div>
+                        </div>
+                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
+                    </div>
+
+                    <div class="row">
+                        <div class="practices">Sistemas Silvopastoriles</div>
+                        <div class="indicators">
+                            <div class="indicator">5</div>
+                            <div class="indicator">3</div>
+                            <div class="indicator">3</div>
+                            <div class="indicator">4<br />
+                            </div>
+                            <div class="indicator">3.75<br />
+                            </div>
+                            <div class="indicator">1</div>
+                            <div class="indicator">4<br />
+                            </div>
+                            <div class="indicator">3.75</div>
+                            <div class="indicator">2.5<br />
+                            </div>
+                            <div class="indicator">3.5</div>
+                            <div class="indicator">4.5</div>
+                        </div>
+                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </ui:define>
+</ui:composition>
 </html>

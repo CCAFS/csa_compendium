@@ -13,8 +13,8 @@ import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
 import static org.cgiar.ccafs.csa.web.admin.AdministrationTemplates.*;
 
 public class ConditionAdministration extends AdministrationConfiguration<Condition> {
-	
-	@Override
+
+    @Override
     public ScreenContextConfigurationUnit screenContext(ScreenContextConfigurationUnitBuilder screenContextBuilder) {
         return screenContextBuilder.screenName("Initial Conditions Types for Experiments").build();
     }
@@ -27,12 +27,12 @@ public class ConditionAdministration extends AdministrationConfiguration<Conditi
                 .singularName("Condition")
                 .build();
     }
-    
+
     @Override
     public FieldSetConfigurationUnit listView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return infoListView(fragmentBuilder).build();
     }
-    
+
     @Override
     public FieldSetConfigurationUnit quickView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return infoQuickView(fragmentBuilder).build();

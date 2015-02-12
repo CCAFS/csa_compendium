@@ -1,58 +1,57 @@
 package org.cgiar.ccafs.csa.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 /**
  * The persistent class for the barriers database table.
- * 
  */
 @Entity
-@Table(schema = "public", name="treatment_barriers")
+@Table(name = "treatment_barriers")
 public class TreatmentBarrier implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="TREATMENT_BARRIERS_ID_GENERATOR", sequenceName="TREATMENT_BARRIERS_ID_SEQ", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="TREATMENT_BARRIERS_ID_GENERATOR")
-	private Integer id;
-	
-	@ManyToOne
-	@JoinColumn(name="treatment_id")
-	protected Treatment treatment;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name="barrier_id")
-	protected Barrier barrier;
+    private float cost;
 
-	protected float cost;
+    @ManyToOne
+    @JoinColumn(name = "treatment_id")
+    private Treatment treatment;
 
-	public Treatment getTreatment() {
-		return treatment;
-	}
+    @ManyToOne
+    @JoinColumn(name = "barrier_id")
+    private Barrier barrier;
 
-	public void setTreatment(Treatment treatment) {
-		this.treatment = treatment;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public Barrier getBarrier() {
-		return barrier;
-	}
+    public float getCost() {
+        return cost;
+    }
 
-	public void setBarrier(Barrier barrier) {
-		this.barrier = barrier;
-	}
+    public void setCost(float cost) {
+        this.cost = cost;
+    }
 
-	public float getCost() {
-		return cost;
-	}
+    public Treatment getTreatment() {
+        return treatment;
+    }
 
-	public void setCost(float cost) {
-		this.cost = cost;
-	}
-	
-	
+    public void setTreatment(Treatment treatment) {
+        this.treatment = treatment;
+    }
+
+    public Barrier getBarrier() {
+        return barrier;
+    }
+
+    public void setBarrier(Barrier barrier) {
+        this.barrier = barrier;
+    }
 
 }

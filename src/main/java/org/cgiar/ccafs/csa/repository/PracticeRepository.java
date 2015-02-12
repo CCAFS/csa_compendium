@@ -6,5 +6,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(collectionResourceRel = "practices", path = "practices")
 public interface PracticeRepository extends PagingAndSortingRepository<Practice, Integer> {
-	
+
 }

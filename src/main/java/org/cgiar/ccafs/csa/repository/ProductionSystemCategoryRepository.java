@@ -1,10 +1,10 @@
 package org.cgiar.ccafs.csa.repository;
 
-import org.cgiar.ccafs.csa.domain.Barrier;
+import org.cgiar.ccafs.csa.domain.ProductionSystemCategory;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-@RepositoryRestResource(collectionResourceRel = "barriers", path = "barriers")
-public interface BarrierRepository extends PagingAndSortingRepository<Barrier, Integer> {
-	
+@RepositoryRestResource(collectionResourceRel = "categories", path = "production_system_categories")
+public interface ProductionSystemCategoryRepository extends PagingAndSortingRepository<ProductionSystemCategory, Integer> {
+
 }

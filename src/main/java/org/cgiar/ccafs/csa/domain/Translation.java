@@ -1,65 +1,62 @@
 package org.cgiar.ccafs.csa.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 /**
  * The persistent class for the translations database table.
- * 
  */
 @Entity
-@Table(schema = "public", name="translations")
+@Table(name = "translations")
 public class Translation implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="TRANSLATIONS_ID_GENERATOR", sequenceName="TRANSLATIONS_ID_SEQ", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="TRANSLATIONS_ID_GENERATOR")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	protected String translation;
+    private String translation;
 
-	@ManyToOne
-	@JoinColumn(name="language_code")
-	protected Language language;
-	
-	@Column(name="row_id")
-	protected Integer rowId;
-	
-	@Column(name="column_name")
-	protected String columnName;
+    @ManyToOne
+    @JoinColumn(name = "language_code")
+    private Language language;
 
-	public String getTranslation() {
-		return this.translation;
-	}
+    @Column(name = "row_id")
+    private Integer rowId;
 
-	public void setTranslation(String translation) {
-		this.translation = translation;
-	}
+    @Column(name = "column_name")
+    private String columnName;
 
-	public Language getLanguage() {
-		return this.language;
-	}
+    public String getTranslation() {
+        return this.translation;
+    }
 
-	public void setLanguage(Language language) {
-		this.language = language;
-	}
+    public void setTranslation(String translation) {
+        this.translation = translation;
+    }
 
-	public Integer getRowId() {
-		return rowId;
-	}
+    public Language getLanguage() {
+        return this.language;
+    }
 
-	public void setRowId(Integer rowId) {
-		this.rowId = rowId;
-	}
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
 
-	public String getColumnName() {
-		return columnName;
-	}
+    public Integer getRowId() {
+        return rowId;
+    }
 
-	public void setColumnName(String columnName) {
-		this.columnName = columnName;
-	}
+    public void setRowId(Integer rowId) {
+        this.rowId = rowId;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
 }

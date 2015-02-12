@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
  * This bean enables the Logging Aspect, which logs exceptions, input parameters
  * and returned values. This is only enabled in development profile.
  */
-//@Configuration
+@Configuration
 @EnableAspectJAutoProxy
 public class LoggingAspectConfiguration {
 

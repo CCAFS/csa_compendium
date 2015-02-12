@@ -1,128 +1,129 @@
 package org.cgiar.ccafs.csa.domain;
 
-import java.io.Serializable;
+import org.joda.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.LocalDate;
+import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 
 
 /**
  * The persistent class for the outcomes database table.
- * 
  */
 @Entity
-@Table(schema = "public", name="outcomes")
+@Table(name = "outcomes")
 public class Outcome implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@SequenceGenerator(name="OUTCOMES_ID_GENERATOR", sequenceName="OUTCOMES_ID_SEQ", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="OUTCOMES_ID_GENERATOR")
-	private Integer id;
-		
-	@Column(name="start_date")
-	@Type(type="org.joda.time.contrib.hibernate.PersistentLocalDate")
-	protected LocalDate startDate;
-	
-	
-	@Column(name="end_date")
-	@Type(type="org.joda.time.contrib.hibernate.PersistentLocalDate")
-	protected LocalDate endDate;
+    private static final long serialVersionUID = 1L;
 
-	@Column(name="initial_value")
-	protected float initialValue;
-	
-	@Column(name="final_value")
-	protected float finalValue;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	protected String result;
-	
-	protected int change;
-	
-	@ManyToOne
-	@JoinColumn(name="treatment_id")
-	protected Treatment treatment;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DATE)
+    @Column(name = "start_date")
+    private Date startDate;
 
-	@ManyToOne
-	@JoinColumn(name="indicator_id")
-	protected Indicator indicator;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DATE)
+    @Column(name = "end_date")
+    private Date endDate;
 
-	@ManyToOne
-	@JoinColumn(name="unit_id")
-	protected MeasureUnit measureUnit;
+    @Column(name = "initial_value")
+    private float initialValue;
 
-	public LocalDate getStartDate() {
-		return startDate;
-	}
+    @Column(name = "final_value")
+    private float finalValue;
 
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
-	}
+    private String result;
 
-	public LocalDate getEndDate() {
-		return endDate;
-	}
+    private int perceivedChange;
 
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
-	}
+    @ManyToOne
+    @JoinColumn(name = "treatment_id")
+    private Treatment treatment;
 
-	public float getInitialValue() {
-		return this.initialValue;
-	}
+    @ManyToOne
+    @JoinColumn(name = "indicator_id")
+    private Indicator indicator;
 
-	public void setInitialValue(float initialValue) {
-		this.initialValue = initialValue;
-	}
-	
-	public float getFinalValue() {
-		return this.finalValue;
-	}
+    @ManyToOne
+    @JoinColumn(name = "unit_id")
+    private MeasureUnit measureUnit;
 
-	public void setFinalValue(float finalValue) {
-		this.finalValue = finalValue;
-	}
+    public LocalDate getStartDate() {
+        return new LocalDate(this.startDate);
+    }
 
-	public String getResult() {
-		return this.result;
-	}
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate.toDate();
+    }
 
-	public void setResult(String result) {
-		this.result = result;
-	}
+    public LocalDate getEndDate() {
+        return new LocalDate(this.endDate);
+    }
 
-	public int getChange() {
-		return change;
-	}
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate.toDate();
+    }
 
-	public void setChange(int change) {
-		this.change = change;
-	}
+    public float getInitialValue() {
+        return this.initialValue;
+    }
 
-	public Treatment getTreatment() {
-		return treatment;
-	}
+    public void setInitialValue(float initialValue) {
+        this.initialValue = initialValue;
+    }
 
-	public void setTreatment(Treatment treatment) {
-		this.treatment = treatment;
-	}
+    public float getFinalValue() {
+        return this.finalValue;
+    }
 
-	public Indicator getIndicator() {
-		return this.indicator;
-	}
+    public void setFinalValue(float finalValue) {
+        this.finalValue = finalValue;
+    }
 
-	public void setIndicator(Indicator indicator) {
-		this.indicator = indicator;
-	}
+    public String getResult() {
+        return this.result;
+    }
 
-	public MeasureUnit getUnit() {
-		return this.measureUnit;
-	}
+    public void setResult(String result) {
+        this.result = result;
+    }
 
-	public void setUnit(MeasureUnit measureUnit) {
-		this.measureUnit = measureUnit;
-	}
+    public int getPerceivedChange() {
+        return perceivedChange;
+    }
+
+    public void setPerceivedChange(int perceivedChange) {
+        this.perceivedChange = perceivedChange;
+    }
+
+    public Treatment getTreatment() {
+        return treatment;
+    }
+
+    public void setTreatment(Treatment treatment) {
+        this.treatment = treatment;
+    }
+
+    public Indicator getIndicator() {
+        return this.indicator;
+    }
+
+    public void setIndicator(Indicator indicator) {
+        this.indicator = indicator;
+    }
+
+    public MeasureUnit getUnit() {
+        return this.measureUnit;
+    }
+
+    public void setUnit(MeasureUnit measureUnit) {
+        this.measureUnit = measureUnit;
+    }
 
 }

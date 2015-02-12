@@ -1,166 +1,196 @@
 package org.cgiar.ccafs.csa.domain.workshops;
 
-import java.io.Serializable;
+import org.cgiar.ccafs.csa.domain.Location;
+import org.cgiar.ccafs.csa.domain.Treatment;
+import org.joda.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-
-import org.cgiar.ccafs.csa.domain.Treatment;
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
-
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+
+import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 
 /**
  * The persistent class for the workshops database table.
- * 
  */
 @Entity
-@Table(schema = "workshops", name="workshops")
+@Table(name = "workshops")
 public class Workshop implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="WORKSHOPS_ID_GENERATOR", sequenceName="WORKSHOPS.WORKSHOPS_ID_SEQ", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="WORKSHOPS_ID_GENERATOR")
-	private Integer id;
-	
-	@Column(name="start_date")
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	protected DateTime startDate;
-	
-	@Column(name="updated_date")
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	protected DateTime updatedDate;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@OneToMany(mappedBy="workshop")
-	protected List<Comment> comments;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DATE)
+    @Column(name = "start_date")
+    private Date startDate;
 
-	@OneToMany(mappedBy="workshop")
-	protected List<Portfolio> portfolios;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DATE)
+    @Column(name = "updated_date")
+    private Date updatedDate;
 
-	@OneToMany(mappedBy="workshop")
-	protected List<Prioritization> prioritizations;
+    @OneToMany(mappedBy = "workshop")
+    private List<WorkshopComment> comments;
 
-	@OneToMany(mappedBy="workshop")
-	protected List<WorkshopDimension> workshopDimensions;
+    @OneToMany(mappedBy = "workshop")
+    private List<WorkshopPortfolio> portfolios;
 
-	@OneToMany(mappedBy="workshop")
-	protected List<WorkshopPillar> workshopPillars;
+    @OneToMany(mappedBy = "workshop")
+    private List<WorkshopPrioritization> prioritizations;
 
-	@ManyToMany
-	@JoinTable(
-		schema="workshops",
-		name="workshop_treatments"
-		, joinColumns={
-			@JoinColumn(name="workshop_id")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="treatment_id")
-			}
-		)
-	protected List<Treatment> linkedTreatments;
+    @OneToMany(mappedBy = "workshop")
+    private List<WorkshopPillar> workshopPillars;
 
-	@ManyToOne
-	@JoinColumn(name="location_id")
-	protected WorkshopLocation location;
-	
+    @OneToMany(mappedBy = "originalWorkshop")
+    private List<WorkshopBarrier> newBarriers;
 
-	public Integer getId() {
-		return this.id;
-	}
-	
-	public DateTime getStartDate() {
-		return startDate;
-	}
-	
-	public void setStartDate(DateTime startDate) {
-		this.startDate = startDate;
-	}
+    @OneToMany(mappedBy = "originalWorkshop")
+    private List<WorkshopExperiment> newExperiments;
 
-	public DateTime getUpdatedDate() {
-		return updatedDate;
-	}
+    @OneToMany(mappedBy = "originalWorkshop")
+    private List<WorkshopIndicator> newIndicators;
 
-	public void setUpdatedDate(DateTime updatedDate) {
-		this.updatedDate = updatedDate;
-	}
+    @OneToMany(mappedBy = "originalWorkshop")
+    private List<WorkshopPractice> newPractices;
 
-	public List<Comment> getComments() {
-		return this.comments;
-	}
+    @OneToMany(mappedBy = "originalWorkshop")
+    private List<WorkshopSynergy> newSynergies;
 
-	public Comment addComment(Comment comment) {
-		getComments().add(comment);
-		comment.setWorkshop(this);
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
 
-		return comment;
-	}
+    @ManyToMany
+    @JoinTable(
+            name = "workshop_used_treatments"
+            , joinColumns = {
+            @JoinColumn(name = "workshop_id")
+    }
+            , inverseJoinColumns = {
+            @JoinColumn(name = "treatment_id")
+    }
+    )
+    private List<Treatment> linkedTreatments;
 
-	public Comment removeComment(Comment comment) {
-		getComments().remove(comment);
-		comment.setWorkshop(null);
+    public Integer getId() {
+        return this.id;
+    }
 
-		return comment;
-	}
+    public LocalDate getStartDate() {
+        return new LocalDate(this.startDate);
+    }
 
-	public List<Portfolio> getPortfolios() {
-		return this.portfolios;
-	}
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate.toDate();
+    }
 
-	public void setPortfolios(List<Portfolio> portfolios) {
-		this.portfolios = portfolios;
-	}
+    public LocalDate getUpdatedDate() {
+        return new LocalDate(this.updatedDate);
+    }
 
-	public Portfolio addPortfolio(Portfolio portfolio) {
-		getPortfolios().add(portfolio);
-		portfolio.setWorkshop(this);
+    public void setUpdatedDate(LocalDate updatedDate) {
+        this.updatedDate = updatedDate.toDate();
+    }
 
-		return portfolio;
-	}
+    public List<WorkshopComment> getComments() {
+        return this.comments;
+    }
 
-	public Portfolio removePortfolio(Portfolio portfolio) {
-		getPortfolios().remove(portfolio);
-		portfolio.setWorkshop(null);
+    public void setComments(List<WorkshopComment> comments) {
+        this.comments = comments;
+    }
 
-		return portfolio;
-	}
+    public WorkshopComment addComment(WorkshopComment comment) {
+        getComments().add(comment);
+        comment.setWorkshop(this);
 
-	public List<Prioritization> getPrioritizations() {
-		return this.prioritizations;
-	}
+        return comment;
+    }
 
-	public Prioritization addPrioritization(Prioritization prioritization) {
-		getPrioritizations().add(prioritization);
-		prioritization.setWorkshop(this);
+    public WorkshopComment removeComment(WorkshopComment comment) {
+        getComments().remove(comment);
+        comment.setWorkshop(null);
 
-		return prioritization;
-	}
+        return comment;
+    }
 
-	public Prioritization removePrioritization(Prioritization prioritization) {
-		getPrioritizations().remove(prioritization);
-		prioritization.setWorkshop(null);
+    public List<WorkshopPortfolio> getPortfolios() {
+        return this.portfolios;
+    }
 
-		return prioritization;
-	}
+    public void setPortfolios(List<WorkshopPortfolio> portfolios) {
+        this.portfolios = portfolios;
+    }
 
-	public List<WorkshopDimension> getDimensions() {
-		return this.workshopDimensions;
-	}
+    public WorkshopPortfolio addPortfolio(WorkshopPortfolio portfolio) {
+        getPortfolios().add(portfolio);
+        portfolio.setWorkshop(this);
 
-	public List<WorkshopPillar> getPillars() {
-		return this.workshopPillars;
-	}
+        return portfolio;
+    }
 
-	public List<Treatment> getLinkedTreatments() {
-		return this.linkedTreatments;
-	}
+    public WorkshopPortfolio removePortfolio(WorkshopPortfolio portfolio) {
+        getPortfolios().remove(portfolio);
+        portfolio.setWorkshop(null);
 
-	public WorkshopLocation getLocation() {
-		return this.location;
-	}
+        return portfolio;
+    }
 
-	public void setLocation(WorkshopLocation location) {
-		this.location = location;
-	}
+    public List<WorkshopPrioritization> getPrioritizations() {
+        return this.prioritizations;
+    }
+
+    public void setPrioritizations(List<WorkshopPrioritization> prioritizations) {
+        this.prioritizations = prioritizations;
+    }
+
+    public WorkshopPrioritization addPrioritization(WorkshopPrioritization prioritization) {
+        getPrioritizations().add(prioritization);
+        prioritization.setWorkshop(this);
+
+        return prioritization;
+    }
+
+    public WorkshopPrioritization removePrioritization(WorkshopPrioritization prioritization) {
+        getPrioritizations().remove(prioritization);
+        prioritization.setWorkshop(null);
+
+        return prioritization;
+    }
+
+    public List<WorkshopPillar> getPillars() {
+        return this.workshopPillars;
+    }
+
+    public void setWorkshopPillars(List<WorkshopPillar> workshopPillars) {
+        this.workshopPillars = workshopPillars;
+    }
+
+    public WorkshopPillar addWorkshopPillar(WorkshopPillar pillar) {
+        getPillars().add(pillar);
+        pillar.setWorkshop(this);
+
+        return pillar;
+    }
+
+    public WorkshopPillar removeWorkshopPillar(WorkshopPillar pillar) {
+        getPillars().remove(pillar);
+        pillar.setWorkshop(null);
+
+        return pillar;
+    }
+
+    public Location getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
 }

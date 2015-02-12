@@ -1,58 +1,55 @@
 package org.cgiar.ccafs.csa.domain;
 
 import javax.persistence.*;
-
 import java.util.List;
 
 
 /**
  * The persistent class for the context_variables database table.
- * 
  */
 @Entity
-@Table(schema = "public", name="context_variables")
+@Table(name = "context_variables")
 public class ContextVariable extends AbstractInformationEntity {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="CONTEXT_VARIABLES_ID_GENERATOR", sequenceName="CONTEXT_VARIABLES_ID_SEQ", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CONTEXT_VARIABLES_ID_GENERATOR")
-	private Integer id;
-	
-	@Enumerated(EnumType.STRING)
-	protected ContextVariableScope scope;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@OneToMany(mappedBy="contextVariable")
-	private List<ContextValue> contextValues;
-	
-	@Override
-	public Integer getId() {
-		return this.id;
-	}
+    @Enumerated(EnumType.STRING)
+    private ContextVariableScope scope;
 
-	public ContextVariableScope getScope() {
-		return scope;
-	}
+    @OneToMany(mappedBy = "contextVariable")
+    private List<ContextValue> contextValues;
 
-	public void setScope(ContextVariableScope scope) {
-		this.scope = scope;
-	}
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
 
-	public List<ContextValue> getContextValues() {		
-		return this.contextValues;
-	}
+    public ContextVariableScope getScope() {
+        return scope;
+    }
 
-	public ContextValue addContextValue(ContextValue contextValue) {
-		getContextValues().add(contextValue);
-		contextValue.setContext(this);
+    public void setScope(ContextVariableScope scope) {
+        this.scope = scope;
+    }
 
-		return contextValue;
-	}
+    public List<ContextValue> getContextValues() {
+        return this.contextValues;
+    }
 
-	public ContextValue removeContextValue(ContextValue contextValue) {
-		getContextValues().remove(contextValue);
-		contextValue.setContext(null);
+    public ContextValue addContextValue(ContextValue contextValue) {
+        getContextValues().add(contextValue);
+        contextValue.setContext(this);
 
-		return contextValue;
-	}
+        return contextValue;
+    }
+
+    public ContextValue removeContextValue(ContextValue contextValue) {
+        getContextValues().remove(contextValue);
+        contextValue.setContext(null);
+
+        return contextValue;
+    }
 }

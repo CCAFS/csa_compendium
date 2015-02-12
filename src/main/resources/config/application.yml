@@ -13,3 +13,10 @@ management:
 security:
     basic:
         enabled: false
+
+spring:
+    profiles:
+        active: dev
+    datasource:
+        initialize: false
+        continueOnError: true

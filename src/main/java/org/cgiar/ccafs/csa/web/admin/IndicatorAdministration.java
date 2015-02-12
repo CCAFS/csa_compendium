@@ -1,10 +1,5 @@
 package org.cgiar.ccafs.csa.web.admin;
 
-import static org.cgiar.ccafs.csa.web.admin.AdministrationTemplates.infoFormView;
-import static org.cgiar.ccafs.csa.web.admin.AdministrationTemplates.infoListView;
-import static org.cgiar.ccafs.csa.web.admin.AdministrationTemplates.infoQuickView;
-import static org.cgiar.ccafs.csa.web.admin.AdministrationTemplates.infoShowView;
-
 import org.cgiar.ccafs.csa.domain.Indicator;
 import org.lightadmin.api.config.AdministrationConfiguration;
 import org.lightadmin.api.config.builder.EntityMetadataConfigurationUnitBuilder;
@@ -15,9 +10,11 @@ import org.lightadmin.api.config.unit.EntityMetadataConfigurationUnit;
 import org.lightadmin.api.config.unit.FieldSetConfigurationUnit;
 import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
 
+import static org.cgiar.ccafs.csa.web.admin.AdministrationTemplates.*;
+
 public class IndicatorAdministration extends AdministrationConfiguration<Indicator> {
-	
-	@Override
+
+    @Override
     public ScreenContextConfigurationUnit screenContext(ScreenContextConfigurationUnitBuilder screenContextBuilder) {
         return screenContextBuilder.screenName("Outcomes Indicators").build();
     }
@@ -30,12 +27,12 @@ public class IndicatorAdministration extends AdministrationConfiguration<Indicat
                 .singularName("Indicator")
                 .build();
     }
-    
+
     @Override
     public FieldSetConfigurationUnit listView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return infoListView(fragmentBuilder).build();
     }
-    
+
     @Override
     public FieldSetConfigurationUnit quickView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return infoQuickView(fragmentBuilder).build();

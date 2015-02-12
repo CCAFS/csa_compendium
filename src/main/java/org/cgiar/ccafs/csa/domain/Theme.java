@@ -1,50 +1,47 @@
 package org.cgiar.ccafs.csa.domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
-
 /**
  * The persistent class for the themes database table.
- * 
  */
 @Entity
-@Table(schema = "public", name="themes")
+@Table(name = "themes")
 public class Theme extends AbstractInformationEntity {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="THEMES_ID_GENERATOR", sequenceName="THEMES_ID_SEQ", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="THEMES_ID_GENERATOR")
-	private Integer id;
-	
-	@OneToMany(mappedBy="theme")
-	private List<PracticeLevel> practiceLevels;
-	
-	@Override
-	public Integer getId() {
-		return this.id;
-	}
-	
-	public List<PracticeLevel> getPracticeLevels() {
-		if (this.practiceLevels == null) {
-			this.practiceLevels = new ArrayList<PracticeLevel>();
-		}
-		return this.practiceLevels;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	public PracticeLevel addPracticeLevel(PracticeLevel level) {
-		getPracticeLevels().add(level);
-		level.setTheme(this);
+    @OneToMany(mappedBy = "theme")
+    private List<PracticeLevel> practiceLevels;
 
-		return level;
-	}
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
 
-	public PracticeLevel removePracticeLevel(PracticeLevel level) {
-		getPracticeLevels().remove(level);
-		level.setTheme(null);
+    public List<PracticeLevel> getPracticeLevels() {
+        if (this.practiceLevels == null) {
+            this.practiceLevels = new ArrayList<PracticeLevel>();
+        }
+        return this.practiceLevels;
+    }
 
-		return level;
-	}
+    public PracticeLevel addPracticeLevel(PracticeLevel level) {
+        getPracticeLevels().add(level);
+        level.setTheme(this);
+
+        return level;
+    }
+
+    public PracticeLevel removePracticeLevel(PracticeLevel level) {
+        getPracticeLevels().remove(level);
+        level.setTheme(null);
+
+        return level;
+    }
 }

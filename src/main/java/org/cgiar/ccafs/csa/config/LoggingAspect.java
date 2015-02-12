@@ -25,7 +25,8 @@ public class LoggingAspect {
     private Environment env;
 
     @Pointcut("within(org.cgiar.ccafs.csa.repository..*) || within(org.cgiar.ccafs.csa.service..*) || within(org.cgiar.ccafs.csa.web.rest..*)")
-    public void loggingPoincut() {}
+    public void loggingPoincut() {
+    }
 
     @AfterThrowing(pointcut = "loggingPoincut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {

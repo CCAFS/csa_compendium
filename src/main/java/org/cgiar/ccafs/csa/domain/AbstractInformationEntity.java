@@ -1,58 +1,57 @@
 package org.cgiar.ccafs.csa.domain;
 
+import javax.persistence.Lob;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
-
-import javax.persistence.*;
 
 /**
  * Super class for those entities that have four basic translatable fields
- * 
  */
 @MappedSuperclass
 public abstract class AbstractInformationEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	protected String code;
-	
-	protected String name;
+    private String code;
 
-	protected String description;
+    private String name;
 
-	@Lob
-	protected String documentation;
-	
-	public abstract Integer getId();
+    private String description;
 
-	public String getCode() {
-		return code;
-	}
+    @Lob
+    private String documentation;
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public abstract Integer getId();
 
-	public String getName() {
-		return this.name;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getDescription() {
-		return this.description;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public String getDocumentation() {
-		return this.documentation;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setDocumentation(String documentation) {
-		this.documentation = documentation;
-	}
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDocumentation() {
+        return this.documentation;
+    }
+
+    public void setDocumentation(String documentation) {
+        this.documentation = documentation;
+    }
 
 }

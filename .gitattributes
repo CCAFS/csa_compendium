@@ -5,5 +5,5 @@
 # to native line endings on checkout.
 *.java text
 
-# Batch files will always have CRLF line endings on checkout.
-*.bat text eol=crlf
+# Batch files will always have LF line endings on checkout.
+*.bat text eol=lf
