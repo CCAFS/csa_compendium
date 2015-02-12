@@ -9,7 +9,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "barriers", path = "barriers")
-public interface BarrierRepository extends PagingAndSortingRepository<Barrier, Integer> {
+public interface RegionRepository extends PagingAndSortingRepository<Barrier, Integer> {
 
     List<Barrier> findByName(@Param("name") String name);
 

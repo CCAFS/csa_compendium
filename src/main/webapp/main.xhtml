@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <title>Climate Smart Agriculture - Decision Support Platform</title>
+    </f:facet>
+
+    <f:facet name="last">
+        <h:outputStylesheet name="bootstrap/css/bootstrap.css"/>
+        <h:outputStylesheet name="bootstrap/css/bootstrap-theme.css"/>
+        <h:outputStylesheet name="css/main.css"/>
+
+        <h:outputScript name="js/jquery/jquery-1.11.1.min.js"/>
+        <h:outputScript name="bootstrap/js/bootstrap.js"/>
+    </f:facet>
+</h:head>
+
+<h:body>
+    <div id="header">
+        <div class="content">
+            <div id="login">
+                <div class="button"><a href="/admin">Login</a></div>
+            </div>
+
+            <h:graphicImage library="images" name="logo.png" alt="Climate Smart Agriculture"/>
+
+            <div id="nav">
+                <ul class="effect1">
+                    <li><h:outputLink value="index.xhtml">Home</h:outputLink></li>
+                    <li>About us</li>
+                    <li>Prioritization Framework</li>
+                    <li>Compendium</li>
+                    <li><h:outputLink
+                            value="http://ccafs.cgiar.org/resources/tools-maps-models-and-data">Other Tools</h:outputLink>
+                    </li>
+                    <li>Glossary</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="center" class="content">
+        <ui:insert name="content">Main content of the page</ui:insert>
+    </div>
+
+    <div id="footer">
+        <div class="content">
+            <div id="partners">
+                <h:outputLink value="http://www.worldagroforestry.org/">
+                    <h:graphicImage library="images" name="logos/icraf.png" alt="ICRAF"/>
+                </h:outputLink>
+                <h:outputLink value="http://www.cgiar.org/">
+                    <h:graphicImage library="images" name="logos/cgiar.png" alt="CGIAR"/>
+                </h:outputLink>
+                <h:outputLink value="http://ccafs.cgiar.org/">
+                    <h:graphicImage library="images" name="logos/ccafs.png" alt="CCAFS"/>
+                </h:outputLink>
+            </div>
+        </div>
+    </div>
+
+</h:body>
+</html>
