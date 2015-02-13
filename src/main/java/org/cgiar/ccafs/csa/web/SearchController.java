@@ -65,8 +65,4 @@ public class SearchController {
         this.contextValues = selectedContextVariable.getContextValues();
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index() {
-        return "redirect:/index.xhtml";
-    }
 }
