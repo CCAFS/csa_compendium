@@ -3,8 +3,11 @@
 logging:
     level: DEBUG
     file: ${OPENSHIFT_DATA_DIR}/logs/app.log
-    
+
 spring:
+    profiles:
+        active: openshift
+
     datasource:
         platform: postgresql
         jndi-name: jdbc/PostgreSQLDS
