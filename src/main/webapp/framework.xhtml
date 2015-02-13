@@ -6,8 +6,10 @@
 
 <ui:composition template="/main.xhtml">
     <ui:define name="content">
-        <iframe src="http://docs.google.com/gview?url=#{root}/resources/images/CSA-Pf.pdf&amp;embedded=true"
-                style="width:1000px; height:560px;" frameborder="0"></iframe>
+        <div id="pdf_container">
+            <iframe src="https://docs.google.com/viewer?srcid=0B-KjpJ1P3MVcZFVLYXZzUHRWZjg&amp;pid=explorer&amp;efh=false&amp;a=v&amp;chrome=false&amp;embedded=true"
+                    width="870px" height="600px"></iframe>
+        </div>
     </ui:define>
 </ui:composition>
 </html>
