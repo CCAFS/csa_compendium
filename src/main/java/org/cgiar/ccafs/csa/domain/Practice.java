@@ -37,9 +37,6 @@ public class Practice extends AbstractInformationEntity implements Contextualize
     @OneToMany(mappedBy = "mainPractice")
     private List<Synergy> synergies;
 
-    @OneToMany(mappedBy = "practice")
-    private List<PracticeDimension> dimensions;
-
     @ManyToMany
     @JoinTable(
             name = "practice_context_values"
@@ -92,28 +89,6 @@ public class Practice extends AbstractInformationEntity implements Contextualize
 
     public List<Synergy> getSynergies() {
         return this.synergies;
-    }
-
-    public List<PracticeDimension> getDimensions() {
-        return this.dimensions;
-    }
-
-    public void setDimensions(List<PracticeDimension> dimensions) {
-        this.dimensions = dimensions;
-    }
-
-    public PracticeDimension addDimension(PracticeDimension dimension) {
-        getDimensions().add(dimension);
-        dimension.setPractice(this);
-
-        return dimension;
-    }
-
-    public PracticeDimension removeDimension(PracticeDimension dimension) {
-        getDimensions().remove(dimension);
-        dimension.setPractice(null);
-
-        return dimension;
     }
 
     public List<ContextValue> getContextValues() {
