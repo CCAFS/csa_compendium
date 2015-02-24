@@ -7,8 +7,10 @@
 <ui:composition template="/main.xhtml">
     <ui:define name="content">
         <div id="pdf_container">
-            <iframe src="https://docs.google.com/viewer?srcid=0B-KjpJ1P3MVcZFVLYXZzUHRWZjg&amp;pid=explorer&amp;efh=false&amp;a=v&amp;chrome=false&amp;embedded=true"
-                    width="870px" height="600px"></iframe>
+            <!--<iframe src="https://docs.google.com/viewer?srcid=0B-KjpJ1P3MVcZFVLYXZzUHRWZjg&amp;pid=explorer&amp;efh=false&amp;a=v&amp;chrome=false&amp;embedded=true"
+                    width="870px" height="600px"></iframe>-->
+
+            <iframe src="#{resource['downloads/CSA-PF.pdf']}" width="1050px" height="742px"></iframe>
         </div>
     </ui:define>
 </ui:composition>

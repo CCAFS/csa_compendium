@@ -28,6 +28,11 @@
 <h:body>
     <c:set var="root" value="#{request.requestURL.substring(0, request.requestURL.length() -
         request.requestURI.length())}#{request.contextPath}" />
+
+    <div id="beta_logo">
+        <h:graphicImage library="images" name="beta_site.png" alt="Beta Site"/>
+    </div>
+
     <div id="header">
         <div class="content">
             <div id="login">
@@ -58,14 +63,14 @@
     <div id="footer">
         <div class="content">
             <div id="partners">
-                <h:outputLink value="http://www.worldagroforestry.org/">
-                    <h:graphicImage library="images" name="logos/icraf.png" alt="ICRAF"/>
-                </h:outputLink>
-                <h:outputLink value="http://www.cgiar.org/">
-                    <h:graphicImage library="images" name="logos/cgiar.png" alt="CGIAR"/>
+                <h:outputLink value="http://ciat.cgiar.org/">
+                    <h:graphicImage class="spaced" library="images" name="logos/ciat.png" alt="CIAT"/>
                 </h:outputLink>
                 <h:outputLink value="http://ccafs.cgiar.org/">
-                    <h:graphicImage library="images" name="logos/ccafs.png" alt="CCAFS"/>
+                    <h:graphicImage class="spaced" library="images" name="logos/ccafs.png" alt="CCAFS"/>
+                </h:outputLink>
+                <h:outputLink value="http://www.worldagroforestry.org/">
+                    <h:graphicImage library="images" name="logos/icraf.png" alt="ICRAF"/>
                 </h:outputLink>
             </div>
         </div>

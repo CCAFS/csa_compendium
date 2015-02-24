@@ -28,6 +28,16 @@ h2.title {
     color: #353535;
 }
 
+#beta_logo {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+}
+
+#beta_logo img {
+    border: 0;
+}
 
 #header{
     /*background: url(/resources/images/bg_header.jpg);*/
@@ -99,10 +109,12 @@ h2.title {
     font-size: 2em;
     margin: 0;
 }
-#partners img{
+#partners img {
     max-height: 80px;
-    margin-right: 2%;
-    margin-left: 10%;
+}
+
+#partners img.spaced {
+    margin-right: 85px;
 }
 .content{
     width: 1050px;
@@ -124,7 +136,7 @@ h2.title {
 }
 
 #pdf_container {
-    margin-top: -18px;
+    margin-top: -40px;
     margin-bottom: -46px;
     text-align:center;
 }
@@ -134,6 +146,7 @@ h2.title {
     left: 0;
     margin-left: auto;
     margin-right: auto;
+    border: none;
 }
 
 /*************  Search Block ***********/

@@ -8,18 +8,11 @@
 <ui:composition template="/main.xhtml">
     <ui:define name="content">
         <div class="container">
-            <h2>Partners</h2>
             <div class="row">
                 <div class="col-sm-4">
-                    <h:graphicImage library="images" name="logos/icraf_logo.png" alt="ICRAF"/>
-                    <p>The World Agroforestry Centre (ICRAF) is a CGIAR Consortium Research Centre. ICRAF’s headquarters are in Nairobi, Kenya, with five regional offices located in Cameroon, India, Indonesia, Kenya and Peru. 
-                    </p>
-                    <p>The Centre’s <strong>vision</strong> is a rural transformation in the developing world as smallholder households strategically increase their use of trees in agricultural landscapes to improve their food security, nutrition, income, health, shelter, social cohesion, energy resources and environmental sustainability.</p>
-                    <p>The Centre’s <strong>mission</strong> is to generate science-based knowledge about the diverse roles that trees play in agricultural landscapes, and to use its research to advance policies and practices, and their implementation, that benefit the poor and the environment.
-                    </p>
-                </div>
-                <div class="col-sm-4">
-                    <h:graphicImage library="images" name="logos/ciat_logo.png" alt="CIAT"/>
+                    <h:outputLink value="http://ciat.cgiar.org/">
+                        <h:graphicImage library="images" name="logos/ciat_logo.png" alt="CIAT"/>
+                    </h:outputLink>
                     <p>CIAT has its headquarters near Cali, Colombia, with regional offices in Nairobi, Kenya, and Hanoi, Vietnam. Center scientists work in Latin America and the Caribbean as well as 29 countries in sub-Saharan Africa, and 5 in Southeast Asia. Their collaborative efforts in these regions have generated important research achievements with substantial development impact.
                     </p>
                     <p><strong>Eco-Efficiency Vision</strong><br />
@@ -30,12 +23,24 @@
                     </p>
                 </div>
                 <div class="col-sm-4">
-                    <h:graphicImage library="images" name="logos/ccafs_logo.png" alt="CCAFS"/>
+                    <h:outputLink value="http://ccafs.cgiar.org/">
+                        <h:graphicImage library="images" name="logos/ccafs_logo.png" alt="CCAFS"/>
+                    </h:outputLink>
                     <p>Led by the International Center for Tropical Agriculture (CIAT), The CGIAR Research Program on Climate Change, Agriculture and Food Security (CCAFS) is a collaboration among all 15 CGIAR research centers and coordinates with the other CGIAR research programs.
                     </p>
                     <p>CCAFS will address the increasing challenge of global warming and declining food security on agricultural practices, policies and measures through a strategic collaboration between CGIAR and Future Earth.
                     </p>
                     <p>CCAFS brings together the world's best researchers in agricultural science, climate science, environmental and social sciences to identify and address the most important interactions, synergies and trade-offs between climate change and agriculture. Learn more about our partners.
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <h:outputLink value="http://www.worldagroforestry.org/">
+                        <h:graphicImage library="images" name="logos/icraf_logo.png" alt="ICRAF"/>
+                    </h:outputLink>
+                    <p>The World Agroforestry Centre (ICRAF) is a CGIAR Consortium Research Centre. ICRAF’s headquarters are in Nairobi, Kenya, with five regional offices located in Cameroon, India, Indonesia, Kenya and Peru. 
+                    </p>
+                    <p>The Centre’s <strong>vision</strong> is a rural transformation in the developing world as smallholder households strategically increase their use of trees in agricultural landscapes to improve their food security, nutrition, income, health, shelter, social cohesion, energy resources and environmental sustainability.</p>
+                    <p>The Centre’s <strong>mission</strong> is to generate science-based knowledge about the diverse roles that trees play in agricultural landscapes, and to use its research to advance policies and practices, and their implementation, that benefit the poor and the environment.
                     </p>
                 </div>
             </div>
