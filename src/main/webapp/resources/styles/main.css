@@ -209,7 +209,7 @@ h2.title {
 }
 
 #filters-list select {
-    height: 276px;
+    height: 280px;
 }
 
 input.btn-search {
@@ -227,7 +227,7 @@ input.btn-search {
 }
 
 #search-results-table .practices {
-    width: 18%;
+    width: 20%;
     float: left;
     height: 100%;
     padding-left: 10px;
@@ -241,7 +241,7 @@ input.btn-search {
 }
 
 #search-results-table .indicator {
-    width: 8%;
+    width: 7%;
     float: left;
     text-align: center;
 }
@@ -291,7 +291,7 @@ input.btn-search {
     position: fixed;
     top: 160px;
     right: 46px;
-    width: 208px;
+    width: 290px;
     height: auto;
     padding: 0;
 }

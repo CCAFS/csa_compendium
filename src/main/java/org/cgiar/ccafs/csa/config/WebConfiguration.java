@@ -1,6 +1,5 @@
 package org.cgiar.ccafs.csa.config;
 
-//import com.sun.faces.config.ConfigureListener;
 import org.apache.myfaces.webapp.StartupServletContextListener;
 import org.cgiar.ccafs.csa.ViewScope;
 import org.h2.server.web.WebServlet;

@@ -54,56 +54,61 @@ public class SearchController implements Serializable {
     // Variables BLOCK
     private Region selectedRegion;
     private Country selectedCountry;
-    private List<Country> countries;
+    private List<Country> countryList;
     private FarmingSystem selectedFarmingSystem;
-    private List<FarmingSystem> farmingSystems;
+    private List<FarmingSystem> farmingSystemList;
 
     private Theme selectedTheme;
     private PracticeLevel selectedPracticeLevel;
-    private List<PracticeLevel> practiceLevels;
+    private List<PracticeLevel> practiceLevelList;
 
     private ProductionSystemCategory selectedProductionSystemCategory;
     private ProductionSystem selectedProductionSystem;
-    private List<ProductionSystem> productionSystems;
+    private List<ProductionSystem> productionSystemList;
 
     private ContextVariable selectedContextVariable;
     private ContextValue selectedContextValue;
-    private List<ContextValue> contextValues;
+    private List<ContextValue> contextValueList;
 
     private List<String> searchParams;
     // END Variables
 
     @PostConstruct
     public void init() {
+        countryList = new ArrayList<>();
+        farmingSystemList = new ArrayList<>();
+        practiceLevelList = new ArrayList<>();
+        productionSystemList = new ArrayList<>();
+        contextValueList = new ArrayList<>();
         searchParams = new ArrayList<>();
     }
 
     // BLOCK Parent Filters
-    public Iterable<Region> getRegions() {
+    public Iterable<Region> getRegionList() {
         return regionRepository.findAll();
     }
 
-    public Iterable<Theme> getThemes() {
+    public Iterable<Theme> getThemeList() {
         return themeRepository.findAll();
     }
 
-    public Iterable<ProductionSystemCategory> getProductionSystemCategories() {
+    public Iterable<ProductionSystemCategory> getProductionSystemCategoryList() {
         return productionSystemCategoryRepository.findAll();
     }
 
-    public Iterable<ContextVariable> getContextVariables() {
+    public Iterable<ContextVariable> getContextVariableList() {
         return contextVariableRepository.findAll();
     }
     // END Parent Filters
 
     // BLOCK Countries Filter
-    public List<Country> getCountries() {
-        return countries;
+    public List<Country> getCountryList() {
+        return countryList;
     }
 
     public void updateCountriesAndFarmingSystems(AjaxBehaviorEvent event) {
-        this.countries = countryRepository.findByRegion(selectedRegion);
-        this.farmingSystems = farmingSystemRepository.findByRegion(selectedRegion);
+        this.countryList = countryRepository.findByRegion(selectedRegion);
+        this.farmingSystemList = farmingSystemRepository.findByRegion(selectedRegion);
     }
 
     public String getSelectedRegionCode() {
@@ -124,8 +129,8 @@ public class SearchController implements Serializable {
     // END Countries Filter
 
     // BLOCK Farming Systems
-    public List<FarmingSystem> getFarmingSystems() {
-        return farmingSystems;
+    public List<FarmingSystem> getFarmingSystemList() {
+        return farmingSystemList;
     }
 
     public Integer getSelectedFarmingSystemId() {
@@ -139,12 +144,12 @@ public class SearchController implements Serializable {
     // END Farming Systems
 
     // BLOCK Practice Level Filter
-    public List<PracticeLevel> getPracticeLevels() {
-        return practiceLevels;
+    public List<PracticeLevel> getPracticeLevelList() {
+        return practiceLevelList;
     }
 
     public void updatePracticeLevels(AjaxBehaviorEvent event) {
-        this.practiceLevels = levelRepository.findByTheme(selectedTheme);
+        this.practiceLevelList = levelRepository.findByTheme(selectedTheme);
     }
 
     public Integer getSelectedThemeId() {
@@ -165,12 +170,12 @@ public class SearchController implements Serializable {
     // END Practice Level Filter
 
     // BLOCK Production System
-    public List<ProductionSystem> getProductionSystems() {
-        return productionSystems;
+    public List<ProductionSystem> getProductionSystemList() {
+        return productionSystemList;
     }
 
     public void updateProductionSystems(AjaxBehaviorEvent event) {
-        this.productionSystems = productionSystemRepository.findByCategory(selectedProductionSystemCategory);
+        this.productionSystemList = productionSystemRepository.findByCategory(selectedProductionSystemCategory);
     }
 
     public Integer getSelectedProductionSystemCategoryId() {
@@ -191,12 +196,12 @@ public class SearchController implements Serializable {
     // END Context Values Filter
 
     // BLOCK Context Values Filter
-    public List<ContextValue> getContextValues() {
-        return contextValues;
+    public List<ContextValue> getContextValueList() {
+        return contextValueList;
     }
 
     public void updateContextValues(AjaxBehaviorEvent event) {
-        this.contextValues = contextValueRepository.findByContextVariable(selectedContextVariable);
+        this.contextValueList = contextValueRepository.findByContextVariable(selectedContextVariable);
     }
 
     public Integer getSelectedContextVariableId() {
