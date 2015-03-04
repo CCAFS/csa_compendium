@@ -2,18 +2,18 @@
  * This is the Gradle build script.
  */
 
-description = "This is the CSA Prioritization Tool build file. It uses spring boot."
+description = 'This is the CSA Prioritization Tool build file. It uses spring boot.'
 
 buildscript {
     repositories {
         jcenter()
-        maven { url "http://repo.spring.io/libs-snapshot" } 
+        maven { url 'http://repo.spring.io/libs-snapshot' } 
     }
     dependencies {
         // Spring boot integration with gradle
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.1.RELEASE")
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE')
         // Plugin to reload changed classes with out restarting
-        classpath("org.springframework:springloaded:1.2.1.RELEASE")
+        classpath('org.springframework:springloaded:1.2.1.RELEASE')
     }
 }
 
@@ -27,6 +27,8 @@ war {
     destinationDir = file('webapps')
 }
 
+mainClassName = 'org.cgiar.ccafs.csa.CSAToolApplication'
+
 // Hopefully speeds up the process of searching for a proper main class
 bootRepackage {
     mainClass = 'org.cgiar.ccafs.csa.CSAToolApplication'
@@ -38,7 +40,7 @@ repositories {
     jcenter()
     maven {
         //This is not normally used as the local modified copy of this library is used
-        url "http://lightadmin.org/nexus/content/repositories/snapshots"
+        url 'http://lightadmin.org/nexus/content/repositories/snapshots'
     }    
 }
 
@@ -50,56 +52,58 @@ repositories {
 */
 dependencies {
 
-    compile "org.springframework.boot:spring-boot-starter:1.2.1.RELEASE"
+    compile 'org.springframework.boot:spring-boot-starter:1.2.2.RELEASE'
     
-    compile "org.springframework:spring-webmvc:4.1.4.RELEASE"
-    compile "org.springframework:spring-aspects:4.1.4.RELEASE"
-    compile "org.aspectj:aspectjweaver:1.8.4"
+    compile 'org.springframework:spring-webmvc:4.1.5.RELEASE'
+    compile 'org.springframework:spring-aspects:4.1.5.RELEASE'
+    compile 'org.aspectj:aspectjweaver:1.8.4'
 
     // Includes tomcat-embed-core, tomcat-embed-el, ecj
-    providedCompile "org.apache.tomcat.embed:tomcat-embed-jasper:8.0.18"
-    providedCompile "org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.18"
+    providedCompile 'org.apache.tomcat.embed:tomcat-embed-jasper:8.0.18'
+    providedCompile 'org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.18'
 
-    compile ("org.springframework.data:spring-data-jpa:1.7.2.RELEASE") {
-        exclude module: "aspectjrt"
+    compile ('org.springframework.data:spring-data-jpa:1.7.2.RELEASE') {
+        exclude module: 'aspectjrt'
     }
-    compile "org.springframework:spring-orm:4.1.4.RELEASE"
+    compile 'org.springframework:spring-orm:4.1.5.RELEASE'
     
-    compile "org.hibernate:hibernate-entitymanager:4.3.7.Final"
-    compile "org.hibernate:hibernate-validator:5.1.3.Final"
+    compile 'org.hibernate:hibernate-entitymanager:4.3.7.Final'
+    compile 'org.hibernate:hibernate-validator:5.1.3.Final'
 
     // Only needed for development and offline configurations
-    providedCompile "com.h2database:h2:1.4.185"
+    providedCompile 'com.h2database:h2:1.4.185'
 
     // Springloaded doesn't like Java 8 version.
     // On production, tomcat pool is used
-    providedRuntime "com.zaxxer:HikariCP-java6:2.2.5"
+    providedRuntime 'com.zaxxer:HikariCP-java6:2.2.5'
 
     // Production database driver is part of the container
-    providedRuntime "org.postgresql:postgresql:9.2-1004-jdbc41"
-    providedRuntime "mysql:mysql-connector-java:5.1.34"
+    providedRuntime 'org.postgresql:postgresql:9.2-1004-jdbc41'
+    providedRuntime 'mysql:mysql-connector-java:5.1.34'
     
     // This needs to remain 2.1.4 to make lightadmin to work 
-    compile "org.springframework.data:spring-data-rest-webmvc:2.1.4.RELEASE"
-	compile "com.fasterxml.jackson.core:jackson-databind:2.5.1"
+    compile 'org.springframework.data:spring-data-rest-webmvc:2.1.4.RELEASE'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
 	
     // For backend administration. Includes apache tiles
-    compile "org.lightadmin:lightadmin:1.1.0.BUILD-SNAPSHOT"
-    
-    // Includes Primefaces libraries
-    //compile "org.primefaces.extensions:primefaces-extensions:3.0.0"
-    //compile 'org.primefaces.extensions:master-pom:3.5.0'
-    compile "org.primefaces:primefaces:5.1"
-    
+    compile 'org.lightadmin:lightadmin:1.1.0.BUILD-SNAPSHOT'
+
     // Includes JSF libraries
-    compile "com.sun.faces:jsf-api:2.2.9"
-    compile "com.sun.faces:jsf-impl:2.2.9"
+    compile 'org.apache.myfaces.core:myfaces-api:2.2.7'
+    compile 'org.apache.myfaces.core:myfaces-impl:2.2.7'
+
+    // Includes Primefaces libraries
+    //compile 'org.primefaces.extensions:primefaces-extensions:3.0.0'
+    //compile 'org.primefaces.extensions:master-pom:3.5.0'
+    //compile 'org.primefaces:primefaces:5.1'
+
+    //compile 'de.beyondjava:angularFaces-core:2.1.2'
     
     // For testing
-    testCompile "org.springframework:spring-test:4.1.4.RELEASE"
-    testCompile "junit:junit:4.12"
-    testCompile "org.mockito:mockito-core:1.10.8"
-    testCompile "org.hamcrest:hamcrest-library:1.3"    
+    testCompile 'org.springframework:spring-test:4.1.5.RELEASE'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.8'
+    testCompile 'org.hamcrest:hamcrest-library:1.3'
         
 }
 
@@ -116,5 +120,5 @@ task wrapper(type: Wrapper) {
 */
 task deploy(type: Copy, dependsOn: 'war') {
      from 'webapps/ROOT.war'
-     into System.getenv("CATALINA_HOME") + '/webapps/'
+     into System.getenv('CATALINA_HOME') + '/webapps/'
  }

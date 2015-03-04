@@ -4,7 +4,7 @@ import org.cgiar.ccafs.csa.domain.MeasureUnit;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-@RepositoryRestResource(collectionResourceRel = "units", path = "units")
-public interface UnitRepository extends PagingAndSortingRepository<MeasureUnit, Integer> {
+@RepositoryRestResource(collectionResourceRel = "measure_units", path = "measure_units")
+public interface MeasureUnitRepository extends PagingAndSortingRepository<MeasureUnit, Integer> {
 
 }

@@ -52,6 +52,9 @@ public class CSAToolApplication extends SpringBootServletInitializer {
         // Check if the selected profile has been set as argument. If not, the development profile will be added
         app.setAdditionalProfiles(addDefaultProfile());
         ConfigurableApplicationContext context = app.run(args);
+        for (String name : context.getBeanDefinitionNames()) {
+           log.debug(name);
+        }
     }
 
     @Override

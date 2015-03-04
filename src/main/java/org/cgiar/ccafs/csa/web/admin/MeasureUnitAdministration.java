@@ -7,7 +7,7 @@ import org.lightadmin.api.config.builder.ScreenContextConfigurationUnitBuilder;
 import org.lightadmin.api.config.unit.EntityMetadataConfigurationUnit;
 import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
 
-public class UnitAdministration extends AdministrationConfiguration<MeasureUnit> {
+public class MeasureUnitAdministration extends AdministrationConfiguration<MeasureUnit> {
 
     @Override
     public ScreenContextConfigurationUnit screenContext(ScreenContextConfigurationUnitBuilder screenContextBuilder) {

@@ -41,14 +41,14 @@ public class ContextVariable extends AbstractInformationEntity {
 
     public ContextValue addContextValue(ContextValue contextValue) {
         getContextValues().add(contextValue);
-        contextValue.setContext(this);
+        contextValue.setContextVariable(this);
 
         return contextValue;
     }
 
     public ContextValue removeContextValue(ContextValue contextValue) {
         getContextValues().remove(contextValue);
-        contextValue.setContext(null);
+        contextValue.setContextVariable(null);
 
         return contextValue;
     }

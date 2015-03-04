@@ -18,5 +18,5 @@ spring:
     profiles:
         active: dev
     datasource:
-        initialize: true
+        initialize: false
         continueOnError: true

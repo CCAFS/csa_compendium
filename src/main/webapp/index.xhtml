@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html">
 
-<ui:composition template="/main.xhtml">
+<ui:composition template="main.xhtml">
     <ui:define name="content">
 
         <div id="slider-home">
@@ -14,172 +14,177 @@
         <div id="intro">
             <p>The Climate Smart Agriculture Decision (CSA) Support Platform was constructed to provide access to a broad database of CSA practices that have been tested around the world. This information is aimed at aiding endeavors such as identify what CSA options exist for different contexts and gaps in research. We welcome you to search our database and contribute your own information to the compendium. Our prioritization tool and complementary stakeholder engagement process were developed to identify best options for mainstreaming CSA. </p>
         </div>
-        <div id="search-block">
+        <div id="search-block" class="container">
             <h:form id="search_form">
-                <div class="keywords">
-                    <label for="keywords">Keywords: </label>
-                    <input type="text" name="" id="keywords" />
+                <fieldset>
+                <div id="keywords-row" class="row">
+                    <div class="col-xs-2">
+                        <h:outputLabel for="keywords" value="Search Keywords:" />
+                    </div>
+                    <div class="col-xs-10">
+                        <h:inputText id="keywords" />
+                    </div>
                 </div>
-                <div id="select-block-1" class="select-block">
 
-                    <!-- Region Inputs -->
-                    <h:outputLabel for="regionList" value="Region:" />
-                    <h:selectOneMenu id="regionList" label="Region" >
-                        <f:selectItem itemValue="#{null}" itemLabel="- All -" noSelectionOption="true"/>
-                        <f:selectItems value="#{searchController.regions}" var="region"
-                                       itemLabel="#{region.name}" itemValue="#{region.code}" />
-                    </h:selectOneMenu>
+                <h3>Advanced Filters</h3>
+                <p>Select parent attributes from left menus, and more specific ones from child menus next to them. Then, use the Add button to add them to the Search Filters list. You can remove already added filters by selecting them and pressing the remove button. Press the Search button when ready.</p>
+                <hr />
+                <div class="row">
+                    <div class="col-xs-7">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <!-- Region Inputs -->
+                                <h:outputLabel for="regionList" value="Region:" />
+                                <h:selectOneMenu id="regionList" value="#{searchController.selectedRegionCode}" label="Region" >
+                                    <f:selectItem itemValue="" itemLabel="--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{searchController.regions}" var="region"
+                                                   itemLabel="#{region.name}" itemValue="#{region.code}" />
+                                    <f:ajax listener="#{searchController.updateCountriesAndFarmingSystems}" render="countriesList farmingSystemsList"
+                                            onerror="logError" />
+                                </h:selectOneMenu>
+                            </div>
 
-                    <!-- Theme Inputs -->
-                    <h:outputLabel for="themeList" value="Practice Theme:" />
-                    <h:selectOneMenu id="themeList" label="Practice Theme">
-                        <f:selectItem itemValue="#{null}" itemLabel="- All -" noSelectionOption="true"/>
-                        <f:selectItems value="#{searchController.themes}" var="theme"
-                                       itemLabel="#{theme.name}" itemValue="#{theme.id}" />
-                    </h:selectOneMenu>
+                            <div class="col-xs-5">
+                                <!-- Country Inputs -->
+                                <h:outputLabel for="countriesList" value="Country:" />
+                                <h:selectOneMenu id="countriesList"
+                                                 value="#{searchController.selectedCountryCode}" label="Country">
+                                    <f:selectItem itemValue="" itemLabel="--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{searchController.countries}" var="country"
+                                                   itemLabel="#{country.name}" itemValue="#{country.code}" />
+                                </h:selectOneMenu>
 
-                    <!-- Category System Inputs -->
-                    <h:outputLabel for="categoryList" value="Production System Category:" />
-                    <h:selectOneMenu id="categoryList" label="Production System Category">
-                        <f:selectItem itemValue="#{null}" itemLabel="- All -" noSelectionOption="true"/>
-                        <f:selectItems value="#{searchController.productionSystemCategories}" var="category"
-                                       itemLabel="#{category.name}" itemValue="#{category.id}" />
-                    </h:selectOneMenu>
+                            </div>
 
-                    <!-- Filter Inputs -->
-                    <h:outputLabel for="contextVariableList" value="Context Variable:" />
-                    <h:selectOneMenu id="contextVariableList" label="Context Variable" value="#{searchController.selectedContextVariable}">
-                        <f:selectItems value="#{searchController.contextVariables}" var="contextVariable"
-                                       itemLabel="#{contextVariable.name}" itemValue="#{contextVariable.id}" />
-                        <f:ajax listener="#{searchController.updateContextValues}" render="contextValuesList" />
-                    </h:selectOneMenu>
+                            <div class="col-xs-2">
+                                <input id="btn-add-country" class="btn-add" type="button" value="Add" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="pull-right">
+                                    <h:outputLabel for="farmingSystemsList" value="Farming System:" />
+                                </div>
+                            </div>
 
+                            <div class="col-xs-5">
+                                <!-- Farming System Inputs -->
+                                <h:selectOneMenu id="farmingSystemsList" converter="javax.faces.Integer"
+                                                 value="#{searchController.selectedFarmingSystemId}" label="Farming System">
+                                    <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{searchController.farmingSystems}" var="farmingSystem"
+                                                   itemLabel="#{farmingSystem.name}" itemValue="#{farmingSystem.id}" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="col-xs-2">
+                                <input id="btn-add-farming-system" class="btn-add btn-short" type="button" value="Add" />
+                            </div>
+                        </div>
+                        <hr class="separator"/>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <!-- Theme Inputs -->
+                                <h:outputLabel for="themeList" value="Practice Theme:" />
+                                <h:selectOneMenu id="themeList" converter="javax.faces.Integer"
+                                                 value="#{searchController.selectedThemeId}"  label="Practice Theme">
+                                    <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{searchController.themes}" var="theme"
+                                                   itemLabel="#{theme.name}" itemValue="#{theme.id}" />
+                                    <f:ajax listener="#{searchController.updatePracticeLevels}" render="practiceLevelList" onerror="logError" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="col-xs-5">
+                                <!-- Practice Level Inputs -->
+                                <h:outputLabel for="practiceLevelList" value="Practive Level:" />
+                                <h:selectOneMenu id="practiceLevelList" converter="javax.faces.Integer"
+                                                 value="#{searchController.selectedPracticeLevelId}" label="Practive Level">
+                                    <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{searchController.practiceLevels}" var="level"
+                                                   itemLabel="#{level.name}" itemValue="#{level.id}" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="col-xs-2">
+                                <input id="btn-add-filter-value" class="btn-add" type="button" value="Add" />
+                            </div>
+                        </div>
+                        <hr class="separator"/>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <!-- Category System Inputs -->
+                                <h:outputLabel for="categoryList" value="Production System Category:" />
+                                <h:selectOneMenu id="categoryList" converter="javax.faces.Integer"
+                                                 value="#{searchController.selectedProductionSystemCategoryId}" label="Production System Category">
+                                    <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{searchController.productionSystemCategories}" var="category"
+                                                   itemLabel="#{category.name}" itemValue="#{category.id}" />
+                                    <f:ajax listener="#{searchController.updateProductionSystems}" render="productionSystemsList" onerror="logError" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="col-xs-5">
+                                <!-- Crops & Livestock Inputs -->
+                                <h:outputLabel for="productionSystemsList" value="Crops &amp; Livestock:" />
+                                <h:selectOneMenu id="productionSystemsList" converter="javax.faces.Integer"
+                                                 value="#{searchController.selectedProductionSystemId}" label="Crops &amp; Livestock">
+                                    <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{searchController.productionSystems}" var="productionSystem"
+                                                   itemLabel="#{productionSystem.name}" itemValue="#{productionSystem.id}" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="col-xs-2">
+                                <input id="btn-add-theme-level" class="btn-add" type="button" value="Add" />
+                            </div>
+                        </div>
+                        <hr class="separator"/>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <!-- Filter Inputs -->
+                                <h:outputLabel for="contextVariableList" value="Other Filters:" />
+                                <h:selectOneMenu id="contextVariableList" converter="javax.faces.Integer"
+                                                 value="#{searchController.selectedContextVariableId}" label="Other Filters">
+                                    <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{searchController.contextVariables}" var="contextVariable"
+                                                   itemLabel="#{contextVariable.name}" itemValue="#{contextVariable.id}" />
+                                    <f:ajax listener="#{searchController.updateContextValues}" render="contextValuesList" onerror="logError" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="col-xs-5">
+                                <!-- Context Variables Values Inputs -->
+                                <h:outputLabel for="contextValuesList" value="Matching Value:" />
+                                <h:selectOneMenu id="contextValuesList" converter="javax.faces.Integer"
+                                                 value="#{searchController.selectedContextValueId}" label="Matching Value">
+                                    <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{searchController.contextValues}" var="contextValue"
+                                                   itemLabel="#{contextValue.name}" itemValue="#{contextValue.id}" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="col-xs-2">
+                                <input id="btn-add-article-value" class="btn-add" type="button" value="Add" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div  id="filters-list" class="col-xs-5">
+                        <h:outputLabel for="searchParams" value="Search Filters:" />
+                        <h:selectManyListbox id="searchParams" value="#{searchController.searchParams}">
+                        </h:selectManyListbox>
+                        <input id="btn-remove-filter" class="btn-add" type="button" value="Remove Selected" />
+                        <div class="pull-right">
+                            <h:button styleClass="btn-search" value="Search Practices" onclick="window.location.href='practices.xhtml'"/>
+                        </div>
+
+                    </div>
                 </div>
-                <div id="select-block-2" class="select-block">
-
-
-                    <!-- Country Inputs -->
-                    <label for="country">Country: </label>
-                    <select id="country">
-                        <option value="" selected="selected">- All -</option>
-                        <option>Antigua</option>
-                        <option>Argentina</option>
-                        <option>Bahamas</option>
-                        <option>Barbados</option>
-                        <option>Belize</option>
-                        <option>Bermuda</option>
-                        <option>Bolivia</option>
-                        <option>Brazil</option>
-                        <option>Cayman Islands</option>
-                        <option>Chile</option>
-                        <option>Colombia</option>
-                        <option>Costa Rica</option>
-                        <option>Cuba</option>
-                        <option>Dominica</option>
-                        <option>Dominican Republic</option>
-                        <option>Ecuador</option>
-                        <option>El Salvador</option>
-                        <option>Grenada</option>
-                        <option>Guatemala</option>
-                        <option>Guyana</option>
-                        <option>Haiti</option>
-                        <option>Honduras</option>
-                        <option>Jamaica</option>
-                        <option>Mexico</option>
-                        <option>Netherlands Antilles</option>
-                        <option>Nicaragua</option>
-                        <option>Panama</option>
-                        <option>Paraguay</option>
-                        <option>Peru</option>
-                        <option>Saints Kitts and Nevis</option>
-                        <option>Saint Lucia</option>
-                        <option>Saint Vincent and Grenadines</option>
-                        <option>Suriname</option>
-                        <option>Trinidad and Tobago</option>
-                        <option>Uruguay</option>
-                        <option>Venezuela</option>
-                    </select>
-
-                    <!-- Theme Level Inputs -->
-                    <label for="theme-level">Practice Level:</label>
-                    <select id="theme-level">
-                        <option value="" selected="selected">- All -</option>
-                        <option>Crop Rotations</option>
-                        <option>Diversification</option>
-                        <option>Green Manures</option>
-                        <option>Inorganic inouts</option>
-                        <option>Mulching</option>
-                        <option>Small Scale Irrigation</option>
-                    </select>
-
-                    <!-- Crops & Livestock Inputs -->
-                    <label for="article-value">Crops and Livestock :</label>
-                    <select id="article-value">
-                        <option value="" selected="selected">- All -</option>
-                        <option value=""> Apples</option>
-                        <option value=""> Apricots</option>
-                        <option value=""> Avocados</option>
-                        <option value=""> Bananas</option>
-                        <option value=""> Cashew apple</option>
-                        <option value=""> Figs</option>
-                        <option value=""> Fruit, citrus (general/other)</option>
-                        <option value=""> Fruit (general/other)</option>
-                        <option value=""> Fruit, pome (general/other)</option>
-                        <option value=""> Grapefruit (inc. pomelos)</option>
-                        <option value=""> Grapes</option>
-                        <option value=""> Kiwi fruit</option>
-                        <option value=""> Lemons and limes</option>
-                        <option value=""> Mangoes, mangosteens, guavas</option>
-                        <option value=""> Melons, other (inc.cantaloupes)</option>
-                        <option value=""> Nectarines</option>
-                        <option value=""> Oranges</option>
-                        <option value=""> Papayas</option>
-                        <option value=""> Peach</option>
-                        <option value=""> Pears</option>
-                        <option value=""> Persimmons</option>
-                        <option value=""> Pineapples</option>
-                        <option value=""> Plantains</option>
-                        <option value=""> Plums and sloes</option>
-                        <option value=""> Quinces</option>
-                        <option value=""> Tangerines, mandarins, clementines, satsumas</option>
-                        <option value=""> Tomatoes</option>
-                        <option value=""> Watermelons</option>
-                        <option value=""> Yellow Passion fruit</option>
-                        <option value=""> Fruit trees (general)</option>
-                        <option value=""> Musklmelon</option>
-                        <option value=""> Pomegranate</option>
-                        <option value=""> Sapota</option>
-                        <option value=""> Peach-palm</option>
-                        <option value=""> Ber/Chinee Apple/Jujube/Indian plum/Masau</option>
-                        <option value=""> Cherry Tree</option>
-
-                    </select>
-
-                    <!-- Context Variables Values Inputs -->
-                    <h:outputLabel for="contextValuesList" value="Value:" />
-                    <h:selectOneMenu id="contextValuesList" label="Value">
-                        <f:selectItems value="#{searchController.contextValues}" var="contextValue"
-                                       itemLabel="#{contextValue.name}" itemValue="#{contextValue.id}" />
-                    </h:selectOneMenu>
-
-                </div>
-                <div id="select-block-3" class="select-block">
-
-                    <input id="btn-add-country" class="btn-add" type="button" value="Add" /><br/>
-                    <input id="btn-add-filter-value" class="btn-add" type="button" value="Add" /><br/>
-                    <input id="btn-add-theme-level" class="btn-add" type="button" value="Add" /><br/>
-                    <input id="btn-add-article-value" class="btn-add" type="button" value="Add" /><br/>
-
-                </div>
-                <div id="select-block-4" class="select-block">
-                    <label for="current-search">Current search:</label>
-                    <select id="current-search"> </select>
-                </div>
-                <div class="clearfix"></div>
-
-                <input id="btn-search" type="button" value="Search Practices" onclick="window.location.href='practices.xhtml'"/>
+                </fieldset>
             </h:form>
         </div>
+
     </ui:define>
 </ui:composition>
 </html>

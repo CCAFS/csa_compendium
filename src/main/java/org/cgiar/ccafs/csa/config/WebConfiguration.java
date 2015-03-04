@@ -1,6 +1,7 @@
 package org.cgiar.ccafs.csa.config;
 
-import com.sun.faces.config.ConfigureListener;
+//import com.sun.faces.config.ConfigureListener;
+import org.apache.myfaces.webapp.StartupServletContextListener;
 import org.cgiar.ccafs.csa.ViewScope;
 import org.h2.server.web.WebServlet;
 import org.lightadmin.api.config.LightAdmin;
@@ -26,7 +27,7 @@ import java.util.HashMap;
 
 /**
  * This class contains the configuration of the web components, including JSF,
- * LightAdmind and H2
+ * LightAdmin and H2
  */
 @Configuration
 public class WebConfiguration implements ServletContextInitializer {
@@ -49,7 +50,22 @@ public class WebConfiguration implements ServletContextInitializer {
             ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new WebServlet());
             h2ConsoleServlet.addMapping("/console/*");
             h2ConsoleServlet.setLoadOnStartup(1);
+
+            servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
+            servletContext.setInitParameter("javax.faces.SERIALIZE_SERVER_STATE", "true");
+            servletContext.setInitParameter("javax.faces.STATE_SAVING_METHOD", "server");
+            servletContext.setInitParameter("org.apache.myfaces.VIEWSTATE_JAVASCRIPT", "true");
+
+
+            /*servletContext.setInitParameter("javax.faces.FACELETS_DECORATORS",
+                    "de.beyondjava.angularFaces.core.tagTransformer.AngularTagDecorator");*/
+
+        } else {
+            servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Production");
+            servletContext.setInitParameter("javax.faces.FACELETS_SKIP_COMMENTS", "true");
         }
+
+        servletContext.setInitParameter("org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS", "false");
 
         LightAdmin.configure(servletContext)
                 .basePackage("org.cgiar.ccafs.csa.web.admin")
@@ -125,9 +141,9 @@ public class WebConfiguration implements ServletContextInitializer {
      *
      * @return A ConfigureListener for JSF events registration
      */
-    @Bean
-    public ServletListenerRegistrationBean<ConfigureListener> jsfConfigureListener() {
-        return new ServletListenerRegistrationBean<>(new ConfigureListener());
-    }
+    /*@Bean
+    public ServletListenerRegistrationBean<StartupServletContextListener> jsfConfigureListener() {
+        return new ServletListenerRegistrationBean<>();
+    }*/
 
 }

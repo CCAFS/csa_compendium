@@ -1,6 +1,6 @@
-package org.cgiar.ccafs.csa.web.extra_admin;
+package org.cgiar.ccafs.csa.web.admin;
 
-import org.cgiar.ccafs.csa.domain.Barrier;
+import org.cgiar.ccafs.csa.domain.ProductionSystemCategory;
 import org.lightadmin.api.config.AdministrationConfiguration;
 import org.lightadmin.api.config.builder.EntityMetadataConfigurationUnitBuilder;
 import org.lightadmin.api.config.builder.FieldSetConfigurationUnitBuilder;
@@ -12,19 +12,19 @@ import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
 
 import static org.cgiar.ccafs.csa.web.admin.AdministrationTemplates.*;
 
-public class BarrierAdministration extends AdministrationConfiguration<Barrier> {
+public class ProductionSystemCategoryAdministration extends AdministrationConfiguration<ProductionSystemCategory> {
 
     @Override
     public ScreenContextConfigurationUnit screenContext(ScreenContextConfigurationUnitBuilder screenContextBuilder) {
-        return screenContextBuilder.screenName("CSA Practices Adoption Barriers").build();
+        return screenContextBuilder.screenName("Production System Categories").build();
     }
 
     @Override
     public EntityMetadataConfigurationUnit configuration(EntityMetadataConfigurationUnitBuilder configurationBuilder) {
         return configurationBuilder
                 .nameField("name")
-                .pluralName("Practice Barriers")
-                .singularName("Barrier")
+                .pluralName("Production System Categories")
+                .singularName("Category")
                 .build();
     }
 
@@ -40,12 +40,12 @@ public class BarrierAdministration extends AdministrationConfiguration<Barrier> 
 
     @Override
     public FieldSetConfigurationUnit showView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-        return infoShowView(fragmentBuilder).build();
+        return infoShowView(fragmentBuilder).field("productionSystems").caption("Production Systems").build();
     }
 
     @Override
     public FieldSetConfigurationUnit formView(PersistentFieldSetConfigurationUnitBuilder fragmentBuilder) {
-        return infoFormView(fragmentBuilder).build();
+        return infoFormView(fragmentBuilder).field("productionSystems").caption("Production Systems").build();
     }
 
 }

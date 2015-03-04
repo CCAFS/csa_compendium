@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: YanoneKaffeesatz-Regular;
     src: url('/resources/fonts/YanoneKaffeesatz-Regular.woff2') format('woff2'), url('/resources/fonts/YanoneKaffeesatz-Regular.ttf') format('truetype');
@@ -9,7 +8,7 @@
     src: url('/resources/fonts/YanoneKaffeesatz-Light.woff2') format('woff2'), url('/resources/fonts/YanoneKaffeesatz-Light.ttf') format('truetype');
 }
 
-body{
+body {
     font-family: YanoneKaffeesatz-Ligtht, sans-serif;
     background: url("#{resource['images/bg_body.jpg']}");
     /*background: url(/resources/images/bg_body.jpg);*/
@@ -39,7 +38,7 @@ h2.title {
     border: 0;
 }
 
-#header{
+#header {
     /*background: url(/resources/images/bg_header.jpg);*/
     background: url("#{resource['images/bg_header.jpg']}");
     /* padding: 17px 0px 42px 0px; */;
@@ -47,7 +46,8 @@ h2.title {
     font-family: YanoneKaffeesatz-Regular, sans-serif;
 
 }
-#nav{
+
+#nav {
     width: 680px;
     background: #F5F5F5;
 
@@ -58,12 +58,14 @@ h2.title {
     font-size: 1.25em;
     color: #444;
 }
-#nav ul{
+
+#nav ul {
     padding: 10px;
     margin: 0;
     text-align: center;
 }
-#nav ul li{
+
+#nav ul li {
     list-style: none;
     display: inline;
     padding: 12px;
@@ -71,13 +73,13 @@ h2.title {
 }
 
 #header a {
-	text-decoration:none;
-	color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 #intro {
-   width: 830px;
-   margin: 0 auto;
+    width: 910px;
+    margin: 0 auto;
 }
 
 #footer {
@@ -85,7 +87,7 @@ h2.title {
     box-shadow: inset 0 2px 12px #1F1F1F;
 }
 
-#login{
+#login {
 
 }
 
@@ -100,15 +102,18 @@ h2.title {
     top: 0;
     right: 0;
 }
-#partners{
+
+#partners {
     text-align: center;
 }
+
 #partners p {
     color: #eee;
     font-weight: 600;
     font-size: 2em;
     margin: 0;
 }
+
 #partners img {
     max-height: 80px;
 }
@@ -116,17 +121,17 @@ h2.title {
 #partners img.spaced {
     margin-right: 85px;
 }
-.content{
+
+.content {
     width: 1050px;
     margin: 0 auto;
     position: relative;
     padding: 17px 0 42px 0;
 }
 
-.logo{
+.logo {
     margin-right: 5%;
 }
-
 
 /***************************  Home Page ************************/
 
@@ -138,7 +143,7 @@ h2.title {
 #pdf_container {
     margin-top: -40px;
     margin-bottom: -46px;
-    text-align:center;
+    text-align: center;
 }
 
 #pdf_container iframe {
@@ -152,14 +157,32 @@ h2.title {
 /*************  Search Block ***********/
 
 #search-block {
-    width: 800px;
-    border: 4px solid rgba(0,0,0,0.1);
+    width: 860px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
     padding: 1.4em;
     margin: 0 auto;
     background: #fff;
 }
 
-#search-block input[type=text], select{
+#keywords-row label {
+    margin-top: 8px;
+    font-size: 17px;
+}
+
+#search-block h3 {
+    border-bottom: 1px solid #ccc;
+}
+
+#search-block p {
+    font-size: 15px;
+}
+
+#search-block hr.separator {
+    border-top-color: #D5D3D3;
+    margin-top: 2px;
+}
+
+#search-block input[type=text], select {
     width: 100%;
     color: #444;
     margin: 4px 0 12px 0;
@@ -168,81 +191,63 @@ h2.title {
     box-shadow: inset 0 1px 3px #DDD;
 }
 
-
-.keywords {
-    width: 100%;
-    float: left;
-}
-
-.select-block {
-    width: 24%;
-    padding: 2%;
-    float: left;
-}
-
-#select-block-3 {
-    margin-top: 8px;
-    padding-left: 0;
-    width: 7%;
-}
-
-#select-block-4 {
-    width: 39%;
-    margin-left: 15px;
-}
-
-#select-block-3 input[type=button]{
+.btn-add {
     border: 0;
-     
     color: #fff;
-    background: #CBCBCB;
+    background: #5F5F64;
     padding: 2px 12px;
-    margin: 18px 0;
+    margin: 25px 0 18px 0;
     border-radius: 2px;
 }
 
-select#current-search {
-    width: 100%;
-    height: 100%;
+.btn-short {
+    margin: 2px 0 0 0;
 }
 
-#btn-search {
-background: #2F293D;
-border: 0;
-padding: 8px 26px;
-border-radius: 3px;
-color: #FFF;
+#btn-remove-filter {
+    margin: 8px 0 0 0;
 }
 
+#filters-list select {
+    height: 276px;
+}
+
+input.btn-search {
+    background: #2F293D;
+    border: 0;
+    padding: 8px 26px;
+    border-radius: 3px;
+    color: #FFF;
+}
 
 /****************   CSA Compendium search result  *****************/
 
-
 #search-results {
     font-size: 1.2em;
-} 
+}
 
 #search-results-table .practices {
     width: 18%;
     float: left;
     height: 100%;
-	padding-left: 10px;
-	padding-top: 1px;
+    padding-left: 10px;
+    padding-top: 1px;
 }
 
 #search-results-table .indicators {
     width: 80%;
-    float: left;   
-    height: 100%; 
+    float: left;
+    height: 100%;
 }
 
 #search-results-table .indicator {
     width: 8%;
-    float: left;  
+    float: left;
     text-align: center;
 }
+
 #search-results-table .table-head .indicator {
-    height: 30%; 
+    height: 30%;
 }
 
 #search-results-table .table-body .indicator {
@@ -250,7 +255,6 @@ color: #FFF;
     padding-top: 8px;
     height: 80%;
 }
-
 
 #search-results-table .table-body .practices {
     border-right: 1px solid #ccc;
@@ -268,9 +272,9 @@ color: #FFF;
 }
 
 #search-results-table .view {
-	width: 12%;
-	float: left;
-	height: 100vmax;
+    width: 12%;
+    float: left;
+    height: 100vmax;
 }
 
 #search-results-table .table-head {
@@ -282,14 +286,14 @@ color: #FFF;
 }
 
 #legend {
-	border: 4px solid #E95609;
-	background-color:#FFFFFF;
-	position: fixed;
+    border: 4px solid #E95609;
+    background-color: #FFFFFF;
+    position: fixed;
     top: 160px;
     right: 46px;
-	width: 208px;
-	height: auto;
-	padding: 0;
+    width: 208px;
+    height: auto;
+    padding: 0;
 }
 
 #legend .title {
@@ -299,22 +303,22 @@ color: #FFF;
 }
 
 #legend ul {
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 #legend li {
-	list-style: none;
-	height: 30px;
-	margin: 0 auto;
-	border-top: 1px solid #CCC;
+    list-style: none;
+    height: 30px;
+    margin: 0 auto;
+    border-top: 1px solid #CCC;
 }
 
 #legend .code {
     width: 20%;
     height: 30px;
-	border-right: 1px solid #CCC;
-	padding: 0 10px 0 10px;
+    border-right: 1px solid #CCC;
+    padding: 0 10px 0 10px;
     float: left;
 }
 
@@ -322,56 +326,48 @@ span.text {
     margin-left: 6px;
 }
 
-
-/***************************   Portfolio  ************************/
-
-#portfolio{
+.centered-block {
     text-align: center;
 }
-
 
 /********************************************************************************************/
 /*                                         CSS DETAILS                                      */
 /********************************************************************************************/
 
-
 /*     Box shadow effect 1       */
-.effect1
-{
-  position: relative;
-}
- 
-.effect1:before, .effect1:after
-{
-  z-index: -1;
-  position: absolute;
-  content: "";
-  bottom: 15px;
-  left: 10px;
-  width: 50%;
-  top: 80%;
-  max-width:300px;
-  background: #777;
-  -webkit-box-shadow: 0 15px 10px #777;
-  -moz-box-shadow: 0 15px 10px #777;
-  box-shadow: 0 15px 10px #777;
-  -webkit-transform: rotate(-3deg);
-  -moz-transform: rotate(-3deg);
-  -o-transform: rotate(-3deg);
-  -ms-transform: rotate(-3deg);
-  transform: rotate(-3deg);
-}
-.effect1:after
-{
-  -webkit-transform: rotate(3deg);
-  -moz-transform: rotate(3deg);
-  -o-transform: rotate(3deg);
-  -ms-transform: rotate(3deg);
-  transform: rotate(3deg);
-  right: 10px;
-  left: auto;
+.effect1 {
+    position: relative;
 }
 
+.effect1:before, .effect1:after {
+    z-index: -1;
+    position: absolute;
+    content: "";
+    bottom: 15px;
+    left: 10px;
+    width: 50%;
+    top: 80%;
+    max-width: 300px;
+    background: #777;
+    -webkit-box-shadow: 0 15px 10px #777;
+    -moz-box-shadow: 0 15px 10px #777;
+    box-shadow: 0 15px 10px #777;
+    -webkit-transform: rotate(-3deg);
+    -moz-transform: rotate(-3deg);
+    -o-transform: rotate(-3deg);
+    -ms-transform: rotate(-3deg);
+    transform: rotate(-3deg);
+}
+
+.effect1:after {
+    -webkit-transform: rotate(3deg);
+    -moz-transform: rotate(3deg);
+    -o-transform: rotate(3deg);
+    -ms-transform: rotate(3deg);
+    transform: rotate(3deg);
+    right: 10px;
+    left: auto;
+}
 
 /* Clear Fix */
 
@@ -382,14 +378,22 @@ span.text {
     content: " ";
     clear: both;
     height: 0;
-    }
-.clearfix { display: inline-table; }
+}
+
+.clearfix {
+    display: inline-table;
+}
+
 /* Hides from IE-mac \*/
-* html .clearfix { height: 1%; }
-.clearfix { display: block; }
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
+
 /* End hide from IE-mac */
-
-
 
 /*  Select2 Custom CSS  */
 
@@ -402,6 +406,6 @@ span.text {
     background: #FFF;
 }
 
-.select2-container-multi .select2-choices input{
+.select2-container-multi .select2-choices input {
     height: 185px;
 }

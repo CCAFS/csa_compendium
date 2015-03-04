@@ -15,5 +15,5 @@ spring:
         openInView: false
         show_sql: true
         hibernate:
-            ddl-auto: update
+            ddl-auto: none
             naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy

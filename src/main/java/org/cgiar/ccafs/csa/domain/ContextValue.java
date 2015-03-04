@@ -23,11 +23,11 @@ public class ContextValue extends AbstractInformationEntity {
         return this.id;
     }
 
-    public ContextVariable getContext() {
+    public ContextVariable getContextVariable() {
         return this.contextVariable;
     }
 
-    public void setContext(ContextVariable contextVariable) {
+    public void setContextVariable(ContextVariable contextVariable) {
         this.contextVariable = contextVariable;
     }
 }

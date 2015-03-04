@@ -26,29 +26,8 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-    <!-- Faces Servlet Mapping (NOT NEEDED)
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-
-    <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
-    </welcome-file-list>  -->
-
-    <!-- Faces Servlet Params -->
-    <context-param>
-        <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>javax.faces.SERIALIZE_SERVER_STATE</param-name>
-        <param-value>false</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-        <param-value>server</param-value>
-    </context-param>
 </web-app>

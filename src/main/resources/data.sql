@@ -9,11 +9,11 @@ INSERT INTO themes VALUES (5, 'E', NULL, NULL, 'Food/Energy Systems');
 -- 
 
 INSERT INTO levels VALUES (1, '1', NULL, NULL, 'Intercropping', 2);
-INSERT INTO levels VALUES (1, '1', NULL, NULL, 'Land restoration', 2);
-INSERT INTO levels VALUES (1, '1', NULL, NULL, 'Parklands', 2);
-INSERT INTO levels VALUES (1, '1', NULL, NULL, 'Boundary planting', 2);
-INSERT INTO levels VALUES (1, '1', NULL, NULL, 'Silvopasture', 2);
-INSERT INTO levels VALUES (1, '1', NULL, NULL, 'Multi-strata agroforestry', 2);
+INSERT INTO levels VALUES (2, '2', NULL, NULL, 'Land restoration', 2);
+INSERT INTO levels VALUES (3, '3', NULL, NULL, 'Parklands', 2);
+INSERT INTO levels VALUES (4, '4', NULL, NULL, 'Boundary planting', 2);
+INSERT INTO levels VALUES (5, '5', NULL, NULL, 'Silvopasture', 2);
+INSERT INTO levels VALUES (6, '6', NULL, NULL, 'Multi-strata agroforestry', 2);
 
 --
 
@@ -127,6 +127,8 @@ INSERT INTO farming_systems VALUES (72, 'f16', NULL, NULL, 'Urban based (not map
 INSERT INTO farming_systems VALUES (73, 'f17', NULL, NULL, 'Moist temperate mixed-forest', 'LAC');
 
 -- countries
+
+
 
 --
 
