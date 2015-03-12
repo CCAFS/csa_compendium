@@ -209,7 +209,7 @@ h2.title {
 }
 
 #filters-list select {
-    height: 280px;
+    height: 240px;
 }
 
 input.btn-search {
@@ -289,8 +289,8 @@ input.btn-search {
     border: 4px solid #E95609;
     background-color: #FFFFFF;
     position: fixed;
-    top: 160px;
-    right: 46px;
+    top: 88px;
+    right: 26px;
     width: 290px;
     height: auto;
     padding: 0;

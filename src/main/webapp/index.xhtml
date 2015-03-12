@@ -27,7 +27,8 @@
                 </div>
 
                 <h3>Advanced Filters</h3>
-                <p>Select parent attributes from left menus, and more specific ones from child menus next to them. Then, use the Add button to add them to the Search Filters list. You can remove already added filters by selecting them and pressing the remove button. Press the Search button when ready.</p>
+                <p>Select parent attributes from left menus, and more specific ones from child menus next to them. Then, use the Add button to add them to the Search Filters list. You can remove already added filters by selecting them and pressing the remove button. Press the Search button when ready.
+                    <strong>Notice: </strong> At this time we are displaying the filters that are being built into the database, but only a sample of results will be displayed regardless of filters selected at this time.</p>
                 <hr />
                 <div class="row">
                     <div class="col-xs-7">
@@ -141,6 +142,7 @@
                                        onclick="addSearchParameter('category', 'productionSystem', false)" />
                             </div>
                         </div>
+                        <ui:remove>
                         <hr class="separator"/>
                         <div class="row">
                             <div class="col-xs-5">
@@ -171,8 +173,9 @@
                                        onclick="addSearchParameter('contextVariable', 'contextValue', false)"/>
                             </div>
                         </div>
-
+                        </ui:remove>
                     </div>
+
                     <div  id="filters-list" class="col-xs-5">
                         <h:outputLabel for="searchParams" value="Search Filters:" />
                         <h:selectManyListbox id="searchParams" value="#{searchController.searchParams}">
