@@ -1,5 +1,6 @@
 package org.cgiar.ccafs.csa.config;
 
+import com.ocpsoft.pretty.PrettyFilter;
 import org.apache.myfaces.webapp.StartupServletContextListener;
 import org.cgiar.ccafs.csa.ViewScope;
 import org.h2.server.web.WebServlet;
@@ -9,19 +10,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
-import org.springframework.boot.context.embedded.MultipartConfigFactory;
-import org.springframework.boot.context.embedded.ServletContextInitializer;
-import org.springframework.boot.context.embedded.ServletListenerRegistrationBean;
-import org.springframework.boot.context.embedded.ServletRegistrationBean;
+import org.springframework.boot.context.embedded.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 import javax.faces.webapp.FacesServlet;
-import javax.servlet.MultipartConfigElement;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
+import javax.servlet.*;
 import java.util.HashMap;
 
 /**
@@ -51,19 +46,18 @@ public class WebConfiguration implements ServletContextInitializer {
             h2ConsoleServlet.setLoadOnStartup(1);
 
             servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
-            servletContext.setInitParameter("javax.faces.SERIALIZE_SERVER_STATE", "true");
-            servletContext.setInitParameter("javax.faces.STATE_SAVING_METHOD", "server");
-            servletContext.setInitParameter("org.apache.myfaces.VIEWSTATE_JAVASCRIPT", "true");
-
-
-            /*servletContext.setInitParameter("javax.faces.FACELETS_DECORATORS",
-                    "de.beyondjava.angularFaces.core.tagTransformer.AngularTagDecorator");*/
 
         } else {
             servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Production");
             servletContext.setInitParameter("javax.faces.FACELETS_SKIP_COMMENTS", "true");
         }
 
+        /*servletContext.setInitParameter("javax.faces.FACELETS_DECORATORS",
+                    "de.beyondjava.angularFaces.core.tagTransformer.AngularTagDecorator");*/
+
+        servletContext.setInitParameter("org.apache.myfaces.CACHE_EL_EXPRESSIONS", "alwaysRecompile");
+        servletContext.setInitParameter("javax.faces.SERIALIZE_SERVER_STATE", "true");
+        servletContext.setInitParameter("javax.faces.STATE_SAVING_METHOD", "server");
         servletContext.setInitParameter("org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS", "false");
 
         LightAdmin.configure(servletContext)
@@ -87,6 +81,19 @@ public class WebConfiguration implements ServletContextInitializer {
         factory.setMaxFileSize("1024KB");
         factory.setMaxRequestSize("1024KB");
         return factory.createMultipartConfig();
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Bean
+    public FilterRegistrationBean prettyFilter() {
+        FilterRegistrationBean prettyFilter = new FilterRegistrationBean(new PrettyFilter());
+        prettyFilter.setDispatcherTypes(DispatcherType.FORWARD, DispatcherType.REQUEST,
+                DispatcherType.ASYNC, DispatcherType.ERROR);
+        prettyFilter.addUrlPatterns("/*");
+        return prettyFilter;
     }
 
     ///// These methods set up the Faces Servlet for Spring Boot /////
