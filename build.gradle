@@ -98,12 +98,8 @@ dependencies {
     // Includes pretty faces for URL rewriting
     compile 'com.ocpsoft:prettyfaces-jsf2:3.3.3'
 
-
-    // Includes Primefaces libraries
-    //compile 'org.primefaces.extensions:primefaces-extensions:3.0.0'
-    //compile 'org.primefaces.extensions:master-pom:3.5.0'
-    //compile 'org.primefaces:primefaces:5.1'
-
+    // Rich Faces libraries
+    compile 'org.richfaces:richfaces:4.5.3.Final'
     //compile 'de.beyondjava:angularFaces-core:2.1.2'
     
     // For testing

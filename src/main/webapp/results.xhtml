@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/_main.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich">
+    <ui:define name="content">
+        <div class="container">
+            <div class="row">
+            <div class="col-lg-4 narrow">
+                <div>
+                    <div class="search-results">
+                        <ui:repeat var="numero" value="#{resultsController.items}">
+                            <rich:panel header="Article #{numero}">
+                                Article #{numero}
+                            </rich:panel>
+                        </ui:repeat>
+                    </div>
+                    <div class="centered-block">
+                        <input id="search-btn" class="btn-search" type="button" value="Start Prioritization"
+                               onclick="window.location.href='practices.xhtml'" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 narrow">
+                <iframe src="http://umap.openstreetmap.fr/es/map/compendium_23802#3/-15.96/13.80" height="560px" width="100%"></iframe>
+            </div>
+
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,5 +1,6 @@
 package org.cgiar.ccafs.csa.web;
 
+import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import org.cgiar.ccafs.csa.domain.*;
 import org.cgiar.ccafs.csa.repository.*;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.List;
 @RestController
 @ManagedBean
 @Scope("view")
+@URLMapping(id = "home", pattern = "/index.html", viewId = "/search.xhtml")
 public class SearchController implements Serializable {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -42,7 +45,7 @@ public class SearchController implements Serializable {
     private ProductionSystemCategoryRepository productionSystemCategoryRepository;
 
     @Autowired
-    private  ProductionSystemRepository productionSystemRepository;
+    private ProductionSystemRepository productionSystemRepository;
 
     @Autowired
     private ContextVariableRepository contextVariableRepository;
@@ -224,5 +227,16 @@ public class SearchController implements Serializable {
     // Search Params
     public List<String> getSearchParams() {
         return searchParams;
+    }
+
+    public void setSearchParams(List<String> searchParams) {
+        this.searchParams = searchParams;
+    }
+
+    public String performSearch() {
+        FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().forEach((key, value) -> {
+            log.info("Key: " + key + " Value: " + value);
+        });
+        return "results";
     }
 }

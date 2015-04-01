@@ -1,11 +1,10 @@
 package org.cgiar.ccafs.csa.config;
 
 import com.ocpsoft.pretty.PrettyFilter;
-import org.apache.myfaces.webapp.StartupServletContextListener;
-import org.cgiar.ccafs.csa.ViewScope;
 import org.h2.server.web.WebServlet;
 import org.lightadmin.api.config.LightAdmin;
 import org.lightadmin.core.config.LightAdminWebApplicationInitializer;
+import org.richfaces.webapp.ResourceServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,6 +138,27 @@ public class WebConfiguration implements ServletContextInitializer {
     public ServletRegistrationBean facesServletRegistration() {
         ServletRegistrationBean registration = new ServletRegistrationBean(facesServlet(), "*.xhtml");
         registration.setName("FacesServlet");
+        return registration;
+    }
+
+    /**
+     * @return An instance of a Servlet that handles Rich Faces Resources
+     */
+    @Bean
+    public ResourceServlet richFacesResourceServlet() {
+        return new ResourceServlet();
+    }
+
+    /**
+     * Registers Rich Faces resource handler
+     *
+     * @return The RegistrationBean for the Rich Faces Servlet
+     */
+    @Bean
+    public ServletRegistrationBean richFacesRegistration() {
+        ServletRegistrationBean registration = new ServletRegistrationBean(richFacesResourceServlet(),
+                "/org.richfaces.resources/*");
+        registration.setName("Rich Resource Servlet");
         return registration;
     }
 

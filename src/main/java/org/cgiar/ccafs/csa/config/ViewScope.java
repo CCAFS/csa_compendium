@@ -1,4 +1,4 @@
-package org.cgiar.ccafs.csa;
+package org.cgiar.ccafs.csa.config;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;

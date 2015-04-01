@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:h="http://java.sun.com/jsf/html">
 
 <h:head>
     <f:facet name="first">
@@ -28,7 +27,7 @@
 </h:head>
 
 <h:body>
-    <c:set var="root" value="#{request.requestURL.substring(0, request.requestURL.length() -
+    <f:param name="root" value="#{request.requestURL.substring(0, request.requestURL.length() -
         request.requestURI.length())}#{request.contextPath}" />
 
     <div id="beta_logo">
@@ -45,14 +44,17 @@
 
             <div id="nav">
                 <ul class="effect1">
-                    <li><h:outputLink value="index.xhtml">Home</h:outputLink></li>
+                    <li><h:outputLink value="index.html">Home</h:outputLink></li>
                     <li><h:outputLink value="about.xhtml">About us</h:outputLink></li>
                     <li><h:outputLink value="framework.xhtml">Prioritization Framework</h:outputLink></li>
                     <li>Compendium</li>
                     <li><h:outputLink
                             value="http://ccafs.cgiar.org/resources/tools-maps-models-and-data">Other Tools</h:outputLink>
                     </li>
-                    <li>Glossary</li>
+                    <li><h:outputLink
+                            value="http://ccafs.cgiar.org/research-highlight/new-latin-america-country-profiles-open-pathways-reaching-climate-smart#.VRRh6E2TqUm">Country Profiles</h:outputLink>
+                    </li>
+
                 </ul>
             </div>
         </div>

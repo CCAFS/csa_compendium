@@ -5,7 +5,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html">
 
-<ui:composition template="/main.xhtml">
+<ui:composition template="/_main.xhtml">
     <ui:define name="content">
         <div class="container">
             <div class="row">
@@ -21,9 +21,11 @@
                     </p>
                 </div>
                 <div class="col-sm-4">
-                    <h:outputLink value="http://ciat.cgiar.org/">
-                        <h:graphicImage library="images" name="logos/ciat_logo.png" alt="CIAT"/>
-                    </h:outputLink>
+                    <div class="centered-block">
+                        <h:outputLink value="http://ciat.cgiar.org/">
+                            <h:graphicImage library="images" name="logos/ciat_logo.png" alt="CIAT"/>
+                        </h:outputLink>
+                    </div>
                     <p>CIAT has its headquarters near Cali, Colombia, with regional offices in Nairobi, Kenya, and Hanoi, Vietnam. Center scientists work in Latin America and the Caribbean as well as 29 countries in sub-Saharan Africa, and 5 in Southeast Asia. Their collaborative efforts in these regions have generated important research achievements with substantial development impact.
                     </p>
                     <p><strong>Eco-Efficiency Vision</strong><br />
@@ -39,8 +41,10 @@
                     </h:outputLink>
                     <p>The World Agroforestry Centre (ICRAF) is a CGIAR Consortium Research Centre. ICRAF’s headquarters are in Nairobi, Kenya, with five regional offices located in Cameroon, India, Indonesia, Kenya and Peru. 
                     </p>
-                    <p>The Centre’s <strong>vision</strong> is a rural transformation in the developing world as smallholder households strategically increase their use of trees in agricultural landscapes to improve their food security, nutrition, income, health, shelter, social cohesion, energy resources and environmental sustainability.</p>
-                    <p>The Centre’s <strong>mission</strong> is to generate science-based knowledge about the diverse roles that trees play in agricultural landscapes, and to use its research to advance policies and practices, and their implementation, that benefit the poor and the environment.
+                    <p><strong>Vision</strong><br />
+                        The Centre’s vision is a rural transformation in the developing world as smallholder households strategically increase their use of trees in agricultural landscapes to improve their food security, nutrition, income, health, shelter, social cohesion, energy resources and environmental sustainability.</p>
+                    <p><strong>Mission</strong><br />
+                        The Centre’s mission is to generate science-based knowledge about the diverse roles that trees play in agricultural landscapes, and to use its research to advance policies and practices, and their implementation, that benefit the poor and the environment.
                     </p>
                 </div>
             </div>

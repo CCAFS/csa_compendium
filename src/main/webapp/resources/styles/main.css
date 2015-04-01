@@ -200,10 +200,6 @@ h2.title {
     border-radius: 2px;
 }
 
-.btn-short {
-    margin: 2px 0 0 0;
-}
-
 #btn-remove-filter {
     margin: 8px 0 0 0;
 }
@@ -408,4 +404,13 @@ span.text {
 
 .select2-container-multi .select2-choices input {
     height: 185px;
+}
+
+.search-results {
+    height: 520px;
+    overflow-y: auto;
+}
+
+.narrow {
+    padding-right: 0;
 }
