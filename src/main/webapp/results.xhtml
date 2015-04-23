@@ -1,33 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/_main.xhtml"
+<ui:composition template="_main.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:rich="http://richfaces.org/rich">
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="resources">
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+        <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    </ui:define>
+
     <ui:define name="content">
-        <div class="container">
-            <div class="row">
-            <div class="col-lg-4 narrow">
-                <div>
+        <b:container>
+            <b:row>
+                <b:column span="4">
                     <div class="search-results">
-                        <ui:repeat var="numero" value="#{resultsController.items}">
-                            <rich:panel header="Article #{numero}">
-                                Article #{numero}
-                            </rich:panel>
+                        <ui:repeat id="article" value="#{searchController.articles}" var="article">
+                            <b:panel id="panel">
+                                <f:facet name="heading">
+                                    <a href="javascript:highlightArticle('#{article.code}')">#{article.code}</a>
+                                </f:facet>
+
+                                <strong>Title: </strong> #{article.title} <br/>
+                                <strong>Year: </strong> #{article.publicationDate.year} <br/>
+
+                                <strong>Location: </strong> #{article.location.place}, #{article.location.country} <br/>
+                                <strong>Farming System: </strong> #{article.farmingSystem.name} <br/>
+
+                                <div id="details_panel_#{article.code}" class="details-panel">
+                                    <strong>Theme: </strong> #{article.practiceTheme.name}
+                                </div>
+
+                                <h6 class="hide">#{article.code}/#{article.location.latitude}/#{article.location.longitude}</h6>
+
+                                <f:facet name="footer">
+                                    <a id="details_link_#{article.code}"
+                                       href="javascript:toggleArticleDetails('#{article.code}')">Show Details</a>
+                                </f:facet>
+                            </b:panel>
                         </ui:repeat>
                     </div>
-                    <div class="centered-block">
+                    <div class="center-block" style="margin-top: 16px">
                         <input id="search-btn" class="btn-search" type="button" value="Start Prioritization"
-                               onclick="window.location.href='practices.xhtml'" />
+                               onclick="window.location.href='practices.xhtml'"/>
                     </div>
-                </div>
-            </div>
+                </b:column>
 
-            <div class="col-lg-8 narrow">
-                <iframe src="http://umap.openstreetmap.fr/es/map/compendium_23802#3/-15.96/13.80" height="560px" width="100%"></iframe>
-            </div>
+                <b:column span="8">
+                    <div id="map" style="height:660px"></div>
+                </b:column>
+            </b:row>
+        </b:container>
 
-            </div>
-        </div>
+        <script type="text/javascript">
+            $(function () { // Called when DOM is ready
+                loadMap('map', 'h6', '/');
+            });
+        </script>
     </ui:define>
 </ui:composition>

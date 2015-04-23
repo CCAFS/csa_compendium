@@ -8,8 +8,8 @@ import java.util.List;
  * The persistent class for the themes database table.
  */
 @Entity
-@Table(name = "themes")
-public class Theme extends AbstractInformationEntity {
+@Table(name = "practice_themes")
+public class PracticeTheme extends AbstractInformationEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -17,7 +17,7 @@ public class Theme extends AbstractInformationEntity {
     private Integer id;
 
     @OneToMany(mappedBy = "theme")
-    private List<PracticeLevel> practiceLevels;
+    private List<PracticeLevel> practiceLevels = new ArrayList<>();
 
     @Override
     public Integer getId() {
@@ -25,9 +25,6 @@ public class Theme extends AbstractInformationEntity {
     }
 
     public List<PracticeLevel> getPracticeLevels() {
-        if (this.practiceLevels == null) {
-            this.practiceLevels = new ArrayList<PracticeLevel>();
-        }
         return this.practiceLevels;
     }
 

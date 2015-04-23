@@ -3,60 +3,58 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
 
-<h:head>
-    <f:facet name="first">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<h:head lang="en">
 
-        <title>Climate Smart Agriculture (CSA) - Decision Support Platform</title>
-    </f:facet>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+    <title>Climate Smart Agriculture (CSA) - Decision Support Platform</title>
+
+    <ui:insert name="resources"/>
     <f:facet name="last">
-        <h:outputStylesheet name="bootstrap/css/bootstrap.css"/>
-        <h:outputStylesheet name="bootstrap/css/bootstrap-theme.css"/>
-        <h:outputStylesheet name="styles/main.css"/>
-
-        <h:outputScript name="scripts/jquery-1.11.2.js" target="body" />
-        <h:outputScript name="bootstrap/js/bootstrap.js" target="body"/>
-        <h:outputScript name="scripts/compendium.js" target="body"/>
-
+        <h:outputStylesheet name="css/main.css"/>
+        <h:outputScript name="js/compendium.js" target="head"/>
     </f:facet>
+
 </h:head>
 
 <h:body>
-    <f:param name="root" value="#{request.requestURL.substring(0, request.requestURL.length() -
-        request.requestURI.length())}#{request.contextPath}" />
-
-    <div id="beta_logo">
+    <div id="beta_logo" class="visible-lg">
         <h:graphicImage library="images" name="beta_site.png" alt="Beta Site"/>
     </div>
 
     <div id="header">
         <div class="content">
-            <div id="login">
-                <div class="button"><a href="/admin">Login</a></div>
-            </div>
+            <b:container>
+                <b:row>
+                    <b:column col-lg="3" col-md="3" col-sm="2" col-xs="5">
+                        <h:graphicImage library="images" name="logo.png" styleClass="img-responsive"
+                                        alt="Climate Smart Agriculture"/>
+                    </b:column>
 
-            <h:graphicImage library="images" name="logo.png" alt="Climate Smart Agriculture"/>
+                    <b:column col-lg="7" offset-lg="2" col-md="8" offset-md="1" col-sm="11" col-xs="6" offset-xs="1">
+                        <div id="login-button">
+                            <a href="/admin">Login</a>
+                        </div>
+                        <b:navBar id="nav" brand="Home" brandHref="index.html">
+                            <b:navbarLinks>
+                                <b:navLink value="Compendium" href="#"/>
+                                <b:navLink value="Prioritization Framework" href="framework.xhtml"/>
+                                <b:navLink value="Country Profiles"
+                                           href="http://ccafs.cgiar.org/research-highlight/new-latin-america-country-profiles-open-pathways-reaching-climate-smart#.VRRh6E2TqUm"/>
+                                <b:navLink value="Other Tools"
+                                           href="http://ccafs.cgiar.org/resources/tools-maps-models-and-data"/>
+                                <b:navLink value="About us" href="about.xhtml"/>
+                            </b:navbarLinks>
+                        </b:navBar>
+                    </b:column>
 
-            <div id="nav">
-                <ul class="effect1">
-                    <li><h:outputLink value="index.html">Home</h:outputLink></li>
-                    <li><h:outputLink value="about.xhtml">About us</h:outputLink></li>
-                    <li><h:outputLink value="framework.xhtml">Prioritization Framework</h:outputLink></li>
-                    <li>Compendium</li>
-                    <li><h:outputLink
-                            value="http://ccafs.cgiar.org/resources/tools-maps-models-and-data">Other Tools</h:outputLink>
-                    </li>
-                    <li><h:outputLink
-                            value="http://ccafs.cgiar.org/research-highlight/new-latin-america-country-profiles-open-pathways-reaching-climate-smart#.VRRh6E2TqUm">Country Profiles</h:outputLink>
-                    </li>
-
-                </ul>
-            </div>
+                </b:row>
+            </b:container>
         </div>
     </div>
 
@@ -66,17 +64,28 @@
 
     <div id="footer">
         <div class="content">
-            <div id="partners">
-                <h:outputLink value="http://ciat.cgiar.org/">
-                    <h:graphicImage class="spaced" library="images" name="logos/ciat.png" alt="CIAT"/>
-                </h:outputLink>
-                <h:outputLink value="http://ccafs.cgiar.org/">
-                    <h:graphicImage class="spaced" library="images" name="logos/ccafs.png" alt="CCAFS"/>
-                </h:outputLink>
-                <h:outputLink value="http://www.worldagroforestry.org/">
-                    <h:graphicImage library="images" name="logos/icraf.png" alt="ICRAF"/>
-                </h:outputLink>
-            </div>
+            <b:container>
+                <b:row id="partners">
+                    <b:column col-xs="4">
+                        <h:outputLink value="http://ccafs.cgiar.org/">
+                            <h:graphicImage library="images" name="logos/ccafs.png"
+                                            styleClass="img-responsive center-block" alt="CCAFS"/>
+                        </h:outputLink>
+                    </b:column>
+                    <b:column col-xs="4">
+                        <h:outputLink value="http://ciat.cgiar.org/">
+                            <h:graphicImage library="images" name="logos/ciat.png"
+                                            styleClass="img-responsive center-block" alt="CIAT"/>
+                        </h:outputLink>
+                    </b:column>
+                    <b:column col-xs="4">
+                        <h:outputLink value="http://www.worldagroforestry.org/">
+                            <h:graphicImage library="images" name="logos/icraf.png"
+                                            styleClass="img-responsive center-block" alt="ICRAF"/>
+                        </h:outputLink>
+                    </b:column>
+                </b:row>
+            </b:container>
         </div>
     </div>
 </h:body>

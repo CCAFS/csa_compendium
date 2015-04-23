@@ -71,4 +71,59 @@ public class Location {
         this.country = country;
     }
 
+    public void setLatitude(String latitude) {
+        setLatitude(convertCoordinate(latitude.trim(), "S"));
+    }
+
+    public void setLongitude(String longitude) {
+        setLongitude(convertCoordinate(longitude.trim(), "W"));
+    }
+
+    private float convertCoordinate(String coordinate, String negativeString) {
+
+        float[] members = new float[3];
+        char[] chars = coordinate.toCharArray();
+        boolean scanning = true;
+
+        int i, n, p = 0;
+        int total = 0;
+        while (scanning) {
+            boolean noDigits = false;
+            StringBuilder part = new StringBuilder();
+
+            for (i = 0, n = chars.length; i < n; i++) {
+                char c = chars[i];
+                if (Character.isDigit(c) || c == '.') {
+                    if (noDigits) break;
+                    part.append(c);
+                } else {
+                    noDigits = true;
+                }
+            }
+
+            String value = part.toString();
+            if (value.length() != 0 && p < 3) {
+                members[p++] = Float.valueOf(value);
+            }
+
+            total += i;
+            if (total < coordinate.length() - 1) {
+                chars = coordinate.substring(total).toCharArray();
+            } else {
+                scanning = false;
+            }
+        }
+
+        float degrees = members[0];
+        float minutes = members[1] / 60f;
+        float seconds = members[2] / 3600f;
+        degrees += minutes + seconds;
+
+        if (coordinate.endsWith(negativeString)) {
+            degrees *= -1;
+        }
+
+        return degrees;
+    }
+
 }

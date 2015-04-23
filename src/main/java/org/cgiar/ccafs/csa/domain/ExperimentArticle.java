@@ -20,7 +20,7 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 @Entity
 @Table(name = "experiment_articles")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "compendium", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name = "from_compendium", discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue(value = "1")
 public class ExperimentArticle implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -31,8 +31,10 @@ public class ExperimentArticle implements Serializable {
 
     private String code;
 
+    @Lob
     private String title;
 
+    @Lob
     private String outline;
 
     private String link;
@@ -43,15 +45,17 @@ public class ExperimentArticle implements Serializable {
     @JoinColumn(name = "farming_system_id")
     private FarmingSystem farmingSystem;
 
+    @Lob
     private String authors;
 
     @Transient
-    private List<String> authorsList;
+    private List<String> authorsList = new ArrayList<>();
 
+    @Lob
     private String contacts;
 
     @Transient
-    private List<String> contactsList;
+    private List<String> contactsList = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "language")
@@ -64,14 +68,14 @@ public class ExperimentArticle implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "theme_id")
-    private Theme theme;
+    private PracticeTheme practiceTheme;
 
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
 
     @OneToMany(mappedBy = "experimentArticle")
-    private List<InitialCondition> initialConditions;
+    private List<InitialCondition> initialConditions = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -83,7 +87,10 @@ public class ExperimentArticle implements Serializable {
             @JoinColumn(name = "context_value_id")
     }
     )
-    private List<ContextValue> contextValues;
+    private List<ContextValue> contextValues = new ArrayList<>();
+
+    @OneToMany(mappedBy = "experimentArticle")
+    private List<Treatment> treatments = new ArrayList<>();
 
     // Methods //
 
@@ -131,10 +138,27 @@ public class ExperimentArticle implements Serializable {
         this.farmingSystem = farmingSystem;
     }
 
+    public List<Treatment> getTreatments() {
+        return treatments;
+    }
+
+    public void setTreatments(List<Treatment> treatments) {
+        this.treatments = treatments;
+    }
+
+    public Treatment addTreatment(Treatment treatment) {
+        getTreatments().add(treatment);
+        treatment.setExperiment(this);
+        return treatment;
+    }
+
+    public Treatment removeTreatment(Treatment treatment) {
+        getTreatments().remove(treatment);
+        treatment.setExperiment(null);
+        return treatment;
+    }
+
     public List<String> getAuthorsList() {
-        if (this.authorsList == null) {
-            this.authorsList = new ArrayList<>();
-        }
         return this.authorsList;
     }
 
@@ -143,9 +167,6 @@ public class ExperimentArticle implements Serializable {
     }
 
     public List<String> getContactsList() {
-        if (this.contactsList == null) {
-            this.contactsList = new ArrayList<>();
-        }
         return this.contactsList;
     }
 
@@ -181,12 +202,12 @@ public class ExperimentArticle implements Serializable {
         this.publicationDate = publicationDate.toDate();
     }
 
-    public Theme getTheme() {
-        return theme;
+    public PracticeTheme getPracticeTheme() {
+        return practiceTheme;
     }
 
-    public void setTheme(Theme theme) {
-        this.theme = theme;
+    public void setPracticeTheme(PracticeTheme practiceTheme) {
+        this.practiceTheme = practiceTheme;
     }
 
     public Location getLocation() {
@@ -208,14 +229,12 @@ public class ExperimentArticle implements Serializable {
     public InitialCondition addInitialCondition(InitialCondition initialCondition) {
         getInitialConditions().add(initialCondition);
         initialCondition.setExperiment(this);
-
         return initialCondition;
     }
 
     public InitialCondition removeInitialCondition(InitialCondition initialCondition) {
         getInitialConditions().remove(initialCondition);
         initialCondition.setExperiment(null);
-
         return initialCondition;
     }
 

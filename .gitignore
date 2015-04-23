@@ -12,12 +12,6 @@ extra/
 build/
 .gradle/
 .idea/
-.metadata/
-.settings/
-.classpath
-.project
-.springBeans
-gradle-app.setting
-.nb-gradle-properties
+**/classes/
 *.iml
-.nb-gradle/
+

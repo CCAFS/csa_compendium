@@ -24,30 +24,30 @@ public class PracticeLevelAdministration extends AdministrationConfiguration<Pra
 
     @Override
     public FieldSetConfigurationUnit listView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-        fragmentBuilder.field("theme").caption("Theme");
+        fragmentBuilder.field("theme").caption("Practice Theme");
         return infoListView(fragmentBuilder).build();
     }
 
     @Override
     public FieldSetConfigurationUnit quickView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-        fragmentBuilder.field("theme").caption("Theme");
+        fragmentBuilder.field("theme").caption("Practice Theme");
         return infoListView(fragmentBuilder).build();
     }
 
     @Override
     public FieldSetConfigurationUnit showView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-        fragmentBuilder.field("theme").caption("Theme");
+        fragmentBuilder.field("theme").caption("Practice Theme");
         return infoShowView(fragmentBuilder).field("practices").caption("Practices").build();
     }
 
     @Override
     public FieldSetConfigurationUnit formView(PersistentFieldSetConfigurationUnitBuilder fragmentBuilder) {
-        return infoFormView(fragmentBuilder).field("theme").caption("Theme").build();
+        return infoFormView(fragmentBuilder).field("theme").caption("Practice Theme").build();
     }
 
     @Override
     public FiltersConfigurationUnit filters(FiltersConfigurationUnitBuilder filterBuilder) {
-        return filterBuilder.filter("Theme", "theme").build();
+        return filterBuilder.filter("Practice Theme", "theme").build();
     }
 
 }

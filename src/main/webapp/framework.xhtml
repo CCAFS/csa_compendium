@@ -2,16 +2,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
 
 <ui:composition template="/_main.xhtml">
     <ui:define name="content">
-        <div id="pdf_container">
-            <!--<iframe src="https://docs.google.com/viewer?srcid=0B-KjpJ1P3MVcZFVLYXZzUHRWZjg&amp;pid=explorer&amp;efh=false&amp;a=v&amp;chrome=false&amp;embedded=true"
-                    width="870px" height="600px"></iframe>-->
+        <b:container>
+            <div id="pdf_container" class="center-block">
+                <!--<iframe src="https://docs.google.com/viewer?srcid=0B-KjpJ1P3MVcZFVLYXZzUHRWZjg&amp;pid=explorer&amp;efh=false&amp;a=v&amp;chrome=false&amp;embedded=true"
+                        width="870px" height="600px"></iframe>-->
 
-            <iframe src="#{resource['downloads/CSA-PF.pdf']}" width="1050px" height="742px"></iframe>
-        </div>
+                <iframe scrolling="no" src="#{resource['downloads/CSA-PF.pdf']}" width="100%" height="752px"></iframe>
+            </div>
+        </b:container>
     </ui:define>
 </ui:composition>
 </html>

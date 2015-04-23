@@ -2,6 +2,7 @@ package org.cgiar.ccafs.csa.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class Treatment implements Serializable {
             @JoinColumn(name = "production_system_id")
     }
     )
-    private List<ProductionSystem> productionSystems;
+    private List<ProductionSystem> productionSystems = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "practice_id")
@@ -47,7 +48,7 @@ public class Treatment implements Serializable {
     private ExperimentArticle experimentArticle;
 
     @OneToMany(mappedBy = "treatment")
-    private List<Outcome> outcomes;
+    private List<TreatmentOutcome> outcomes = new ArrayList<>();
 
     public Integer getId() {
         return this.id;
@@ -77,8 +78,18 @@ public class Treatment implements Serializable {
         this.control = control;
     }
 
-    public List<ProductionSystem> getAgriculturalResources() {
+    public List<ProductionSystem> getProductionSystems() {
         return productionSystems;
+    }
+
+    public ProductionSystem addProductionSystem(ProductionSystem productionSystem) {
+        getProductionSystems().add(productionSystem);
+        return productionSystem;
+    }
+
+    public ProductionSystem removeOutcome(ProductionSystem productionSystem) {
+        getProductionSystems().remove(productionSystem);
+        return productionSystem;
     }
 
     public Practice getPractice() {
@@ -97,18 +108,18 @@ public class Treatment implements Serializable {
         this.experimentArticle = experimentArticle;
     }
 
-    public List<Outcome> getOutcomes() {
+    public List<TreatmentOutcome> getOutcomes() {
         return this.outcomes;
     }
 
-    public Outcome addOutcome(Outcome outcome) {
+    public TreatmentOutcome addOutcome(TreatmentOutcome outcome) {
         getOutcomes().add(outcome);
         outcome.setTreatment(this);
 
         return outcome;
     }
 
-    public Outcome removeOutcome(Outcome outcome) {
+    public TreatmentOutcome removeOutcome(TreatmentOutcome outcome) {
         getOutcomes().remove(outcome);
         outcome.setTreatment(null);
 

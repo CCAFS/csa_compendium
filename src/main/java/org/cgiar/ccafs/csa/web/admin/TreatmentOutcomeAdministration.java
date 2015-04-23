@@ -1,6 +1,6 @@
 package org.cgiar.ccafs.csa.web.admin;
 
-import org.cgiar.ccafs.csa.domain.Outcome;
+import org.cgiar.ccafs.csa.domain.TreatmentOutcome;
 import org.lightadmin.api.config.AdministrationConfiguration;
 import org.lightadmin.api.config.builder.EntityMetadataConfigurationUnitBuilder;
 import org.lightadmin.api.config.builder.FieldSetConfigurationUnitBuilder;
@@ -10,7 +10,7 @@ import org.lightadmin.api.config.unit.EntityMetadataConfigurationUnit;
 import org.lightadmin.api.config.unit.FieldSetConfigurationUnit;
 import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
 
-public class OutcomeAdministration extends AdministrationConfiguration<Outcome> {
+public class TreatmentOutcomeAdministration extends AdministrationConfiguration<TreatmentOutcome> {
 
     @Override
     public ScreenContextConfigurationUnit screenContext(ScreenContextConfigurationUnitBuilder screenContextBuilder) {

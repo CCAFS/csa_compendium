@@ -1,6 +1,7 @@
 package org.cgiar.ccafs.csa.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "indicators")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "compendium", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name = "from_compendium", discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue(value = "1")
 public class Indicator extends AbstractInformationEntity {
     private static final long serialVersionUID = 1L;
@@ -19,7 +20,9 @@ public class Indicator extends AbstractInformationEntity {
     private Integer id;
 
     @OneToMany(mappedBy = "indicator")
-    private List<IndicatorPillar> pillars;
+    private List<IndicatorPillar> pillars = new ArrayList<>();
+
+    private String category;
 
     @Override
     public Integer getId() {
@@ -42,5 +45,13 @@ public class Indicator extends AbstractInformationEntity {
         pillar.setIndicator(null);
 
         return pillar;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

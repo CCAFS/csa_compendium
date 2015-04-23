@@ -39,16 +39,17 @@ public class WebConfiguration implements ServletContextInitializer {
     public void onStartup(ServletContext servletContext) throws ServletException {
 
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
-            log.debug("Initialize H2 console");
             ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new WebServlet());
             h2ConsoleServlet.addMapping("/console/*");
             h2ConsoleServlet.setLoadOnStartup(1);
+            log.info("Initialize H2 console");
 
             servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
 
         } else {
             servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Production");
             servletContext.setInitParameter("javax.faces.FACELETS_SKIP_COMMENTS", "true");
+            servletContext.setInitParameter("org.richfaces.resourceOptimization.enabled", "true");
         }
 
         /*servletContext.setInitParameter("javax.faces.FACELETS_DECORATORS",
@@ -59,12 +60,15 @@ public class WebConfiguration implements ServletContextInitializer {
         servletContext.setInitParameter("javax.faces.STATE_SAVING_METHOD", "server");
         servletContext.setInitParameter("org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS", "false");
 
+        servletContext.setInitParameter("org.richfaces.enableControlSkinning", "false");
+        servletContext.setInitParameter("org.richfaces.SKIN", "plain");
+
         LightAdmin.configure(servletContext)
                 .basePackage("org.cgiar.ccafs.csa.web.admin")
                 .baseUrl("/admin")
                 .security(false)
-                .backToSiteUrl("/")
-                .helpUrl("/");
+                .backToSiteUrl("/index.html")
+                .helpUrl("/index.html");
 
         new LightAdminWebApplicationInitializer().onStartup(servletContext);
     }
@@ -77,8 +81,8 @@ public class WebConfiguration implements ServletContextInitializer {
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
-        factory.setMaxFileSize("1024KB");
-        factory.setMaxRequestSize("1024KB");
+        factory.setMaxFileSize("16MB");
+        factory.setMaxRequestSize("16MB");
         return factory.createMultipartConfig();
     }
 

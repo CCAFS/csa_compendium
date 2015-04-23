@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "csa.tmp-path",
+      "type": "java.lang.String",
+      "description": "Location of temporary files"
+    }
+  ]
+}

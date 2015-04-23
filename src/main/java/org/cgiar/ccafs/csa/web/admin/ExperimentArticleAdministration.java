@@ -32,7 +32,7 @@ public class ExperimentArticleAdministration extends AdministrationConfiguration
                 .field("id").caption("ID")
                 .field("title").caption("Title")
                 .field("publicationDate").caption("Publication Date")
-                .field("theme").caption("Theme")
+                .field("practiceTheme").caption("Practice Theme")
                 .build();
     }
 
@@ -42,7 +42,7 @@ public class ExperimentArticleAdministration extends AdministrationConfiguration
                 .field("title").caption("Title")
                 .field("code").caption("Code")
                 .field("publicationDate").caption("Publication Date")
-                .field("theme").caption("Theme")
+                .field("practiceTheme").caption("Practice Theme")
                 .field("farmingSystem").caption("Farming System")
                 .field("language").caption("Language")
                 .field("authors").caption("Authors")
@@ -56,7 +56,7 @@ public class ExperimentArticleAdministration extends AdministrationConfiguration
                 .field("outline").caption("Outline")
                 .field("code").caption("Code")
                 .field("publicationDate").caption("Publication Date")
-                .field("theme").caption("Theme")
+                .field("practiceTheme").caption("Practice Theme")
                 .field("farmingSystem").caption("Farming System")
                 .field("language").caption("Language")
                 .field("authors").caption("Authors")
@@ -73,7 +73,7 @@ public class ExperimentArticleAdministration extends AdministrationConfiguration
                 .field("outline").caption("Outline").editor(textArea())
                 .field("code").caption("Code")
                 .field("publicationDate").caption("Publication Date")
-                .field("theme").caption("Theme")
+                .field("practiceTheme").caption("Practice Theme")
                 .field("farmingSystem").caption("Farming System")
                 .field("language").caption("Language")
                 .field("authors").caption("Authors")

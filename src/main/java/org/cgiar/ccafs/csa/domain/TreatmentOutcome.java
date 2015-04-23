@@ -14,8 +14,8 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
  * The persistent class for the outcomes database table.
  */
 @Entity
-@Table(name = "outcomes")
-public class Outcome implements Serializable {
+@Table(name = "treatment_outcomes")
+public class TreatmentOutcome implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

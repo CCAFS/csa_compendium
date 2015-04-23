@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "barriers")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "compendium", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name = "from_compendium", discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue(value = "1")
 public class Barrier extends AbstractInformationEntity {
     private static final long serialVersionUID = 1L;

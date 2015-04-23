@@ -15,11 +15,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @ManagedBean
-@Scope("view")
+@Scope("session")
 @URLMapping(id = "home", pattern = "/index.html", viewId = "/search.xhtml")
 public class SearchController implements Serializable {
 
@@ -36,7 +38,7 @@ public class SearchController implements Serializable {
     private FarmingSystemRepository farmingSystemRepository;
 
     @Autowired
-    private ThemeRepository themeRepository;
+    private PracticeThemeRepository practiceThemeRepository;
 
     @Autowired
     private PracticeLevelRepository levelRepository;
@@ -52,6 +54,9 @@ public class SearchController implements Serializable {
 
     @Autowired
     private ContextValueRepository contextValueRepository;
+
+    @Autowired
+    private ExperimentArticleRepository experimentArticleRepository;
     // END Repositories
 
     // Variables BLOCK
@@ -61,7 +66,7 @@ public class SearchController implements Serializable {
     private FarmingSystem selectedFarmingSystem;
     private List<FarmingSystem> farmingSystemList;
 
-    private Theme selectedTheme;
+    private PracticeTheme selectedPracticeTheme;
     private PracticeLevel selectedPracticeLevel;
     private List<PracticeLevel> practiceLevelList;
 
@@ -73,7 +78,8 @@ public class SearchController implements Serializable {
     private ContextValue selectedContextValue;
     private List<ContextValue> contextValueList;
 
-    private List<String> searchParams;
+    private Set<ExperimentArticle> articles;
+    private String searchParams;
     // END Variables
 
     @PostConstruct
@@ -83,7 +89,7 @@ public class SearchController implements Serializable {
         practiceLevelList = new ArrayList<>();
         productionSystemList = new ArrayList<>();
         contextValueList = new ArrayList<>();
-        searchParams = new ArrayList<>();
+        articles = new LinkedHashSet<>();
     }
 
     // BLOCK Parent Filters
@@ -91,8 +97,8 @@ public class SearchController implements Serializable {
         return regionRepository.findAll();
     }
 
-    public Iterable<Theme> getThemeList() {
-        return themeRepository.findAll();
+    public Iterable<PracticeTheme> getThemeList() {
+        return practiceThemeRepository.findAll();
     }
 
     public Iterable<ProductionSystemCategory> getProductionSystemCategoryList() {
@@ -152,15 +158,15 @@ public class SearchController implements Serializable {
     }
 
     public void updatePracticeLevels(AjaxBehaviorEvent event) {
-        this.practiceLevelList = levelRepository.findByTheme(selectedTheme);
+        this.practiceLevelList = levelRepository.findByTheme(selectedPracticeTheme);
     }
 
     public Integer getSelectedThemeId() {
-        return selectedTheme != null ? selectedTheme.getId() : null;
+        return selectedPracticeTheme != null ? selectedPracticeTheme.getId() : null;
     }
 
     public void setSelectedThemeId(Integer selectedThemeId) {
-        this.selectedTheme = themeRepository.findOne(selectedThemeId);
+        this.selectedPracticeTheme = practiceThemeRepository.findOne(selectedThemeId);
     }
 
     public Integer getSelectedPracticeLevelId() {
@@ -225,18 +231,51 @@ public class SearchController implements Serializable {
     // END Context Values Filter
 
     // Search Params
-    public List<String> getSearchParams() {
+
+    public String getSearchParams() {
         return searchParams;
     }
 
-    public void setSearchParams(List<String> searchParams) {
+    public void setSearchParams(String searchParams) {
         this.searchParams = searchParams;
     }
 
+    public Set<ExperimentArticle> getArticles() {
+        return articles;
+    }
+
     public String performSearch() {
-        FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().forEach((key, value) -> {
+        searchParams = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("search:filters");
+
+                /*forEach((key, value) -> {
             log.info("Key: " + key + " Value: " + value);
-        });
+        });*/
+
+        //log.info("Params: " + searchParams);
+        String[] parameterList = searchParams.split(",|:");
+        int numParams = parameterList.length / 2;
+
+        for (int i = 0; i < numParams; i += 2) {
+            if ("region".equals(parameterList[i])) {
+                articles.addAll(experimentArticleRepository.findByLocationCountryRegionCode(parameterList[i + 1]));
+            }
+
+            if ("country".equals(parameterList[i])) {
+                articles.addAll(experimentArticleRepository.findByLocationCountryCode(parameterList[i + 1]));
+            }
+
+            if ("farmingSystem".equals(parameterList[i])) {
+                articles.addAll(experimentArticleRepository.findByFarmingSystemId(
+                        Integer.valueOf(parameterList[i + 1])));
+            }
+
+            if ("theme".equals(parameterList[i])) {
+                articles.addAll(experimentArticleRepository.findByPracticeThemeId(
+                        Integer.valueOf(parameterList[i + 1])));
+            }
+        }
+
+        //articles.addAll(experimentArticleRepository.findByLocationCountryName("Kenya"));
         return "results";
     }
 }

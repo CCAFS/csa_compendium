@@ -1,6 +1,7 @@
 package org.cgiar.ccafs.csa.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,7 +21,7 @@ public class ContextVariable extends AbstractInformationEntity {
     private ContextVariableScope scope;
 
     @OneToMany(mappedBy = "contextVariable")
-    private List<ContextValue> contextValues;
+    private List<ContextValue> contextValues = new ArrayList<>();
 
     @Override
     public Integer getId() {

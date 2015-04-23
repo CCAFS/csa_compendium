@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "synergies")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "compendium", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name = "from_compendium", discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue(value = "1")
 public class Synergy implements Serializable {
     private static final long serialVersionUID = 1L;

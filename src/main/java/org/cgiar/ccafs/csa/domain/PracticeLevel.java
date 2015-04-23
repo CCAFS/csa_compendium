@@ -8,7 +8,7 @@ import java.util.List;
  * The persistent class for the levels database table.
  */
 @Entity
-@Table(name = "levels")
+@Table(name = "practice_levels")
 public class PracticeLevel extends AbstractInformationEntity {
     private static final long serialVersionUID = 1L;
 
@@ -18,7 +18,7 @@ public class PracticeLevel extends AbstractInformationEntity {
 
     @ManyToOne
     @JoinColumn(name = "theme_id")
-    private Theme theme;
+    private PracticeTheme theme;
 
     @OneToMany(mappedBy = "practiceLevel")
     private List<Practice> practices;
@@ -28,11 +28,11 @@ public class PracticeLevel extends AbstractInformationEntity {
         return this.id;
     }
 
-    public Theme getTheme() {
+    public PracticeTheme getTheme() {
         return theme;
     }
 
-    public void setTheme(Theme theme) {
+    public void setTheme(PracticeTheme theme) {
         this.theme = theme;
     }
 

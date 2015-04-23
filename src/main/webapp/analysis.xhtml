@@ -2,14 +2,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
 
 <ui:composition template="/_main.xhtml">
     <ui:define name="content">
-        <div class="centered-block">
+        <b:container styleClass="center-block">
             <img src="/resources/images/screenshots/analysis.png" height="753" width="986" alt=""/>
-        </div>
-        <div class="pull-right"><input class="btn-search" type="button" value="Continue" onClick="window.location.href='prioritization.xhtml'"/></div>
+            <div class="pull-right"><input class="btn-search" type="button" value="Continue" onClick="window.location.href='prioritization.xhtml'"/></div>
+        </b:container>>
+
     </ui:define>
 </ui:composition>
 </html>

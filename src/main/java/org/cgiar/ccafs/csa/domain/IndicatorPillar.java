@@ -19,11 +19,18 @@ public class IndicatorPillar implements Serializable {
     @Enumerated(EnumType.STRING)
     private Pillar pillar;
 
-    private float weight;
+    private float weight = 1.0f;
 
     @ManyToOne
     @JoinColumn(name = "indicator_id")
     private Indicator indicator;
+
+    public IndicatorPillar() {}
+
+    public IndicatorPillar(Pillar pillar, float weight) {
+        this.pillar = pillar;
+        this.weight = weight;
+    }
 
     public Integer getId() {
         return this.id;

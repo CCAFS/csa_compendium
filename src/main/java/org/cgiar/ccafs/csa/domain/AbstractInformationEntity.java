@@ -15,6 +15,7 @@ public abstract class AbstractInformationEntity implements Serializable {
 
     private String name;
 
+    @Lob
     private String description;
 
     @Lob

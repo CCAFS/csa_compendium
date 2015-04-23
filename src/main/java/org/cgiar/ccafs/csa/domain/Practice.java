@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "practices")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "compendium", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name = "from_compendium", discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue(value = "1")
 public class Practice extends AbstractInformationEntity implements ContextualizedEntity {
     private static final long serialVersionUID = 1L;
@@ -31,11 +31,11 @@ public class Practice extends AbstractInformationEntity implements Contextualize
     private List<Treatment> treatments;
 
     @ManyToOne
-    @JoinColumn(name = "level")
+    @JoinColumn(name = "level_id")
     private PracticeLevel practiceLevel;
 
     @OneToMany(mappedBy = "mainPractice")
-    private List<Synergy> synergies;
+    private List<Synergy> synergies = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -47,7 +47,7 @@ public class Practice extends AbstractInformationEntity implements Contextualize
             @JoinColumn(name = "context_value_id")
     }
     )
-    private List<ContextValue> contextValues;
+    private List<ContextValue> contextValues = new ArrayList<>();
 
     @Override
     public Integer getId() {
