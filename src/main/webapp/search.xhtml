@@ -3,8 +3,11 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:b="http://bootsfaces.net/ui"
-        >
+                xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:define name="resources">
+        <h:outputScript name="js/compendium-search.js" target="head"/>
+    </ui:define>
 
     <ui:define name="content">
 
