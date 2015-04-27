@@ -79,7 +79,6 @@ public class SearchController implements Serializable {
     private List<ContextValue> contextValueList;
 
     private Set<ExperimentArticle> articles;
-    private String searchParams;
     // END Variables
 
     @PostConstruct

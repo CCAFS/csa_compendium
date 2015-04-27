@@ -249,10 +249,6 @@ public class DataExtractorController {
             Practice newPractice = new Practice();
             newPractice.setCode(practiceCode);
             newPractice.setName(practiceName);
-
-            if (practiceDescription.length() > 255) {
-                newPractice.setDocumentation(practiceDescription);
-            } else {
                 newPractice.setDescription(practiceDescription);
             }
 
