@@ -142,7 +142,8 @@ public class DataExtractorController {
         Location location = new Location();
         Treatment treatment = new Treatment();
 
-        loop: for (Row row : sheet) {
+        loop:
+        for (Row row : sheet) {
             Cell cell = row.getCell(0);
             if (cell == null || cell.getCellType() != Cell.CELL_TYPE_STRING) continue;
 
@@ -151,36 +152,44 @@ public class DataExtractorController {
             if (cell == null) continue;
 
             switch (info) {
-                case "ID" :
-                    article.setCode(getCellStringValue(cell)); break;
-                case "Theme" :
-                    article.setPracticeTheme(practiceThemeRepository.findByCode(getCellStringValue(cell))); break;
-                case "Title" :
+                case "ID":
+                    article.setCode(getCellStringValue(cell));
+                    break;
+                case "Theme":
+                    article.setPracticeTheme(practiceThemeRepository.findByCode(getCellStringValue(cell)));
+                    break;
+                case "Title":
                     article.setTitle(cell.getStringCellValue());
-                case "Author" :
+                case "Author":
                     article.addAuthor(cell.getStringCellValue());
-                case "Year" :
+                case "Year":
                     if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
                         article.setPublicationDate(new LocalDate((int) Math.round(cell.getNumericCellValue()), 1, 1));
                     }
                     break;
-                case "Country" :
-                    location.setCountry(countryRepository.findByName(cell.getStringCellValue())); break;
-                case "City" :
-                    location.setPlace(cell.getStringCellValue()); break;
-                case "Latitude" :
+                case "Country":
+                    location.setCountry(countryRepository.findByName(cell.getStringCellValue()));
+                    break;
+                case "City":
+                    location.setPlace(cell.getStringCellValue());
+                    break;
+                case "Latitude":
                     // If no Latitude, try google maps
-                    location.setLatitude(cell.getStringCellValue()); break;
-                case "Longitude" :
+                    location.setLatitude(cell.getStringCellValue());
+                    break;
+                case "Longitude":
                     location.setLongitude(cell.getStringCellValue());
-                case "Altitude" :
+                case "Altitude":
                     if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                        location.setAltitude(Double.valueOf(cell.getNumericCellValue()).floatValue()); break;
+                        location.setAltitude(Double.valueOf(cell.getNumericCellValue()).floatValue());
+                        break;
                     }
-                case "Experimental unit" :
-                    treatment.addProductionSystem(productionSystemRepository.findByCode(getCellStringValue(cell))); break;
-                case "Farming system FAO" :
-                    article.setFarmingSystem(farmingSystemRepository.findByCode(getCellStringValue(cell))); break;
+                case "Experimental unit":
+                    treatment.addProductionSystem(productionSystemRepository.findByCode(getCellStringValue(cell)));
+                    break;
+                case "Farming system FAO":
+                    article.setFarmingSystem(farmingSystemRepository.findByCode(getCellStringValue(cell)));
+                    break;
                 default:
                     if (row.getCell(1) != null && "PracticeCode".equals(getCellStringValue(row.getCell(1)))) {
                         treatment.setPractice(practiceRepository.findByCode(getCellStringValue(cell)));
@@ -249,13 +258,12 @@ public class DataExtractorController {
             Practice newPractice = new Practice();
             newPractice.setCode(practiceCode);
             newPractice.setName(practiceName);
-                newPractice.setDescription(practiceDescription);
-            }
-
+            newPractice.setDescription(practiceDescription);
             newPractice.setPracticeLevel(level);
             practiceRepository.save(newPractice);
         }
     }
+
 
     private void extractIndicatorsInformation(XSSFSheet sheet) {
         for (Row row : sheet) {

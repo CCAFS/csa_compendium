@@ -229,28 +229,12 @@ public class SearchController implements Serializable {
     }
     // END Context Values Filter
 
-    // Search Params
-
-    public String getSearchParams() {
-        return searchParams;
-    }
-
-    public void setSearchParams(String searchParams) {
-        this.searchParams = searchParams;
-    }
-
     public Set<ExperimentArticle> getArticles() {
         return articles;
     }
 
     public String performSearch() {
-        searchParams = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("search:filters");
-
-                /*forEach((key, value) -> {
-            log.info("Key: " + key + " Value: " + value);
-        });*/
-
-        //log.info("Params: " + searchParams);
+        String searchParams = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("search:filters");
         String[] parameterList = searchParams.split(",|:");
         int numParams = parameterList.length / 2;
 
