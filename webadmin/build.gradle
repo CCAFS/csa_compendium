@@ -1,0 +1,53 @@
+/**
+ * This is the Gradle build script for the admin part.
+ */
+
+description = 'This is the CSA Prioritization Tool Administration build file. It uses LightAdmin'
+
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'http://repo.spring.io/plugins-release' }
+    }
+    dependencies {
+        // Spring boot integration with gradle
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE')
+    }
+}
+
+// Includes java plugin
+apply plugin: 'war'
+
+war {
+    archiveName = 'webadmin.war'
+    destinationDir = file('../webapps')
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://lightadmin.org/nexus/content/repositories/snapshots'
+    }
+}
+
+dependencies {
+
+    providedCompile project(':domain')
+
+    compile 'org.lightadmin:lightadmin:1.1.0.BUILD-SNAPSHOT'
+
+    providedCompile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
+    providedCompile 'org.springframework:spring-aspects:4.1.6.RELEASE'
+    providedCompile 'org.springframework.data:spring-data-jpa:1.7.2.RELEASE'
+    providedCompile 'org.springframework:spring-orm:4.1.6.RELEASE'
+
+    providedCompile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
+
+    providedCompile 'org.apache.tomcat.embed:tomcat-embed-jasper:8.0.21'
+
+    providedCompile 'org.hibernate:hibernate-entitymanager:4.3.8.Final'
+    providedCompile 'org.hibernate:hibernate-validator:5.1.3.Final'
+
+    providedCompile 'org.javassist:javassist:3.18.2-GA'
+    providedCompile 'com.google.guava:guava:18.0'
+}

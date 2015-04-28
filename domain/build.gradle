@@ -1,0 +1,9 @@
+
+apply plugin: 'java'
+
+dependencies {
+    compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
+    compile 'joda-time:joda-time:2.3'
+    compile 'org.apache.commons:commons-lang3:3.3.2'
+    compile 'org.springframework:spring-context:4.1.6.RELEASE'
+}
