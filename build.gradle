@@ -82,8 +82,8 @@ dependencies {
     // For excel parsing
     compile 'org.apache.poi:poi-ooxml:3.11'
 
-    // Springloaded doesn't like Java 8 version. On production, tomcat pool is used however
-    //providedRuntime 'com.zaxxer:HikariCP-java6:2.3.5'
+    // Springloaded doesn't like Java 8 version.
+    compile 'com.zaxxer:HikariCP-java6:2.3.7'
 
     // Database drivers are part of the container
     providedRuntime 'org.postgresql:postgresql:9.2-1004-jdbc41'
