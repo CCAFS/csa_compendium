@@ -1,6 +1,6 @@
-package org.cgiar.ccafs.csa.admin;
+package org.cgiar.ccafs.csa.web.admin;
 
-import org.cgiar.ccafs.csa.domain.ProductionSystemCategory;
+import org.cgiar.ccafs.csa.domain.Indicator;
 import org.lightadmin.api.config.AdministrationConfiguration;
 import org.lightadmin.api.config.builder.EntityMetadataConfigurationUnitBuilder;
 import org.lightadmin.api.config.builder.FieldSetConfigurationUnitBuilder;
@@ -10,42 +10,39 @@ import org.lightadmin.api.config.unit.EntityMetadataConfigurationUnit;
 import org.lightadmin.api.config.unit.FieldSetConfigurationUnit;
 import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
 
-import static org.cgiar.ccafs.csa.admin.AdministrationTemplates.*;
-
-public class ProductionSystemCategoryAdministration extends AdministrationConfiguration<ProductionSystemCategory> {
+public class IndicatorAdministration extends AdministrationConfiguration<Indicator> {
 
     @Override
     public ScreenContextConfigurationUnit screenContext(ScreenContextConfigurationUnitBuilder screenContextBuilder) {
-        return screenContextBuilder.screenName("Production System Categories").build();
+        return screenContextBuilder.screenName("Outcomes Indicators").build();
     }
 
     @Override
     public EntityMetadataConfigurationUnit configuration(EntityMetadataConfigurationUnitBuilder configurationBuilder) {
         return configurationBuilder
                 .nameField("name")
-                .pluralName("Production System Categories")
-                .singularName("Category")
+                .pluralName("Indicators")
+                .singularName("Indicator")
                 .build();
     }
 
     @Override
     public FieldSetConfigurationUnit listView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-        return infoListView(fragmentBuilder).build();
+        return AdministrationTemplates.infoListView(fragmentBuilder).build();
     }
 
     @Override
     public FieldSetConfigurationUnit quickView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-        return infoQuickView(fragmentBuilder).build();
+        return AdministrationTemplates.infoQuickView(fragmentBuilder).build();
     }
 
     @Override
     public FieldSetConfigurationUnit showView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-        return infoShowView(fragmentBuilder).field("productionSystems").caption("Production Systems").build();
+        return AdministrationTemplates.infoShowView(fragmentBuilder).build();
     }
 
     @Override
     public FieldSetConfigurationUnit formView(PersistentFieldSetConfigurationUnitBuilder fragmentBuilder) {
-        return infoFormView(fragmentBuilder).field("productionSystems").caption("Production Systems").build();
+        return AdministrationTemplates.infoFormView(fragmentBuilder, true).build();
     }
-
 }

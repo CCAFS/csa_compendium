@@ -1,4 +1,4 @@
-package org.cgiar.ccafs.csa.admin;
+package org.cgiar.ccafs.csa.web.admin;
 
 import org.cgiar.ccafs.csa.domain.Location;
 import org.lightadmin.api.config.AdministrationConfiguration;

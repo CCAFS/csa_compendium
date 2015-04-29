@@ -1,4 +1,4 @@
-package org.cgiar.ccafs.csa.admin;
+package org.cgiar.ccafs.csa.web.admin;
 
 import org.cgiar.ccafs.csa.domain.Practice;
 import org.lightadmin.api.config.AdministrationConfiguration;
@@ -7,8 +7,6 @@ import org.lightadmin.api.config.unit.EntityMetadataConfigurationUnit;
 import org.lightadmin.api.config.unit.FieldSetConfigurationUnit;
 import org.lightadmin.api.config.unit.FiltersConfigurationUnit;
 import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
-
-import static org.cgiar.ccafs.csa.admin.AdministrationTemplates.*;
 
 public class PracticeAdministration extends AdministrationConfiguration<Practice> {
 
@@ -29,13 +27,13 @@ public class PracticeAdministration extends AdministrationConfiguration<Practice
     @Override
     public FieldSetConfigurationUnit listView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         fragmentBuilder.field("practiceLevel").caption("Level");
-        return infoListView(fragmentBuilder).build();
+        return AdministrationTemplates.infoListView(fragmentBuilder).build();
     }
 
     @Override
     public FieldSetConfigurationUnit quickView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         fragmentBuilder.field("practiceLevel").caption("Level");
-        return infoQuickView(fragmentBuilder).
+        return AdministrationTemplates.infoQuickView(fragmentBuilder).
                 field("tags").caption("Tags").
                 build();
     }
@@ -43,7 +41,7 @@ public class PracticeAdministration extends AdministrationConfiguration<Practice
     @Override
     public FieldSetConfigurationUnit showView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         fragmentBuilder.field("practiceLevel").caption("Level");
-        return infoShowView(fragmentBuilder).
+        return AdministrationTemplates.infoShowView(fragmentBuilder).
                 field("tags").caption("Tags").
                 field("contextValues").caption("Context Values").
                 //field("dimensions").caption("Dimensions").
@@ -55,7 +53,7 @@ public class PracticeAdministration extends AdministrationConfiguration<Practice
     @Override
     public FieldSetConfigurationUnit formView(PersistentFieldSetConfigurationUnitBuilder fragmentBuilder) {
         fragmentBuilder.field("practiceLevel").caption("Level");
-        return infoFormView(fragmentBuilder).
+        return AdministrationTemplates.infoFormView(fragmentBuilder).
                 field("tags").caption("Tags").
                 field("contextValues").caption("Context Values").
                 //field("dimensions").caption("Dimensions").

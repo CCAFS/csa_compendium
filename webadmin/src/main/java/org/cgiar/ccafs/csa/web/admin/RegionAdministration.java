@@ -1,32 +1,25 @@
-package org.cgiar.ccafs.csa.admin;
+package org.cgiar.ccafs.csa.web.admin;
 
-import org.cgiar.ccafs.csa.domain.Country;
+import org.cgiar.ccafs.csa.domain.Region;
 import org.lightadmin.api.config.AdministrationConfiguration;
 import org.lightadmin.api.config.builder.EntityMetadataConfigurationUnitBuilder;
-import org.lightadmin.api.config.builder.FiltersConfigurationUnitBuilder;
 import org.lightadmin.api.config.builder.ScreenContextConfigurationUnitBuilder;
 import org.lightadmin.api.config.unit.EntityMetadataConfigurationUnit;
-import org.lightadmin.api.config.unit.FiltersConfigurationUnit;
 import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
 
-public class CountryAdministration extends AdministrationConfiguration<Country> {
+public class RegionAdministration extends AdministrationConfiguration<Region> {
 
     @Override
     public ScreenContextConfigurationUnit screenContext(ScreenContextConfigurationUnitBuilder screenContextBuilder) {
-        return screenContextBuilder.screenName("Countries belonging to the 6 Developing Regions").build();
+        return screenContextBuilder.screenName("Developing Geographical Regions of the World").build();
     }
 
     @Override
     public EntityMetadataConfigurationUnit configuration(EntityMetadataConfigurationUnitBuilder configurationBuilder) {
         return configurationBuilder
                 .nameField("name")
-                .pluralName("Countries")
-                .singularName("Country")
+                .pluralName("Developing Regions")
+                .singularName("Region")
                 .build();
-    }
-
-    @Override
-    public FiltersConfigurationUnit filters(FiltersConfigurationUnitBuilder filterBuilder) {
-        return filterBuilder.filter("Region", "region").build();
     }
 }

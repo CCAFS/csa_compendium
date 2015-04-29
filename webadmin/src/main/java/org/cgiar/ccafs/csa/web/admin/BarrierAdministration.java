@@ -1,4 +1,4 @@
-package org.cgiar.ccafs.csa.admin;
+package org.cgiar.ccafs.csa.web.admin;
 
 import org.cgiar.ccafs.csa.domain.Barrier;
 import org.lightadmin.api.config.AdministrationConfiguration;
@@ -9,8 +9,6 @@ import org.lightadmin.api.config.builder.ScreenContextConfigurationUnitBuilder;
 import org.lightadmin.api.config.unit.EntityMetadataConfigurationUnit;
 import org.lightadmin.api.config.unit.FieldSetConfigurationUnit;
 import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
-
-import static org.cgiar.ccafs.csa.admin.AdministrationTemplates.*;
 
 public class BarrierAdministration extends AdministrationConfiguration<Barrier> {
 
@@ -30,22 +28,22 @@ public class BarrierAdministration extends AdministrationConfiguration<Barrier> 
 
     @Override
     public FieldSetConfigurationUnit listView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-        return infoListView(fragmentBuilder).build();
+        return AdministrationTemplates.infoListView(fragmentBuilder).build();
     }
 
     @Override
     public FieldSetConfigurationUnit quickView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-        return infoQuickView(fragmentBuilder).build();
+        return AdministrationTemplates.infoQuickView(fragmentBuilder).build();
     }
 
     @Override
     public FieldSetConfigurationUnit showView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-        return infoShowView(fragmentBuilder).build();
+        return AdministrationTemplates.infoShowView(fragmentBuilder).build();
     }
 
     @Override
     public FieldSetConfigurationUnit formView(PersistentFieldSetConfigurationUnitBuilder fragmentBuilder) {
-        return infoFormView(fragmentBuilder).build();
+        return AdministrationTemplates.infoFormView(fragmentBuilder).build();
     }
 
 }

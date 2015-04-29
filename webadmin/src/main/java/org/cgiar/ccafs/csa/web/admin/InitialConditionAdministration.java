@@ -1,6 +1,6 @@
-package org.cgiar.ccafs.csa.admin;
+package org.cgiar.ccafs.csa.web.admin;
 
-import org.cgiar.ccafs.csa.domain.TreatmentOutcome;
+import org.cgiar.ccafs.csa.domain.InitialCondition;
 import org.lightadmin.api.config.AdministrationConfiguration;
 import org.lightadmin.api.config.builder.EntityMetadataConfigurationUnitBuilder;
 import org.lightadmin.api.config.builder.FieldSetConfigurationUnitBuilder;
@@ -10,77 +10,63 @@ import org.lightadmin.api.config.unit.EntityMetadataConfigurationUnit;
 import org.lightadmin.api.config.unit.FieldSetConfigurationUnit;
 import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
 
-public class TreatmentOutcomeAdministration extends AdministrationConfiguration<TreatmentOutcome> {
+public class InitialConditionAdministration extends AdministrationConfiguration<InitialCondition> {
 
     @Override
     public ScreenContextConfigurationUnit screenContext(ScreenContextConfigurationUnitBuilder screenContextBuilder) {
-        return screenContextBuilder.screenName("Treatments Outcomes").build();
+        return screenContextBuilder.screenName("Initial Conditions for Experiments").build();
     }
 
     @Override
     public EntityMetadataConfigurationUnit configuration(EntityMetadataConfigurationUnitBuilder configurationBuilder) {
         return configurationBuilder
                 .nameField("id")
-                .pluralName("Treatment Outcomes")
-                .singularName("Outcome")
+                .pluralName("Initial Conditions")
+                .singularName("Experiment Condition")
                 .build();
     }
 
     @Override
     public FieldSetConfigurationUnit listView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-        //TODO Create composite fields for display
-
         return fragmentBuilder.
                 field("id").caption("ID").
-                field("indicator").caption("Indicator").
-                field("treatment").caption("Treatment").
+                field("experimentArticle").caption("Experiment").
+                field("condition").caption("Condition").
+                field("value").caption("Value").
                 field("measureUnit").caption("Measure Unit").
-                field("initialValue").caption("Initial Value").
-                field("finalValue").caption("Final Value").
                 build();
     }
 
     @Override
     public FieldSetConfigurationUnit quickView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
-                field("id").caption("ID").
-                field("indicator").caption("Indicator").
-                field("treatment").caption("Treatment").
+                field("experimentArticle").caption("Experiment").
+                field("condition").caption("Condition").
+                field("value").caption("Value").
                 field("measureUnit").caption("Measure Unit").
-                field("initialValue").caption("Initial Value").
-                field("finalValue").caption("Final Value").
                 build();
     }
 
     @Override
     public FieldSetConfigurationUnit showView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
-                field("id").caption("ID").
-                field("indicator").caption("Indicator").
-                field("treatment").caption("Treatment").
+                field("experimentArticle").caption("Experiment").
+                field("condition").caption("Condition").
+                field("value").caption("Value").
                 field("measureUnit").caption("Measure Unit").
-                field("startDate").caption("Start Date").
-                field("endDate").caption("End Date").
-                field("initialValue").caption("Initial Value").
-                field("finalValue").caption("Final Value").
-                field("result").caption("Result").
-                field("perceivedChange").caption("Perceived Change").
+                field("state").caption("State").
                 build();
     }
 
     @Override
     public FieldSetConfigurationUnit formView(PersistentFieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
-                field("id").caption("ID").
-                field("indicator").caption("Indicator").
-                field("treatment").caption("Treatment").
+                field("experimentArticle").caption("Experiment").
+                field("condition").caption("Condition").
+                field("value").caption("Value").
                 field("measureUnit").caption("Measure Unit").
-                field("startDate").caption("Start Date").
-                field("endDate").caption("End Date").
-                field("initialValue").caption("Initial Value").
-                field("finalValue").caption("Final Value").
-                field("result").caption("Result").
-                field("perceivedChange").caption("Perceived Change").
+                field("state").caption("State").
                 build();
     }
+
 }

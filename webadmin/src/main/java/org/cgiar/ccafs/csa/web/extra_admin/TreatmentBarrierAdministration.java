@@ -1,4 +1,4 @@
-package org.cgiar.ccafs.csa.extra_admin;
+package org.cgiar.ccafs.csa.web.extra_admin;
 
 import org.cgiar.ccafs.csa.domain.TreatmentBarrier;
 import org.lightadmin.api.config.AdministrationConfiguration;

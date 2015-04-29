@@ -1,24 +1,25 @@
 package org.cgiar.ccafs.csa.config;
 
-import com.ocpsoft.pretty.PrettyFilter;
-//import org.h2.server.web.WebServlet;
-import org.richfaces.webapp.ResourceServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
-import org.springframework.boot.context.embedded.*;
+import org.springframework.boot.context.embedded.MultipartConfigFactory;
+import org.springframework.boot.context.embedded.ServletContextInitializer;
+import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 import javax.faces.webapp.FacesServlet;
-import javax.servlet.*;
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import java.util.HashMap;
 
 /**
  * This class contains the configuration of the web components, including JSF,
- * LightAdmin and H2 (Optionally)
+ * LightAdmin and H2
  */
 @Configuration
 public class WebConfiguration implements ServletContextInitializer {
@@ -37,13 +38,7 @@ public class WebConfiguration implements ServletContextInitializer {
     public void onStartup(ServletContext servletContext) throws ServletException {
 
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
-            /*ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new WebServlet());
-            h2ConsoleServlet.addMapping("/console/*");
-            h2ConsoleServlet.setLoadOnStartup(1);
-            log.info("Initialize H2 console");*/
-
             servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
-
         } else {
             servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Production");
             servletContext.setInitParameter("javax.faces.FACELETS_SKIP_COMMENTS", "true");
@@ -61,16 +56,13 @@ public class WebConfiguration implements ServletContextInitializer {
         servletContext.setInitParameter("org.richfaces.enableControlSkinning", "false");
         servletContext.setInitParameter("org.richfaces.SKIN", "plain");
 
-        env.getProperty("csa.tmp-dir");
 
         /*LightAdmin.configure(servletContext)
-                .basePackage("org.cgiar.ccafs.csa.admin")
+                .basePackage("org.cgiar.ccafs.csa.web.admin")
                 .baseUrl("/admin")
                 .security(false)
                 .backToSiteUrl("/index.html")
-                .helpUrl("/index.html")
-                .fileStoragePath(env.getProperty("csa.tmp-dir");)
-                .fileStreaming(true);
+                .helpUrl("/index.html");
 
         new LightAdminWebApplicationInitializer().onStartup(servletContext);*/
     }
@@ -86,19 +78,6 @@ public class WebConfiguration implements ServletContextInitializer {
         factory.setMaxFileSize("16MB");
         factory.setMaxRequestSize("16MB");
         return factory.createMultipartConfig();
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Bean
-    public FilterRegistrationBean prettyFilter() {
-        FilterRegistrationBean prettyFilter = new FilterRegistrationBean(new PrettyFilter());
-        prettyFilter.setDispatcherTypes(DispatcherType.FORWARD, DispatcherType.REQUEST,
-                DispatcherType.ASYNC, DispatcherType.ERROR);
-        prettyFilter.addUrlPatterns("/*");
-        return prettyFilter;
     }
 
     ///// These methods set up the Faces Servlet for Spring Boot /////
@@ -146,36 +125,4 @@ public class WebConfiguration implements ServletContextInitializer {
         registration.setName("FacesServlet");
         return registration;
     }
-
-    /**
-     * @return An instance of a Servlet that handles Rich Faces Resources
-     */
-    @Bean
-    public ResourceServlet richFacesResourceServlet() {
-        return new ResourceServlet();
-    }
-
-    /**
-     * Registers Rich Faces resource handler
-     *
-     * @return The RegistrationBean for the Rich Faces Servlet
-     */
-    @Bean
-    public ServletRegistrationBean richFacesRegistration() {
-        ServletRegistrationBean registration = new ServletRegistrationBean(richFacesResourceServlet(),
-                "/org.richfaces.resources/*");
-        registration.setName("Rich Resource Servlet");
-        return registration;
-    }
-
-    /**
-     * This Bean can be used to register Event Listeners for the container
-     *
-     * @return A ConfigureListener for JSF events registration
-     */
-    /*@Bean
-    public ServletListenerRegistrationBean<StartupServletContextListener> jsfConfigureListener() {
-        return new ServletListenerRegistrationBean<>();
-    }*/
-
 }
