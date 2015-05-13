@@ -97,8 +97,9 @@ dependencies {
     // Database migrations
     compile 'org.flywaydb:flyway-core:3.2.1'
 
-    // This needs to remain 2.1.4 to make lightadmin to work 
-    compile 'org.springframework.data:spring-data-rest-webmvc:2.1.4.RELEASE'
+    // This needs to remain 2.1.4 to make lightadmin to work
+    compile 'org.springframework.data:spring-data-rest-webmvc:2.3.0.RELEASE'
+    //compile 'org.springframework.data:spring-data-rest-webmvc:2.1.4.RELEASE'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
 
     // For backend administration. Includes apache tiles

@@ -14,10 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @ManagedBean
@@ -234,31 +231,41 @@ public class SearchController implements Serializable {
     }
 
     public String performSearch() {
-        String searchParams = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("search:filters");
-        String[] parameterList = searchParams.split(",|:");
-        int numParams = parameterList.length / 2;
+        Map<String, String> parameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String[] parameterList;
+        String searchKeywords = parameterMap.get("search:keywords");
 
-        for (int i = 0; i < numParams; i += 2) {
-            if ("region".equals(parameterList[i])) {
-                articles.addAll(experimentArticleRepository.findByLocationCountryRegionCode(parameterList[i + 1]));
+        if (!searchKeywords.isEmpty()) {
+            parameterList = searchKeywords.split(",| ");
+            for (String param : parameterList) {
+                articles.add(experimentArticleRepository.findByCode(param));
             }
+        } else {
+            String searchParams = parameterMap.get("search:filters");
+            parameterList = searchParams.split(",|:");
+            int numParams = parameterList.length / 2;
 
-            if ("country".equals(parameterList[i])) {
-                articles.addAll(experimentArticleRepository.findByLocationCountryCode(parameterList[i + 1]));
-            }
+            for (int i = 0; i < numParams; i += 2) {
+                if ("region".equals(parameterList[i])) {
+                    articles.addAll(experimentArticleRepository.findByLocationCountryRegionCode(parameterList[i + 1]));
+                }
 
-            if ("farmingSystem".equals(parameterList[i])) {
-                articles.addAll(experimentArticleRepository.findByFarmingSystemId(
-                        Integer.valueOf(parameterList[i + 1])));
-            }
+                if ("country".equals(parameterList[i])) {
+                    articles.addAll(experimentArticleRepository.findByLocationCountryCode(parameterList[i + 1]));
+                }
 
-            if ("theme".equals(parameterList[i])) {
-                articles.addAll(experimentArticleRepository.findByPracticeThemeId(
-                        Integer.valueOf(parameterList[i + 1])));
+                if ("farmingSystem".equals(parameterList[i])) {
+                    articles.addAll(experimentArticleRepository.findByFarmingSystemId(
+                            Integer.valueOf(parameterList[i + 1])));
+                }
+
+                if ("theme".equals(parameterList[i])) {
+                    articles.addAll(experimentArticleRepository.findByPracticeThemeId(
+                            Integer.valueOf(parameterList[i + 1])));
+                }
             }
         }
 
-        //articles.addAll(experimentArticleRepository.findByLocationCountryName("Kenya"));
         return "results";
     }
 }

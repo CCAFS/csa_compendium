@@ -5,11 +5,8 @@
 
 MAPPER = new function () {
     var map;
-    var coordinates = [];
-    var articleTitles = [];
-    var markers = [];
-    var currentArticle = 0;
-    var previousArticle = 0;
+    var coordinates = [], articleTitles = [], markers = [];
+    var currentArticle = 0, previousArticle = 0;
 
     var tileLayerUrl = 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
     var tileLayerAttribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
@@ -100,7 +97,13 @@ function highlightArticle(articleCode) {
     MAPPER.setCurrentArticle(articleCode);
     panelId = "#article\\:" + MAPPER.getCurrentArticle() + "\\:panel";
     $(panelId).addClass('panel-primary');
-    $(panelId).get(0).scrollIntoView();
+
+    var parent = $(".search-results");
+
+    $(parent).animate({ scrollTop: $(parent).scrollTop() + $(panelId).offset().top - $(parent).offset().top }, { duration: 'slow', easing: 'swing'});
+    $('html,body').animate({ scrollTop: $(parent).offset().top }, { duration: 1000, easing: 'swing'});
+
+    //$(panelId).get(0).scrollIntoView();
     MAPPER.highlightMarker();
 }
 

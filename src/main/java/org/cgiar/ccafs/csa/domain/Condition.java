@@ -10,6 +10,10 @@ import javax.persistence.*;
 public class Condition extends AbstractInformationEntity {
     private static final long serialVersionUID = 1L;
 
+    @ManyToOne
+    @JoinColumn(name = "unit_id")
+    private MeasureUnit measureUnit;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -17,5 +21,13 @@ public class Condition extends AbstractInformationEntity {
     @Override
     public Integer getId() {
         return this.id;
+    }
+
+    public MeasureUnit getMeasureUnit() {
+        return this.measureUnit;
+    }
+
+    public void setMeasureUnit(MeasureUnit measureUnit) {
+        this.measureUnit = measureUnit;
     }
 }

@@ -20,9 +20,6 @@ public class Treatment implements Serializable {
     @Column(name = "control_for_treatments")
     private boolean controlForTreatments;
 
-    @Column(name = "block_number")
-    private int blockNumber;
-
     @ManyToMany
     @JoinTable(
             name = "treatment_production_systems"
@@ -60,14 +57,6 @@ public class Treatment implements Serializable {
 
     public void setControlForTreatments(boolean controlForTreatments) {
         this.controlForTreatments = controlForTreatments;
-    }
-
-    public int getBlockNumber() {
-        return blockNumber;
-    }
-
-    public void setBlockNumber(int blockNumber) {
-        this.blockNumber = blockNumber;
     }
 
     public Treatment getControl() {

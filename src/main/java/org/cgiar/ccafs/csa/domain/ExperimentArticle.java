@@ -74,10 +74,10 @@ public class ExperimentArticle implements Serializable {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @OneToMany(mappedBy = "experimentArticle")
+    @OneToMany(mappedBy = "experimentArticle", fetch = FetchType.EAGER)
     private List<InitialCondition> initialConditions = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "experiment_context_values"
             , joinColumns = {
@@ -89,8 +89,8 @@ public class ExperimentArticle implements Serializable {
     )
     private List<ContextValue> contextValues = new ArrayList<>();
 
-    @OneToMany(mappedBy = "experimentArticle")
-    private List<Treatment> treatments = new ArrayList<>();
+    @OneToMany(mappedBy = "experimentArticle", fetch = FetchType.EAGER)
+    private List<Treatment> treatments;
 
     // Methods //
 
@@ -139,6 +139,9 @@ public class ExperimentArticle implements Serializable {
     }
 
     public List<Treatment> getTreatments() {
+        if (treatments == null) {
+            treatments = new ArrayList<>();
+        }
         return treatments;
     }
 

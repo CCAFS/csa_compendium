@@ -18,4 +18,6 @@ public interface ExperimentArticleRepository extends PagingAndSortingRepository<
     List<ExperimentArticle> findByPracticeThemeId(Integer id);
 
     List<ExperimentArticle> findByLocationCountryName(String code);
+
+    ExperimentArticle findByCode(String code);
 }

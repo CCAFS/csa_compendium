@@ -1,8 +1,6 @@
 package org.cgiar.ccafs.csa.config;
 
-import org.h2.server.web.WebServlet;
 import org.lightadmin.api.config.LightAdmin;
-import org.lightadmin.core.config.LightAdminWebApplicationInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,6 @@ import javax.faces.webapp.FacesServlet;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
 import java.util.HashMap;
 
 /**
@@ -34,9 +31,9 @@ public class WebConfiguration implements ServletContextInitializer {
     private Environment env;
 
     /**
-     * This method initializes LightAdmin and the H2 Console if in DEV mode
+     * This method initializes JSF beans and LightAdmin console.
      *
-     * @throws javax.servlet.ServletException
+     * @throws javax.servlet.ServletException If something goes wrong
      */
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
@@ -61,13 +58,13 @@ public class WebConfiguration implements ServletContextInitializer {
         servletContext.setInitParameter("org.richfaces.SKIN", "plain");
 
 
+        // Lightadmin configuration
         LightAdmin.configure(servletContext)
                 .basePackage("org.cgiar.ccafs.csa.web.admin")
                 .baseUrl("/admin")
                 .security(false)
                 .backToSiteUrl("/index.html")
                 .helpUrl("/index.html");
-
     }
 
     /**

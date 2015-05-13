@@ -2,8 +2,6 @@ package org.cgiar.ccafs.csa.config;
 
 import com.ocpsoft.pretty.PrettyFilter;
 import org.h2.server.web.WebServlet;
-import org.lightadmin.api.config.LightAdmin;
-import org.lightadmin.core.config.LightAdminWebApplicationInitializer;
 import org.richfaces.webapp.ResourceServlet;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
@@ -18,7 +16,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 /**
- * To be deployed only when standalone mode
+ * To be deployed only when standalone mode, since servlet containers initialize these beans
+ * automatically, by scanning the jars in the classpath.
  */
 @Configuration
 @Profile(Constants.SPRING_PROFILE_DEVELOPMENT)

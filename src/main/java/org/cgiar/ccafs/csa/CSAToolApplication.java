@@ -21,7 +21,6 @@ import java.util.Arrays;
  * Standalone embedded server. It also holds Environment and the REST configuration
  */
 @SpringBootApplication
-@Import(RepositoryRestMvcConfiguration.class)
 public class CSAToolApplication extends SpringBootServletInitializer {
 
     private final static Logger log = LoggerFactory.getLogger(CSAToolApplication.class);
