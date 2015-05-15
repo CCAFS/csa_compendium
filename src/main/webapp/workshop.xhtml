@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="_main.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:rich="http://richfaces.org/rich">
+
+    <ui:define name="resources">
+
+    </ui:define>
+
+    <ui:define name="content">
+        <b:container>
+            <b:row>
+                <b:column span="6">
+                    <p>Welcome to the CSA prioritization Tool. At the end of this process, you will be presented with some portfolios of CSA
+                        practices based on your initial search, the weight you assign to each CSA pillar, and the new data you want to add. </p>
+
+                    <p>Here is you task list:</p>
+                    <ol>
+                        <li>Enter the workshop information and Save. Don't worre: you can add more details afterwards.</li>
+                        <li>Select from the practices found in the search, those you want to use in the process.
+                            You can also add your own data.
+                        </li>
+                        <li>Distribute the wight of each CSA pillar in you decision process.</li>
+                        <li>Chose the performance indicators you want to be taken into acount for the process, acording
+                            to your requirements.
+                        </li>
+                    </ol>
+                </b:column>
+
+                <b:column span="6">
+                    <h2>Search Parameters</h2>
+                    <ui:repeat value="#{resultsController.searchParametersList}" var="parameter">
+                        <strong>#{parameter}:</strong> #{resultsController.searchParametersInfo[parameter]} <br/>
+                    </ui:repeat>
+
+                </b:column>
+            </b:row>
+
+            <b:row>
+                <b:column span="10" offset="1">
+                    <h2>Workshop Data</h2>
+                    <h:form id="workshop">
+
+                    </h:form>
+                </b:column>
+            </b:row>
+
+            <b:row>
+                <b:column span="10" offset="1">
+                    <h2>Practices Selection</h2>
+                    <rich:pickList value="#{workshopController.selectedPractices}"
+                                   sourceCaption="Available practices" targetCaption="Selected practices"
+                                   listWidth="170px" listHeight="100px"
+                                   orderable="true">
+
+                        <f:selectItems value="#{workshopController.availablePractices}" var="practice" itemValue="#{practice}"
+                                       itemLabel="#{practice.name}"/>
+
+                    </rich:pickList>
+
+                </b:column>
+            </b:row>
+
+            <b:row>
+                <b:column span="4">
+
+                </b:column>
+
+                <b:column span="8">
+                    <img src="/resources/images/screenshots/pillars.png" class="img-responsive center-block" alt=""/>
+                </b:column>
+            </b:row>
+            <b:row>
+                <b:column span="10" offset="2">
+                    <img src="/resources/images/screenshots/indicators.png" class="img-responsive center-block" alt=""/>
+                </b:column>
+            </b:row>
+        </b:container>
+    </ui:define>
+</ui:composition>

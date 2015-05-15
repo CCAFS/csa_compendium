@@ -28,7 +28,9 @@ public class InitialCondition implements Serializable {
     @JoinColumn(name = "experiment_id")
     private ExperimentArticle experimentArticle;
 
-
+    @ManyToOne
+    @JoinColumn(name = "unit_id")
+    private MeasureUnit measureUnit;
 
     public String getState() {
         return this.state;
@@ -60,6 +62,14 @@ public class InitialCondition implements Serializable {
 
     public void setExperiment(ExperimentArticle experimentArticle) {
         this.experimentArticle = experimentArticle;
+    }
+
+    public MeasureUnit getMeasureUnit() {
+        return this.measureUnit;
+    }
+
+    public void setMeasureUnit(MeasureUnit measureUnit) {
+        this.measureUnit = measureUnit;
     }
 
 }

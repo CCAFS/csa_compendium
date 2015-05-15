@@ -1,6 +1,7 @@
 package org.cgiar.ccafs.csa.config;
 
 import org.lightadmin.api.config.LightAdmin;
+import org.lightadmin.core.config.LightAdminWebApplicationInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,13 +51,12 @@ public class WebConfiguration implements ServletContextInitializer {
                     "de.beyondjava.angularFaces.core.tagTransformer.AngularTagDecorator");*/
 
         servletContext.setInitParameter("org.apache.myfaces.CACHE_EL_EXPRESSIONS", "alwaysRecompile");
+        servletContext.setInitParameter("org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS", "false");
         servletContext.setInitParameter("javax.faces.SERIALIZE_SERVER_STATE", "true");
         servletContext.setInitParameter("javax.faces.STATE_SAVING_METHOD", "server");
-        servletContext.setInitParameter("org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS", "false");
 
         servletContext.setInitParameter("org.richfaces.enableControlSkinning", "false");
         servletContext.setInitParameter("org.richfaces.SKIN", "plain");
-
 
         // Lightadmin configuration
         LightAdmin.configure(servletContext)
@@ -65,6 +65,8 @@ public class WebConfiguration implements ServletContextInitializer {
                 .security(false)
                 .backToSiteUrl("/index.html")
                 .helpUrl("/index.html");
+
+        new LightAdminWebApplicationInitializer().onStartup(servletContext);
     }
 
     /**

@@ -28,7 +28,6 @@ public class TreatmentAdministration extends AdministrationConfiguration<Treatme
     public FieldSetConfigurationUnit listView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
                 field("id").caption("ID").
-                field("blockNumber").caption("Block Number").
                 field("practice").caption("Related Practice").
                 field("controlForTreatments").caption("Is a Control?").
                 build();
@@ -37,7 +36,6 @@ public class TreatmentAdministration extends AdministrationConfiguration<Treatme
     @Override
     public FieldSetConfigurationUnit quickView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
-                field("blockNumber").caption("Block Number").
                 field("practice").caption("Related Practice").
                 field("controlForTreatments").caption("Is a Control?").
                 field("experimentArticle").caption("Experiment").
@@ -47,7 +45,6 @@ public class TreatmentAdministration extends AdministrationConfiguration<Treatme
     @Override
     public FieldSetConfigurationUnit showView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
-                field("blockNumber").caption("Block Number").
                 field("practice").caption("Related Practice").
                 field("controlForTreatments").caption("Is a Control?").
                 field("control").caption("Control for this Treatment").
@@ -60,7 +57,6 @@ public class TreatmentAdministration extends AdministrationConfiguration<Treatme
     @Override
     public FieldSetConfigurationUnit formView(PersistentFieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
-                field("blockNumber").caption("Block Number").
                 field("practice").caption("Related Practice").
                 field("controlForTreatments").caption("Is a Control?").
                 field("control").caption("Control for this Treatment").

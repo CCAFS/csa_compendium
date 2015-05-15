@@ -17,16 +17,23 @@ import javax.servlet.ServletRegistration;
 
 /**
  * To be deployed only when standalone mode, since servlet containers initialize these beans
- * automatically, by scanning the jars in the classpath.
+ * automatically by scanning the jars in the classpath.
  */
 @Configuration
 @Profile(Constants.SPRING_PROFILE_DEVELOPMENT)
 public class StandaloneConfiguration implements ServletContextInitializer {
 
+    /**
+     * On developer mode initialize the H2 Console.
+     *
+     * @param servletContext The Spring servlet context
+     * @throws ServletException
+     */
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new WebServlet());
         h2ConsoleServlet.addMapping("/console");
+        h2ConsoleServlet.setLoadOnStartup(1);
     }
 
     /**
@@ -62,15 +69,4 @@ public class StandaloneConfiguration implements ServletContextInitializer {
         registration.setName("Rich Resource Servlet");
         return registration;
     }
-
-    /**
-     * This Bean can be used to register Event Listeners for the container
-     *
-     * @return A ConfigureListener for JSF events registration
-     */
-    /*@Bean
-    public ServletListenerRegistrationBean<StartupServletContextListener> jsfConfigureListener() {
-        StartupServletContextListener listener = new StartupServletContextListener();
-        return new ServletListenerRegistrationBean<>(listener);
-    }*/
 }

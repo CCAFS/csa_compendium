@@ -16,7 +16,7 @@
             <b:row>
                 <b:column span="4">
                     <div class="search-results">
-                        <ui:repeat id="article" value="#{searchController.articles}" var="article">
+                        <ui:repeat id="article" value="#{resultsController.articles}" var="article">
                             <b:panel id="panel">
                                 <f:facet name="heading">
                                     <a href="javascript:highlightArticle('#{article.code}')">#{article.code}</a>
@@ -24,13 +24,13 @@
 
                                 <strong>Title: </strong> #{article.title} <br/>
                                 <strong>Year: </strong> #{article.publicationDate.year} <br/>
-
                                 <strong>Location: </strong> #{article.location.place}, #{article.location.country} <br/>
-                                <strong>Farming System: </strong> #{article.farmingSystem.name} <br/>
 
                                 <div id="details_panel_#{article.code}" class="details-panel">
                                     <strong>Theme: </strong> #{article.practiceTheme.name}  <br/>
-                                    <strong>Practice: </strong> #{article.treatments[0].practice.name}
+                                    <strong>Farming System: </strong> #{article.farmingSystem.name} <br/>
+                                    <strong>Practice: </strong> #{article.treatments[0].practice.name} <br/>
+                                    <strong>Production system: </strong> #{article.treatments[0].productionSystems[0].name}
                                 </div>
 
                                 <h6 class="hide">#{article.code}/#{article.location.latitude}/#{article.location.longitude}</h6>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="center-block" style="margin-top: 16px">
                         <input id="search-btn" class="btn-search" type="button" value="Start Prioritization"
-                               onclick="window.location.href='practices.xhtml'"/>
+                               onclick="window.location.href='workshop.xhtml'"/>
                     </div>
                 </b:column>
 

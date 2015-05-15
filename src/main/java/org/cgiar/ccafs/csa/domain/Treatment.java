@@ -20,7 +20,7 @@ public class Treatment implements Serializable {
     @Column(name = "control_for_treatments")
     private boolean controlForTreatments;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "treatment_production_systems"
             , joinColumns = {
@@ -44,7 +44,7 @@ public class Treatment implements Serializable {
     @JoinColumn(name = "experiment_id")
     private ExperimentArticle experimentArticle;
 
-    @OneToMany(mappedBy = "treatment")
+    @OneToMany(mappedBy = "treatment", fetch = FetchType.EAGER)
     private List<TreatmentOutcome> outcomes = new ArrayList<>();
 
     public Integer getId() {

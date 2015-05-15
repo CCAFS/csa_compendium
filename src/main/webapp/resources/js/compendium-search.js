@@ -26,7 +26,7 @@ function addSearchParameter(parentFilter, childFilter, allowsChildless) {
 
     if (childValue != "0") {
         paramValue = childFilter + ':' + childValue;
-        paramLabel = parentLabel + ' - ' + childLabel;
+        paramLabel = allowsChildless ? childLabel : (parentLabel + ': ' + childLabel);
     } else {
         if (!allowsChildless) {
             return;
@@ -50,12 +50,17 @@ function removeSearchParameters() {
  *
  * @returns {string} Containing a comma separated list with the search parameters
  */
-function getSelectedFilters() {
-    var result = "";
+function setSelectedFilters() {
+    var result = "", resultInfo = "";
     $(SEARCH_ID_PREFIX + 'searchParams option').each(function () {
         result += $(this).attr('value') + ",";
+        var paramLine = $(this).text();
+        var colonPlace = paramLine.indexOf(':');
+        resultInfo += colonPlace < 0 ? paramLine : paramLine.substring(colonPlace + 2);
+        resultInfo +=  ":"
     });
     $(SEARCH_ID_PREFIX + 'filters').val(result);
+    $(SEARCH_ID_PREFIX + 'filtersInfo').val(resultInfo);
 }
 
 /**

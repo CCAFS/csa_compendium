@@ -1,6 +1,7 @@
 package org.cgiar.ccafs.csa.web;
 
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
+import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import org.cgiar.ccafs.csa.domain.*;
 import org.cgiar.ccafs.csa.repository.*;
 import org.slf4j.Logger;
@@ -11,15 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @ManagedBean
 @Scope("session")
-@URLMapping(id = "home", pattern = "/index.html", viewId = "/search.xhtml")
+@URLMappings(mappings = {
+        @URLMapping(id = "home", pattern = "/", viewId = "/search.xhtml"),
+        @URLMapping(id = "homeIndex", pattern = "/index.html", viewId = "/search.xhtml")
+})
 public class SearchController implements Serializable {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -51,69 +55,64 @@ public class SearchController implements Serializable {
 
     @Autowired
     private ContextValueRepository contextValueRepository;
-
-    @Autowired
-    private ExperimentArticleRepository experimentArticleRepository;
     // END Repositories
 
     // Variables BLOCK
     private Region selectedRegion;
     private Country selectedCountry;
-    private List<Country> countryList;
+    private List<Country> countriesList;
     private FarmingSystem selectedFarmingSystem;
-    private List<FarmingSystem> farmingSystemList;
+    private List<FarmingSystem> farmingSystemsList;
 
     private PracticeTheme selectedPracticeTheme;
     private PracticeLevel selectedPracticeLevel;
-    private List<PracticeLevel> practiceLevelList;
+    private List<PracticeLevel> practiceLevelsList;
 
     private ProductionSystemCategory selectedProductionSystemCategory;
     private ProductionSystem selectedProductionSystem;
-    private List<ProductionSystem> productionSystemList;
+    private List<ProductionSystem> productionSystemsList;
 
     private ContextVariable selectedContextVariable;
     private ContextValue selectedContextValue;
-    private List<ContextValue> contextValueList;
+    private List<ContextValue> contextValuesList;
 
-    private Set<ExperimentArticle> articles;
     // END Variables
 
     @PostConstruct
     public void init() {
-        countryList = new ArrayList<>();
-        farmingSystemList = new ArrayList<>();
-        practiceLevelList = new ArrayList<>();
-        productionSystemList = new ArrayList<>();
-        contextValueList = new ArrayList<>();
-        articles = new LinkedHashSet<>();
+        countriesList = new ArrayList<>();
+        farmingSystemsList = new ArrayList<>();
+        practiceLevelsList = new ArrayList<>();
+        productionSystemsList = new ArrayList<>();
+        contextValuesList = new ArrayList<>();
     }
 
     // BLOCK Parent Filters
-    public Iterable<Region> getRegionList() {
+    public Iterable<Region> getRegionsList() {
         return regionRepository.findAll();
     }
 
-    public Iterable<PracticeTheme> getThemeList() {
+    public Iterable<PracticeTheme> getThemesList() {
         return practiceThemeRepository.findAll();
     }
 
-    public Iterable<ProductionSystemCategory> getProductionSystemCategoryList() {
+    public Iterable<ProductionSystemCategory> getProductionSystemCategoriesList() {
         return productionSystemCategoryRepository.findAll();
     }
 
-    public Iterable<ContextVariable> getContextVariableList() {
+    public Iterable<ContextVariable> getContextVariablesList() {
         return contextVariableRepository.findAll();
     }
     // END Parent Filters
 
     // BLOCK Countries Filter
-    public List<Country> getCountryList() {
-        return countryList;
+    public List<Country> getCountriesList() {
+        return countriesList;
     }
 
     public void updateCountriesAndFarmingSystems(AjaxBehaviorEvent event) {
-        this.countryList = countryRepository.findByRegion(selectedRegion);
-        this.farmingSystemList = farmingSystemRepository.findByRegion(selectedRegion);
+        this.countriesList = countryRepository.findByRegion(selectedRegion);
+        this.farmingSystemsList = farmingSystemRepository.findByRegion(selectedRegion);
     }
 
     public String getSelectedRegionCode() {
@@ -134,8 +133,8 @@ public class SearchController implements Serializable {
     // END Countries Filter
 
     // BLOCK Farming Systems
-    public List<FarmingSystem> getFarmingSystemList() {
-        return farmingSystemList;
+    public List<FarmingSystem> getFarmingSystemsList() {
+        return farmingSystemsList;
     }
 
     public Integer getSelectedFarmingSystemId() {
@@ -149,12 +148,12 @@ public class SearchController implements Serializable {
     // END Farming Systems
 
     // BLOCK Practice Level Filter
-    public List<PracticeLevel> getPracticeLevelList() {
-        return practiceLevelList;
+    public List<PracticeLevel> getPracticeLevelsList() {
+        return practiceLevelsList;
     }
 
     public void updatePracticeLevels(AjaxBehaviorEvent event) {
-        this.practiceLevelList = levelRepository.findByTheme(selectedPracticeTheme);
+        this.practiceLevelsList = levelRepository.findByTheme(selectedPracticeTheme);
     }
 
     public Integer getSelectedThemeId() {
@@ -175,12 +174,12 @@ public class SearchController implements Serializable {
     // END Practice Level Filter
 
     // BLOCK Production System
-    public List<ProductionSystem> getProductionSystemList() {
-        return productionSystemList;
+    public List<ProductionSystem> getProductionSystemsList() {
+        return productionSystemsList;
     }
 
     public void updateProductionSystems(AjaxBehaviorEvent event) {
-        this.productionSystemList = productionSystemRepository.findByCategory(selectedProductionSystemCategory);
+        this.productionSystemsList = productionSystemRepository.findByCategory(selectedProductionSystemCategory);
     }
 
     public Integer getSelectedProductionSystemCategoryId() {
@@ -201,12 +200,12 @@ public class SearchController implements Serializable {
     // END Context Values Filter
 
     // BLOCK Context Values Filter
-    public List<ContextValue> getContextValueList() {
-        return contextValueList;
+    public List<ContextValue> getContextValuesList() {
+        return contextValuesList;
     }
 
     public void updateContextValues(AjaxBehaviorEvent event) {
-        this.contextValueList = contextValueRepository.findByContextVariable(selectedContextVariable);
+        this.contextValuesList = contextValueRepository.findByContextVariable(selectedContextVariable);
     }
 
     public Integer getSelectedContextVariableId() {
@@ -226,46 +225,4 @@ public class SearchController implements Serializable {
     }
     // END Context Values Filter
 
-    public Set<ExperimentArticle> getArticles() {
-        return articles;
-    }
-
-    public String performSearch() {
-        Map<String, String> parameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String[] parameterList;
-        String searchKeywords = parameterMap.get("search:keywords");
-
-        if (!searchKeywords.isEmpty()) {
-            parameterList = searchKeywords.split(",| ");
-            for (String param : parameterList) {
-                articles.add(experimentArticleRepository.findByCode(param));
-            }
-        } else {
-            String searchParams = parameterMap.get("search:filters");
-            parameterList = searchParams.split(",|:");
-            int numParams = parameterList.length / 2;
-
-            for (int i = 0; i < numParams; i += 2) {
-                if ("region".equals(parameterList[i])) {
-                    articles.addAll(experimentArticleRepository.findByLocationCountryRegionCode(parameterList[i + 1]));
-                }
-
-                if ("country".equals(parameterList[i])) {
-                    articles.addAll(experimentArticleRepository.findByLocationCountryCode(parameterList[i + 1]));
-                }
-
-                if ("farmingSystem".equals(parameterList[i])) {
-                    articles.addAll(experimentArticleRepository.findByFarmingSystemId(
-                            Integer.valueOf(parameterList[i + 1])));
-                }
-
-                if ("theme".equals(parameterList[i])) {
-                    articles.addAll(experimentArticleRepository.findByPracticeThemeId(
-                            Integer.valueOf(parameterList[i + 1])));
-                }
-            }
-        }
-
-        return "results";
-    }
 }
