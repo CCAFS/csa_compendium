@@ -1,5 +1,6 @@
 package org.cgiar.ccafs.csa.config;
 
+import org.h2.server.web.WebServlet;
 import org.lightadmin.api.config.LightAdmin;
 import org.lightadmin.core.config.LightAdminWebApplicationInitializer;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import javax.faces.webapp.FacesServlet;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
 import java.util.HashMap;
 
 /**
@@ -38,6 +40,10 @@ public class WebConfiguration implements ServletContextInitializer {
      */
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
+
+        ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new WebServlet());
+        h2ConsoleServlet.addMapping("/console");
+        h2ConsoleServlet.setLoadOnStartup(1);
 
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
             servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
