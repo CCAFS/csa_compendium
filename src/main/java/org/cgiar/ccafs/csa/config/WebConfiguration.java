@@ -65,14 +65,14 @@ public class WebConfiguration implements ServletContextInitializer {
         servletContext.setInitParameter("org.richfaces.SKIN", "plain");
 
         // Lightadmin configuration
-        LightAdmin.configure(servletContext)
+        /*LightAdmin.configure(servletContext)
                 .basePackage("org.cgiar.ccafs.csa.web.admin")
                 .baseUrl("/admin")
                 .security(false)
                 .backToSiteUrl("/index.html")
                 .helpUrl("/index.html");
 
-        new LightAdminWebApplicationInitializer().onStartup(servletContext);
+        new LightAdminWebApplicationInitializer().onStartup(servletContext);*/
     }
 
     /**
