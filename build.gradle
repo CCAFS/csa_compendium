@@ -114,7 +114,7 @@ dependencies {
     compile 'com.ocpsoft:prettyfaces-jsf2:3.3.3'
 
     // Rich Faces for UI components
-    compile 'org.richfaces:richfaces:4.5.3.Final'
+    compile 'org.richfaces:richfaces:4.5.5.Final'
 
     // Angular Faces For Angular integration
     //compile 'de.beyondjava:angularFaces-core:2.1.4'

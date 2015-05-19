@@ -29,7 +29,22 @@
                         </li>
                     </ol>
                 </b:column>
+                <b:column span="6">
+                    <h2>Workshop Data</h2>
+                    <h:form id="workshop">
+                        <b:panelGrid colSpans="2,10">
+                            <h:outputLabel value="Location" />
+                            <b:inputText span="8" value=""/>
+                            <h:outputLabel value="Partners" />
+                            <b:inputText span="10" value=""  />
+                            <h:outputLabel value="" />
+                        </b:panelGrid>
+                    </h:form>
+                </b:column>
 
+            </b:row>
+
+            <b:row>
                 <b:column span="6">
                     <h2>Search Parameters</h2>
                     <ui:repeat value="#{resultsController.searchParametersList}" var="parameter">
@@ -37,26 +52,15 @@
                     </ui:repeat>
 
                 </b:column>
-            </b:row>
-
-            <b:row>
-                <b:column span="10" offset="1">
-                    <h2>Workshop Data</h2>
-                    <h:form id="workshop">
-
-                    </h:form>
-                </b:column>
-            </b:row>
-
-            <b:row>
-                <b:column span="10" offset="1">
+                <b:column span="6">
                     <h2>Practices Selection</h2>
                     <rich:pickList value="#{workshopController.selectedPractices}"
                                    sourceCaption="Available practices" targetCaption="Selected practices"
                                    listWidth="170px" listHeight="100px"
                                    orderable="true">
 
-                        <f:selectItems value="#{workshopController.availablePractices}" var="practice" itemValue="#{practice}"
+                        <f:selectItems value="#{workshopController.availablePractices}" var="practice"
+                                       itemValue="#{practice}"
                                        itemLabel="#{practice.name}"/>
 
                     </rich:pickList>
@@ -76,6 +80,12 @@
             <b:row>
                 <b:column span="10" offset="2">
                     <img src="/resources/images/screenshots/indicators.png" class="img-responsive center-block" alt=""/>
+                </b:column>
+            </b:row>
+            <b:row>
+                <b:column span="2" offset="4">
+                    <div class="title"><input class="btn-search" type="button" value="Continue"
+                                              onClick="window.location.href='practices.xhtml'"/></div>
                 </b:column>
             </b:row>
         </b:container>

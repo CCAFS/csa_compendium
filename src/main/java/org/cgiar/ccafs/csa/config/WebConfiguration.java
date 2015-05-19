@@ -62,7 +62,7 @@ public class WebConfiguration implements ServletContextInitializer {
         servletContext.setInitParameter("javax.faces.STATE_SAVING_METHOD", "server");
 
         servletContext.setInitParameter("org.richfaces.enableControlSkinning", "false");
-        servletContext.setInitParameter("org.richfaces.SKIN", "plain");
+        servletContext.setInitParameter("org.richfaces.SKIN", "wine");
 
         // Lightadmin configuration
         /*LightAdmin.configure(servletContext)

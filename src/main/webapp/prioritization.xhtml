@@ -8,11 +8,17 @@
 <ui:composition template="/_main.xhtml">
     <ui:define name="content">
         <b:container styleClass="center-block">
-            <img src="/resources/images/screenshots/prioritized-list.png" height="748" width="1023" alt=""/>
-
-            <div class="pull-right"><input class="btn-search" type="button" value="Continue"
-                                           onClick="window.location.href='portfolios.xhtml'"/></div>
-        </b:container>
+            <b:row>
+                <b:column span="12">
+                    <img src="/resources/images/screenshots/prioritized-list.png" height="748" width="1023" alt=""/>
+                </b:column>
+            </b:row>
+            <b:row>
+                <b:column span="2" offset="4">
+                    <div class="pull-right"><input class="btn-search" type="button" value="Continue" onClick="window.location.href='portfolios.xhtml'"/></div>
+                </b:column>
+            </b:row>
+        </b:container>>
     </ui:define>
 </ui:composition>
 </html>

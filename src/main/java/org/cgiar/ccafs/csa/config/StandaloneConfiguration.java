@@ -31,9 +31,9 @@ public class StandaloneConfiguration implements ServletContextInitializer {
      */
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new WebServlet());
+        /*ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new WebServlet());
         h2ConsoleServlet.addMapping("/console");
-        h2ConsoleServlet.setLoadOnStartup(1);
+        h2ConsoleServlet.setLoadOnStartup(1);*/
     }
 
     /**
