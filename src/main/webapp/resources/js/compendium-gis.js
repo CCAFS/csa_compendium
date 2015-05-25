@@ -65,7 +65,9 @@ MAPPER = new function () {
             markers[previousArticle].setIcon(blueIcon);
             markers[currentArticle].setIcon(redIcon);
             map.panTo(coordinates[currentArticle]);
-            map.setZoom(7);
+            if (map.getZoom() < 7) {
+                map.setZoom(7);
+            }
         }
     }
 

@@ -78,6 +78,10 @@ body {
     padding: 17px 0 16px 0;
 }
 
+ol li {
+    font-size: 1.1em;
+}
+
 /***************************  Home Page ************************/
 
 p {
@@ -384,4 +388,10 @@ span.text {
 
 .narrow {
     padding-left: 0;
+}
+
+/* Prime Faces customization */
+.ui-widget {
+    font-size: 0.85em;
+    font-family: 'Helvetica Neue', HelveticaNeue, Helvetica, Verdana, sans-serif;
 }

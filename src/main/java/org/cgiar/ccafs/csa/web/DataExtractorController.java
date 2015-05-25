@@ -7,8 +7,8 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.cgiar.ccafs.csa.service.DataExtractionService;
-import org.richfaces.event.FileUploadEvent;
-import org.richfaces.model.UploadedFile;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,12 +58,13 @@ public class DataExtractorController {
     }
 
     public void uploadListener(FileUploadEvent event) {
-        try {
-            UploadedFile file = event.getUploadedFile();
 
-            if (file.getFileExtension().equals("zip")) {
-                File tempFile = new File(tempStorageLocation, file.getName());
-                byte[] bytes = file.getData();
+        try {
+            UploadedFile file = event.getFile();
+
+            if (file.getFileName().endsWith("zip")) {
+                File tempFile = new File(tempStorageLocation, file.getFileName());
+                byte[] bytes = file.getContents();
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(tempFile));
                 stream.write(bytes);
                 stream.close();
@@ -88,22 +89,22 @@ public class DataExtractorController {
 
                 zipFile.close();
                 if (!tempFile.delete()) {
-                    log.warn("Unable to remove temporary file: " + file.getName());
+                    log.warn("Unable to remove temporary file: " + file.getFileName());
                 }
             } else {
-                XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
+                XSSFWorkbook workbook = new XSSFWorkbook(file.getInputstream());
                 XSSFSheet sheet = workbook.getSheetAt(0);
 
-                if (file.getName().equals("Practices.xlsx")) {
+                if (file.getFileName().equals("Practices.xlsx")) {
                     dataService.extractPracticesInformation(sheet);
-                } else if (file.getName().equals("Indicators.xlsx")) {
+                } else if (file.getFileName().equals("Indicators.xlsx")) {
                     dataService.extractIndicatorsInformation(sheet);
                 } else {
                     dataService.extractArticleInformation(sheet);
                 }
                 workbook.close();
             }
-            result += file.getName() + "  ";
+            result += file.getFileName() + "  ";
         } catch (IOException e) {
             log.error("Can't process the file.", e);
             result = "Things didn't went well. Check logs.";

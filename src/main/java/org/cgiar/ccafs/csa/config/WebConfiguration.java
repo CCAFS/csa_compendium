@@ -1,24 +1,26 @@
 package org.cgiar.ccafs.csa.config;
 
+import com.ocpsoft.pretty.PrettyFilter;
 import org.h2.server.web.WebServlet;
 import org.lightadmin.api.config.LightAdmin;
 import org.lightadmin.core.config.LightAdminWebApplicationInitializer;
+import org.primefaces.webapp.filter.FileUploadFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 
 import javax.faces.webapp.FacesServlet;
-import javax.servlet.MultipartConfigElement;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
+import javax.servlet.*;
 import java.util.HashMap;
 
 /**
@@ -33,24 +35,37 @@ public class WebConfiguration implements ServletContextInitializer {
     @Autowired
     private Environment env;
 
+    @Value("${csa.tmp-dir}")
+    private String tempStorageLocation;
+
     /**
-     * This method initializes JSF beans and LightAdmin console.
+     * This method initializes JSF, H2 console and LightAdmin.
      *
      * @throws javax.servlet.ServletException If something goes wrong
      */
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
 
-        ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new WebServlet());
-        h2ConsoleServlet.addMapping("/console");
-        h2ConsoleServlet.setLoadOnStartup(1);
+        LightAdmin.configure(servletContext)
+                .basePackage("org.cgiar.ccafs.csa.web.admin")
+                .baseUrl("/admin")
+                .fileStoragePath(tempStorageLocation)
+                .security(false)
+                .backToSiteUrl("/index.html")
+                .helpUrl("/index.html");
 
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
+            new LightAdminWebApplicationInitializer().onStartup(servletContext);
+
+            ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new WebServlet());
+            h2ConsoleServlet.addMapping("/console");
+            h2ConsoleServlet.setLoadOnStartup(5);
+
             servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
+            servletContext.setInitParameter("primefaces.UPLOADER", "commons");
         } else {
             servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Production");
             servletContext.setInitParameter("javax.faces.FACELETS_SKIP_COMMENTS", "true");
-            servletContext.setInitParameter("org.richfaces.resourceOptimization.enabled", "true");
         }
 
         /*servletContext.setInitParameter("javax.faces.FACELETS_DECORATORS",
@@ -61,18 +76,9 @@ public class WebConfiguration implements ServletContextInitializer {
         servletContext.setInitParameter("javax.faces.SERIALIZE_SERVER_STATE", "true");
         servletContext.setInitParameter("javax.faces.STATE_SAVING_METHOD", "server");
 
-        servletContext.setInitParameter("org.richfaces.enableControlSkinning", "false");
-        servletContext.setInitParameter("org.richfaces.SKIN", "wine");
+        servletContext.setInitParameter("primefaces.THEME", "casablanca");
+        //servletContext.setInitParameter("primefaces.THEME", "smoothness");
 
-        // Lightadmin configuration
-        /*LightAdmin.configure(servletContext)
-                .basePackage("org.cgiar.ccafs.csa.web.admin")
-                .baseUrl("/admin")
-                .security(false)
-                .backToSiteUrl("/index.html")
-                .helpUrl("/index.html");
-
-        new LightAdminWebApplicationInitializer().onStartup(servletContext);*/
     }
 
     /**
@@ -131,6 +137,32 @@ public class WebConfiguration implements ServletContextInitializer {
     public ServletRegistrationBean facesServletRegistration() {
         ServletRegistrationBean registration = new ServletRegistrationBean(facesServlet(), "*.xhtml");
         registration.setName("FacesServlet");
+        registration.setLoadOnStartup(1);
         return registration;
+    }
+
+    /**
+     * @return An instance of the filter that allows Prime Faces to handle file uploads.
+     */
+    @Bean
+    @Profile(Constants.SPRING_PROFILE_DEVELOPMENT)
+    public FilterRegistrationBean facesUploadFilterRegistration() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new FileUploadFilter(), facesServletRegistration());
+        registrationBean.setName("PrimeFaces FileUpload Filter");
+        registrationBean.setDispatcherTypes(DispatcherType.FORWARD, DispatcherType.REQUEST);
+        return registrationBean;
+    }
+
+    /**
+     * @return An instance of the filter for URL rewriting Pretty Faces library.
+     */
+    @Bean
+    @Profile(Constants.SPRING_PROFILE_DEVELOPMENT)
+    public FilterRegistrationBean prettyFilter() {
+        FilterRegistrationBean prettyFilter = new FilterRegistrationBean(new PrettyFilter());
+        prettyFilter.setDispatcherTypes(DispatcherType.FORWARD, DispatcherType.REQUEST,
+                DispatcherType.ASYNC, DispatcherType.ERROR);
+        prettyFilter.addUrlPatterns("/*");
+        return prettyFilter;
     }
 }

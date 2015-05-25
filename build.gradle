@@ -2,36 +2,39 @@
  * This is the Gradle build script.
  */
 
-description = 'This is the CSA Prioritization Tool build file. It uses spring boot.'
+description = "This is the CSA Prioritization Tool build file. It uses spring boot."
 
 buildscript {
     repositories {
-        jcenter()
-        maven { url 'http://repo.spring.io/plugins-release' }
+        mavenCentral()
+        maven { url "http://repo.spring.io/plugins-release" }
     }
     dependencies {
         // Spring boot integration with gradle
-        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE')
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE")
         // Plugin to reload changed classes with out restarting
-        classpath('org.springframework:springloaded:1.2.1.RELEASE')
+        classpath("org.springframework:springloaded:1.2.1.RELEASE")
         // Plugin to include optional dependencies
-        classpath('org.springframework.build.gradle:propdeps-plugin:0.0.7')
+        classpath("org.springframework.build.gradle:propdeps-plugin:0.0.7")
+        // Plugin to deploy the war file to a remote Tomcat
+        classpath("com.bmuschko:gradle-cargo-plugin:2.1.1")
     }
 }
 
 // Includes java plugin
-apply plugin: 'war'
-apply plugin: 'spring-boot'
-apply plugin: 'propdeps'
+apply plugin: "war"
+apply plugin: "spring-boot"
+apply plugin: "propdeps"
+apply plugin: "com.bmuschko.cargo"
 
 // This customization is directly guided to Openshift deployment
 war {
-    archiveName = 'ROOT.war'
-    destinationDir = file('webapps')
+    archiveName = "ROOT.war"
+    destinationDir = file("webapps")
 }
 
 // Hopefully speeds up the process of searching for a proper main class
-mainClassName = 'org.cgiar.ccafs.csa.CSAToolApplication'
+mainClassName = "org.cgiar.ccafs.csa.CSAToolApplication"
 
 // Pre-process resources before the code is compiled
 compileJava.dependsOn(processResources)
@@ -44,104 +47,125 @@ bootRun {
 // Location of the libraries for the application. They are tried from top to bottom.
 repositories {
     //mavenLocal()
-    jcenter()
-    maven {
-        //This is not normally used as the local modified copy of this library is used
-        url 'http://lightadmin.org/nexus/content/repositories/snapshots'
-    }
+    mavenCentral()
+    maven { url "http://lightadmin.org/nexus/content/repositories/snapshots" }
+    maven { url "http://repository.primefaces.org" }
 }
 
 /*
-* These dependencies actually determinate the behavior of the application. Spring boot
-* Searches the jars and configures the app in a way that works with the libraries.
-* This particular app, has support for Spring Mvc, JPA and Security. LightAdmin, 
-* JBoss Rich Faces, Postgresql, MySql and H2 databases, and an embedded Tomcat.
-*/
+ * These dependencies actually determinate the behavior of the application. Spring boot
+ * Searches the jars and configures the app in a way that works with the libraries.
+ * This particular app, has support for Spring Mvc, JPA and Security. LightAdmin,
+ * Prime Faces, Postgresql, MySql and H2 databases, and an embedded Tomcat.
+ */
 dependencies {
 
-    compile 'org.springframework.boot:spring-boot-starter:1.2.3.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-actuator:1.2.3.RELEASE'
-    optional 'org.springframework.boot:spring-boot-configuration-processor:1.2.3.RELEASE'
+    def springBootVersion = "1.2.3.RELEASE"
+    def springVersion = "4.1.6.RELEASE"
 
-    compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
-    compile 'org.springframework:spring-aspects:4.1.6.RELEASE'
+    compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
+    optional "org.springframework.boot:spring-boot-configuration-processor:$springBootVersion"
+
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework:spring-aspects:$springVersion"
+    compile "org.springframework:spring-orm:$springVersion"
 
     // Includes tomcat-embed-core, tomcat-embed-el, ecj
-    providedCompile 'org.apache.tomcat.embed:tomcat-embed-jasper:8.0.21'
-    providedCompile 'org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.21'
+    providedCompile "org.apache.tomcat.embed:tomcat-embed-jasper:8.0.22"
+    providedCompile "org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.22"
 
-    compile('org.springframework.data:spring-data-jpa:1.7.2.RELEASE') {
+    compile("org.springframework.data:spring-data-jpa:1.7.2.RELEASE") {
         // Requests an older version with different name
-        exclude module: 'aspectjrt'
+        exclude module: "aspectjrt"
     }
-    compile 'org.springframework:spring-orm:4.1.6.RELEASE'
 
-    compile 'org.hibernate:hibernate-entitymanager:4.3.8.Final'
-    compile 'org.hibernate:hibernate-validator:5.1.3.Final'
+    compile "org.hibernate:hibernate-entitymanager:4.3.10.Final"
+    compile "org.hibernate:hibernate-validator:5.1.3.Final"
 
     // Needs to be included in the final war, otherwise Tomcat will fail
-    compile 'org.javassist:javassist:3.18.2-GA'
+    compile "org.javassist:javassist:3.18.2-GA"
 
     // For excel parsing
-    compile 'org.apache.poi:poi-ooxml:3.11'
+    compile "org.apache.poi:poi-ooxml:3.11"
 
-    // Springloaded doesn't like Java 8 version.
-    compile('com.zaxxer:HikariCP-java6:2.3.7') {
-        // The javassist version it requests is not compatible with other libraries of the project
-        exclude module: 'javassist'
+    // Springloaded doesn"t like Java 8 version.
+    compile("com.zaxxer:HikariCP-java6:2.3.7") {
+        // The javassist version it depends on is not compatible with other libraries of the project
+        exclude module: "javassist"
     }
 
     // Database drivers are part of the container
-    //providedRuntime 'org.postgresql:postgresql:9.2-1004-jdbc4'
-    //providedRuntime 'mysql:mysql-connector-java:5.1.34'
-    providedCompile 'com.h2database:h2:1.4.186'
+    //providedRuntime "org.postgresql:postgresql:9.2-1004-jdbc4"
+    //providedRuntime "mysql:mysql-connector-java:5.1.34"
+
+    // MUST remain 1.4.186
+    providedCompile "com.h2database:h2:1.4.186"
 
     // Database migrations
-    compile 'org.flywaydb:flyway-core:3.2.1'
+    compile "org.flywaydb:flyway-core:3.2.1"
 
-    // This needs to remain 2.1.4 to make lightadmin to work
-    compile 'org.springframework.data:spring-data-rest-webmvc:2.1.4.RELEASE'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
+    compile "com.fasterxml.jackson.core:jackson-databind:2.5.1"
 
     // For backend administration. Includes apache tiles
-    compile 'org.lightadmin:lightadmin:1.1.0.BUILD-SNAPSHOT'
+    compile "org.lightadmin:lightadmin:1.1.0.BUILD-SNAPSHOT"
 
     // Includes JSF libraries
-    compile 'org.apache.myfaces.core:myfaces-api:2.2.8'
-    compile 'org.apache.myfaces.core:myfaces-impl:2.2.8'
+    compile "org.apache.myfaces.core:myfaces-api:2.2.8"
+    compile "org.apache.myfaces.core:myfaces-impl:2.2.8"
 
     // Pretty faces for URL rewriting
-    compile 'com.ocpsoft:prettyfaces-jsf2:3.3.3'
+    compile "com.ocpsoft:prettyfaces-jsf2:3.3.3"
 
-    // Rich Faces for UI components
-    compile 'org.richfaces:richfaces:4.5.5.Final'
+    // Prime Faces for UI components
+    compile "org.primefaces:primefaces:5.2"
+    compile "org.primefaces.themes:all-themes:1.0.10"
 
     // Angular Faces For Angular integration
-    //compile 'de.beyondjava:angularFaces-core:2.1.4'
+    //compile "de.beyondjava:angularFaces-core:2.1.4"
 
     // Boots Faces for Bootstrap Layouts
-    compile 'net.bootsfaces:bootsfaces:0.6.6'
+    compile "net.bootsfaces:bootsfaces:0.6.6"
 
     // For testing
-    testCompile 'org.springframework:spring-test:4.1.6.RELEASE'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.10.8'
-    testCompile 'org.hamcrest:hamcrest-library:1.3'
+    testCompile "org.springframework:spring-test:$springVersion"
+    testCompile "junit:junit:4.12"
+    testCompile "org.mockito:mockito-core:1.10.8"
+    testCompile "org.hamcrest:hamcrest-library:1.3"
 
 }
 
 /*
-* Gradle Wrapper task, it downloads Gradle and creates the proper environment for developers
-* who get the source code from github.
-*/
+ * Gradle Wrapper task, it downloads Gradle and creates the proper environment for developers
+ * who get the source code from github.
+ */
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    gradleVersion = "2.4"
 }
 
 /*
-* Deploys the war file to the webapps folder in Tomcat
-*/
-task deploy(type: Copy, dependsOn: 'war') {
-    from 'webapps/ROOT.war'
-    into System.getenv('CATALINA_HOME') + '/webapps/'
+ * Deploys the war file to the webapps folder in Tomcat
+ */
+task deploy(type: Copy, dependsOn: "war") {
+    from "webapps/ROOT.war"
+    into System.getenv("CATALINA_HOME") + "/webapps/"
+}
+
+/*
+ * This configuration allows the Cargo plugin to deploy the war file to the production server.
+ *
+ */
+cargo {
+    containerId = "tomcat8x"
+    port = 80
+
+    deployable {
+        context = "/"
+    }
+
+    remote {
+        hostname = "csatool.cgiarad.org"
+        username = "admin"
+        password = "admin"
+    }
 }

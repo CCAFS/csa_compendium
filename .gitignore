@@ -4,11 +4,8 @@
 # Package Files #
 *.war*
 
-# virtual machine crash logs #
-hs_err_pid*
-
 # Other folders and files from Development Tools #
-extra/
+webapps/
 build/
 .gradle/
 .idea/

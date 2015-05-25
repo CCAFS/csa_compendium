@@ -3,12 +3,14 @@ package org.cgiar.ccafs.csa.web;
 import org.cgiar.ccafs.csa.domain.Practice;
 import org.cgiar.ccafs.csa.repository.ExperimentArticleRepository;
 import org.cgiar.ccafs.csa.repository.PracticeRepository;
+import org.primefaces.model.DualListModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,10 +31,12 @@ public class WorkshopController implements Serializable {
     @Autowired
     SearchController searchController;
 
+    private DualListModel<Practice> practices;
+
     private List<Practice> selectedPractices;
     private List<Practice> availablePractices;
 
-    public List<Practice> getAvailablePractices() {
+    private List<Practice> getAvailablePractices() {
         if (availablePractices == null) {
             availablePractices = new ArrayList<>();
             availablePractices.add(practiceRepository.findByCode("a11"));
@@ -46,11 +50,23 @@ public class WorkshopController implements Serializable {
         return availablePractices;
     }
 
-    public List<Practice> getSelectedPractices() {
+    private List<Practice> getSelectedPractices() {
         if (selectedPractices == null) {
             selectedPractices = new ArrayList<>();
         }
         return selectedPractices;
     }
 
+    @PostConstruct
+    public void init() {
+        practices = new DualListModel<>(getAvailablePractices(), getSelectedPractices());
+    }
+
+    public DualListModel<Practice> getPractices() {
+        return practices;
+    }
+
+    public void setPractices(DualListModel<Practice> practices) {
+        this.practices = practices;
+    }
 }
