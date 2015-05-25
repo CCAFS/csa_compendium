@@ -23,13 +23,13 @@ public class WorkshopController implements Serializable {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
+    private SearchController searchController;
+
+    @Autowired
     private ExperimentArticleRepository experimentArticleRepository;
 
     @Autowired
     private PracticeRepository practiceRepository;
-
-    @Autowired
-    SearchController searchController;
 
     private DualListModel<Practice> practices;
 

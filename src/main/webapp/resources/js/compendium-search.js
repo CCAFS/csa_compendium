@@ -57,7 +57,7 @@ function setSelectedFilters() {
         var paramLine = $(this).text();
         var colonPlace = paramLine.indexOf(':');
         resultInfo += colonPlace < 0 ? paramLine : paramLine.substring(colonPlace + 2);
-        resultInfo +=  ":"
+        resultInfo += ":"
     });
     $(SEARCH_ID_PREFIX + 'filters').val(result);
     $(SEARCH_ID_PREFIX + 'filtersInfo').val(resultInfo);

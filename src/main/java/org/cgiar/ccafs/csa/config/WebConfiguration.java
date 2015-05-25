@@ -39,6 +39,32 @@ public class WebConfiguration implements ServletContextInitializer {
     private String tempStorageLocation;
 
     /**
+     * Allows the use of @Scope("view") on Spring @Component, @Service and @Controller beans
+     *
+     * @return An Scope Configuration bean
+     */
+    @Bean
+    public static CustomScopeConfigurer scopeConfigurer() {
+        CustomScopeConfigurer configurer = new CustomScopeConfigurer();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("view", viewScope());
+        configurer.setScopes(hashMap);
+        return configurer;
+    }
+
+    /**
+     * A Custom Bean scope limited to the current view
+     *
+     * @return a ViewScope instance
+     */
+    @Bean
+    public static ViewScope viewScope() {
+        return new ViewScope();
+    }
+
+    ///// These methods set up the Faces Servlet for Spring Boot /////
+
+    /**
      * This method initializes JSF, H2 console and LightAdmin.
      *
      * @throws javax.servlet.ServletException If something goes wrong
@@ -92,32 +118,6 @@ public class WebConfiguration implements ServletContextInitializer {
         factory.setMaxFileSize("16MB");
         factory.setMaxRequestSize("16MB");
         return factory.createMultipartConfig();
-    }
-
-    ///// These methods set up the Faces Servlet for Spring Boot /////
-
-    /**
-     * Allows the use of @Scope("view") on Spring @Component, @Service and @Controller beans
-     *
-     * @return An Scope Configuration bean
-     */
-    @Bean
-    public static CustomScopeConfigurer scopeConfigurer() {
-        CustomScopeConfigurer configurer = new CustomScopeConfigurer();
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("view", viewScope());
-        configurer.setScopes(hashMap);
-        return configurer;
-    }
-
-    /**
-     * A Custom Bean scope limited to the current view
-     *
-     * @return a ViewScope instance
-     */
-    @Bean
-    public static ViewScope viewScope() {
-        return new ViewScope();
     }
 
     /**

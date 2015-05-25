@@ -7,52 +7,43 @@ import org.cgiar.ccafs.csa.domain.*;
 import org.cgiar.ccafs.csa.repository.*;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class DataExtractionService {
-
-    @Autowired
-    private ExperimentArticleRepository experimentArticleRepository;
-
-    @Autowired
-    private TreatmentRepository treatmentRepository;
-
-    @Autowired
-    private LocationRepository locationRepository;
-
-    @Autowired
-    private FarmingSystemRepository farmingSystemRepository;
-
-    @Autowired
-    private CountryRepository countryRepository;
-
-    @Autowired
-    private ProductionSystemRepository productionSystemRepository;
-
-    @Autowired
-    private PracticeThemeRepository practiceThemeRepository;
-
-    @Autowired
-    private PracticeLevelRepository practiceLevelRepository;
-
-    @Autowired
-    private PracticeRepository practiceRepository;
-
-    @Autowired
-    private IndicatorRepository indicatorRepository;
-
-
-    // Status variables that indicate the stage of the file parsing process
 
     List<String> sections = Collections.unmodifiableList(Arrays.asList(
             "Article information",
             "Context",
             "BLOCK"
     ));
+    @Autowired
+    private ExperimentArticleRepository experimentArticleRepository;
+    @Autowired
+    private TreatmentRepository treatmentRepository;
+    @Autowired
+    private LocationRepository locationRepository;
+    @Autowired
+    private FarmingSystemRepository farmingSystemRepository;
+    @Autowired
+    private CountryRepository countryRepository;
+    @Autowired
+    private ProductionSystemRepository productionSystemRepository;
+    @Autowired
+    private PracticeThemeRepository practiceThemeRepository;
+    @Autowired
+    private PracticeLevelRepository practiceLevelRepository;
+    @Autowired
+    private PracticeRepository practiceRepository;
+
+
+    // Status variables that indicate the stage of the file parsing process
+    @Autowired
+    private IndicatorRepository indicatorRepository;
 
     public void extractArticleInformation(Iterable<Row> sheet) {
 

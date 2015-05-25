@@ -33,19 +33,6 @@ public class CSAToolApplication extends SpringBootServletInitializer {
     private Environment env;
 
     /**
-     * Spring profiles can be configured with a program arguments --spring.profiles.active=your-active-profile
-     */
-    @PostConstruct
-    public void initApplication() {
-        if (env.getActiveProfiles().length == 0) {
-            log.warn("No Spring profile configured, running with default configuration");
-        } else {
-            log.info("Running with Spring profile(s) : {}",
-                    Arrays.toString(env.getActiveProfiles()));
-        }
-    }
-
-    /**
      * Main method, used to run the application.
      *
      * @param args Command line arguments
@@ -60,11 +47,6 @@ public class CSAToolApplication extends SpringBootServletInitializer {
         }
     }
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.profiles(addDefaultProfile()).showBanner(false).sources(CSAToolApplication.class);
-    }
-
     /**
      * Set a default profile if it has not been set. Use -Dspring.profiles.active=dev
      */
@@ -74,6 +56,24 @@ public class CSAToolApplication extends SpringBootServletInitializer {
             profile = Constants.SPRING_PROFILE_DEVELOPMENT;
         }
         return profile;
+    }
+
+    /**
+     * Spring profiles can be configured with a program arguments --spring.profiles.active=your-active-profile
+     */
+    @PostConstruct
+    public void initApplication() {
+        if (env.getActiveProfiles().length == 0) {
+            log.warn("No Spring profile configured, running with default configuration");
+        } else {
+            log.info("Running with Spring profile(s) : {}",
+                    Arrays.toString(env.getActiveProfiles()));
+        }
+    }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.profiles(addDefaultProfile()).showBanner(false).sources(CSAToolApplication.class);
     }
 
 }

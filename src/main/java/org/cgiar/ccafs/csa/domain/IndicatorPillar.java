@@ -25,7 +25,8 @@ public class IndicatorPillar implements Serializable {
     @JoinColumn(name = "indicator_id")
     private Indicator indicator;
 
-    public IndicatorPillar() {}
+    public IndicatorPillar() {
+    }
 
     public IndicatorPillar(Pillar pillar, float weight) {
         this.pillar = pillar;

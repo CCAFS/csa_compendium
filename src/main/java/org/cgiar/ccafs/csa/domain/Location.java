@@ -35,12 +35,20 @@ public class Location {
         return latitude;
     }
 
+    public void setLatitude(String latitude) {
+        setLatitude(convertCoordinate(latitude.trim(), "S"));
+    }
+
     public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 
     public float getLongitude() {
         return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        setLongitude(convertCoordinate(longitude.trim(), "W"));
     }
 
     public void setLongitude(float longitude) {
@@ -69,14 +77,6 @@ public class Location {
 
     public void setCountry(Country country) {
         this.country = country;
-    }
-
-    public void setLatitude(String latitude) {
-        setLatitude(convertCoordinate(latitude.trim(), "S"));
-    }
-
-    public void setLongitude(String longitude) {
-        setLongitude(convertCoordinate(longitude.trim(), "W"));
     }
 
     private float convertCoordinate(String coordinate, String negativeString) {

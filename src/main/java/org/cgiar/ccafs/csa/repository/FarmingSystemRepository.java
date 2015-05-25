@@ -2,7 +2,6 @@ package org.cgiar.ccafs.csa.repository;
 
 import org.cgiar.ccafs.csa.domain.FarmingSystem;
 import org.cgiar.ccafs.csa.domain.Region;
-
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

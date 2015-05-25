@@ -102,8 +102,11 @@ function highlightArticle(articleCode) {
 
     var parent = $(".search-results");
 
-    $(parent).animate({ scrollTop: $(parent).scrollTop() + $(panelId).offset().top - $(parent).offset().top }, { duration: 'slow', easing: 'swing'});
-    $('html,body').animate({ scrollTop: $(parent).offset().top }, { duration: 1000, easing: 'swing'});
+    $(parent).animate({scrollTop: $(parent).scrollTop() + $(panelId).offset().top - $(parent).offset().top}, {
+        duration: 'slow',
+        easing: 'swing'
+    });
+    $('html,body').animate({scrollTop: $(parent).offset().top}, {duration: 1000, easing: 'swing'});
 
     //$(panelId).get(0).scrollIntoView();
     MAPPER.highlightMarker();
