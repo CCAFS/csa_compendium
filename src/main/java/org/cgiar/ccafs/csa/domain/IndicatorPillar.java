@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "indicator_pillars")
-public class IndicatorPillar implements Serializable {
+public class IndicatorPillar implements Comparable<IndicatorPillar>, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -37,7 +37,7 @@ public class IndicatorPillar implements Serializable {
         return this.id;
     }
 
-    public Object getPillar() {
+    public Pillar getPillar() {
         return this.pillar;
     }
 
@@ -61,4 +61,8 @@ public class IndicatorPillar implements Serializable {
         this.indicator = indicator;
     }
 
+    @Override
+    public int compareTo(IndicatorPillar indicatorPillar) {
+        return this.getWeight() > indicatorPillar.getWeight() ? 1 : -1;
+    }
 }

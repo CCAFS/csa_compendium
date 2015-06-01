@@ -4,14 +4,19 @@
 }
 
 @font-face {
+    font-family: YanoneKaffeesatz-Bold;
+    src: url('/resources/fonts/YanoneKaffeesatz-Bold.woff2') format('woff2'), url('/resources/fonts/YanoneKaffeesatz-Bold.ttf') format('truetype');
+}
+
+@font-face {
     font-family: YanoneKaffeesatz-Ligtht;
     src: url('/resources/fonts/YanoneKaffeesatz-Light.woff2') format('woff2'), url('/resources/fonts/YanoneKaffeesatz-Light.ttf') format('truetype');
 }
 
 body {
-    font-family: YanoneKaffeesatz-Ligtht, sans-serif;
+    /*font-family: YanoneKaffeesatz-Ligtht, sans-serif;*/
     background: url("#{resource['images/bg_body.jpg']}");
-    /*background: url(/resources/images/bg_body.jpg);*/
+    font-size: 13px;
 }
 
 #beta_logo {
@@ -33,11 +38,7 @@ body {
 
 #nav {
     margin-top: 27px;
-    font-size: 1.23em;
-}
-
-#nav ul li {
-    margin-left: 6px;
+    font-size: 18px;
 }
 
 #intro {
@@ -61,8 +62,10 @@ body {
 }
 
 #login-button {
-    color: #FFF;
-    background: #444;
+    font-family: YanoneKaffeesatz-Ligtht, sans-serif;
+    font-size: 15px;
+    color: #e7e7e7;
+    background: #314b53;
     padding: 2px 0 5px 0;
     width: 80px;
     text-align: center;
@@ -70,6 +73,10 @@ body {
     position: absolute;
     top: -17px;
     right: 16px;
+}
+
+#login-button:hover {
+    color: #FFF;
 }
 
 .content {
@@ -86,7 +93,7 @@ ol li {
 
 p {
     padding-top: 9px;
-    font-size: 17px;
+    font-size: 16px;
     color: #444;
     text-align: justify;
 }
@@ -139,7 +146,7 @@ h2.title {
     margin-right: 24px;
 }
 
-#search-block input[type=text], select {
+#search-block input[type=text],#search-block select {
     width: 100%;
     color: #444;
     margin: 4px 0 12px 0;
@@ -150,15 +157,20 @@ h2.title {
 
 .btn-add {
     border: 0;
-    color: #fff;
+    color: #e7e7e7;
     background: #5F5F64;
-    padding: 2px 12px;
+    padding: 4px 12px 2px;
     margin: 25px 0 18px 0;
-    border-radius: 2px;
+    border-radius: 3px;
+}
+
+.btn-add:hover {
+    color: #fff;
+    background: #444;
 }
 
 #btn-remove-filter {
-    margin: 8px 0 0 0;
+    margin: 10px 0 0 0;
 }
 
 .filterSelect {
@@ -167,10 +179,16 @@ h2.title {
 
 input.btn-search {
     background: #2F293D;
+    color: #e7e7e7;
     border: 0;
-    padding: 8px 26px;
-    border-radius: 3px;
+    padding: 8px 8px;
+    border-radius: 4px;
+    width: 130px;
+}
+
+input.btn-search:hover {
     color: #FFF;
+    background: #150e20;
 }
 
 /****************   CSA Compendium search result  *****************/
@@ -394,4 +412,36 @@ span.text {
 .ui-widget {
     font-size: 0.85em;
     font-family: 'Helvetica Neue', HelveticaNeue, Helvetica, Verdana, sans-serif;
+}
+
+.ui-slider-horizontal {
+    margin-bottom: 6px;
+}
+
+/* Workshops styles */
+
+.sliders-panel {
+    text-align: center;
+    padding-top: 38px;
+    margin-left: 15px;
+}
+
+.slider-box {
+    margin-top: 30px;
+}
+
+.indicator-title {
+    text-align: center;
+    padding: 3px 0 3px 0;
+    margin-bottom: 10px;
+    width: 100%;
+    color: #e7e7e7;
+}
+
+table.ui-selectmanycheckbox label {
+    margin-left: 6px;
+}
+
+label[for=selectedMitigationIndicatorsBox\:0], label[for=selectedProductionIndicatorsBox\:0], label[for=selectedAdaptationIndicatorsBox\:0] {
+    font-style: italic;
 }

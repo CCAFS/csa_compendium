@@ -24,6 +24,22 @@ public class ContextVariable extends AbstractInformationEntity {
     private List<ContextValue> contextValues = new ArrayList<>();
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ContextVariable)) return false;
+
+        ContextVariable that = (ContextVariable) o;
+
+        return id.equals(that.id);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
     public Integer getId() {
         return this.id;
     }

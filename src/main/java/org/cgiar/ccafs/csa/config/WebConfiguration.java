@@ -65,7 +65,7 @@ public class WebConfiguration implements ServletContextInitializer {
     ///// These methods set up the Faces Servlet for Spring Boot /////
 
     /**
-     * This method initializes JSF, H2 console and LightAdmin.
+     * This method initializes JSF options and LightAdmin.
      *
      * @throws javax.servlet.ServletException If something goes wrong
      */
@@ -82,10 +82,6 @@ public class WebConfiguration implements ServletContextInitializer {
 
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
             new LightAdminWebApplicationInitializer().onStartup(servletContext);
-
-            ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new WebServlet());
-            h2ConsoleServlet.addMapping("/console");
-            h2ConsoleServlet.setLoadOnStartup(5);
 
             servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
             servletContext.setInitParameter("primefaces.UPLOADER", "commons");
@@ -139,6 +135,19 @@ public class WebConfiguration implements ServletContextInitializer {
         registration.setName("FacesServlet");
         registration.setLoadOnStartup(1);
         return registration;
+    }
+
+    // Filters and servlets that only get instantiated on Embedded/Development mode
+
+    /**
+     * @return An instance of the H2 Web administration Servlet.
+     */
+    @Bean
+    @Profile(Constants.SPRING_PROFILE_DEVELOPMENT)
+    public ServletRegistrationBean h2Servlet() {
+        ServletRegistrationBean h2ConsoleServlet = new ServletRegistrationBean(new WebServlet(), "/console/*");
+        h2ConsoleServlet.addInitParameter("-webAllowOthers", "true");
+        return h2ConsoleServlet;
     }
 
     /**

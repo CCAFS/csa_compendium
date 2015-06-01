@@ -51,6 +51,24 @@ public class Region implements Serializable {
         return this.countries;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Region)) return false;
+
+        Region region = (Region) o;
+
+        return code.equals(region.getCode()) && name.equals(region.getName());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
+    }
+
     public Country addCountry(Country country) {
         getCountries().add(country);
         country.setRegion(this);

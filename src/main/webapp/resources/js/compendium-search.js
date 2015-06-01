@@ -26,7 +26,7 @@ function addSearchParameter(parentFilter, childFilter, allowsChildless) {
 
     if (childValue != "0") {
         paramValue = childFilter + ':' + childValue;
-        paramLabel = allowsChildless ? childLabel : (parentLabel + ': ' + childLabel);
+        paramLabel = allowsChildless || parentLabel == "--" ? childLabel : (parentLabel + ': ' + childLabel);
     } else {
         if (!allowsChildless) {
             return;

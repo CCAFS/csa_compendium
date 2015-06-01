@@ -3,7 +3,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:b="http://bootsfaces.net/ui">
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="resources">
         <h:outputScript name="js/compendium-search.js" target="body"/>
@@ -54,9 +55,7 @@
                                     <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
                                     <f:selectItems value="#{searchController.regionsList}" var="region"
                                                    itemLabel="#{region.name}" itemValue="#{region.code}"/>
-                                    <f:ajax listener="#{searchController.updateCountriesAndFarmingSystems}"
-                                            render="countriesList farmingSystemsList"
-                                            onerror="logError"/>
+                                    <p:ajax update="countriesList" onerror="logError"/>
                                 </h:selectOneMenu>
                             </b:column>
 
@@ -66,8 +65,7 @@
                                 <h:selectOneMenu id="countriesList"
                                                  value="#{searchController.selectedCountryCode}" label="Country">
                                     <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
-                                    <f:selectItems value="#{searchController.countriesList}" var="country"
-                                                   itemLabel="#{country.name}" itemValue="#{country.code}"/>
+                                    <f:selectItems value="#{searchController.countriesList}"/>
                                 </h:selectOneMenu>
 
                             </b:column>
@@ -77,25 +75,28 @@
                                        onclick="addSearchParameter('regions', 'countries', true)"/>
                             </b:column>
                         </b:row>
-                        <b:row>
-                            <b:column offset-sm="5" col-sm="5">
-                                <!-- Farming System Inputs -->
-                                <h:outputLabel for="farmingSystemsList" value="Farming System:"/>
-                                <h:selectOneMenu id="farmingSystemsList" converter="javax.faces.Integer"
-                                                 value="#{searchController.selectedFarmingSystemId}"
-                                                 label="Farming System">
-                                    <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
-                                    <f:selectItems value="#{searchController.farmingSystemsList}" var="farmingSystem"
-                                                   itemLabel="#{farmingSystem.name}"
-                                                   itemValue="#{farmingSystem.id}"/>
-                                </h:selectOneMenu>
-                            </b:column>
 
-                            <b:column col-sm="2">
-                                <input id="btn-add-farming-system" class="btn-add" type="button" value="Add"
-                                       onclick="addSearchParameter('regions', 'farmingSystems', false)"/>
-                            </b:column>
-                        </b:row>
+                            <b:row>
+                                <b:column offset-sm="5" col-sm="5">
+                                    <!-- Farming System Inputs -->
+                                    <h:outputLabel for="farmingSystemsList" value="Farming System:"/>
+                                    <h:selectOneMenu id="farmingSystemsList" converter="javax.faces.Integer"
+                                                     value="#{searchController.selectedFarmingSystemId}"
+                                                     label="Farming System">
+                                        <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
+                                        <f:selectItems value="#{searchController.farmingSystemsList}"
+                                                       var="farmingSystem"
+                                                       itemLabel="#{farmingSystem.name}"
+                                                       itemValue="#{farmingSystem.id}"/>
+                                    </h:selectOneMenu>
+                                </b:column>
+
+                                <b:column col-sm="2">
+                                    <input id="btn-add-farming-system" class="btn-add" type="button" value="Add"
+                                           onclick="addSearchParameter('regions', 'farmingSystems', true)"/>
+                                </b:column>
+                            </b:row>
+
                         <hr class="separator"/>
                         <b:row>
                             <b:column col-sm="5">
@@ -106,8 +107,7 @@
                                     <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
                                     <f:selectItems value="#{searchController.themesList}" var="theme"
                                                    itemLabel="#{theme.name}" itemValue="#{theme.id}"/>
-                                    <f:ajax listener="#{searchController.updatePracticeLevels}"
-                                            render="practiceLevelsList" onerror="logError"/>
+                                    <p:ajax update="practiceLevelsList" onerror="logError"/>
                                 </h:selectOneMenu>
                             </b:column>
 
@@ -118,8 +118,7 @@
                                                  value="#{searchController.selectedPracticeLevelId}"
                                                  label="Practive Level">
                                     <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
-                                    <f:selectItems value="#{searchController.practiceLevelsList}" var="level"
-                                                   itemLabel="#{level.name}" itemValue="#{level.id}"/>
+                                    <f:selectItems value="#{searchController.practiceLevelsList}"/>
                                 </h:selectOneMenu>
                             </b:column>
 
@@ -140,22 +139,18 @@
                                     <f:selectItems value="#{searchController.productionSystemCategoriesList}"
                                                    var="category"
                                                    itemLabel="#{category.name}" itemValue="#{category.id}"/>
-                                    <f:ajax listener="#{searchController.updateProductionSystems}"
-                                            render="productionSystemsList" onerror="logError"/>
+                                    <p:ajax update="productionSystemsList" onerror="logError"/>
                                 </h:selectOneMenu>
                             </b:column>
 
                             <b:column col-sm="5">
                                 <!-- Crops & Livestock Inputs -->
-                                <h:outputLabel for="productionSystemsList" value="Crops &amp; Livestock:"/>
+                                <h:outputLabel for="productionSystemsList" value="Production Systems:"/>
                                 <h:selectOneMenu id="productionSystemsList" converter="javax.faces.Integer"
                                                  value="#{searchController.selectedProductionSystemId}"
-                                                 label="Crops &amp; Livestock">
+                                                 label="Production Systems">
                                     <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
-                                    <f:selectItems value="#{searchController.productionSystemsList}"
-                                                   var="productionSystem"
-                                                   itemLabel="#{productionSystem.name}"
-                                                   itemValue="#{productionSystem.id}"/>
+                                    <f:selectItems value="#{searchController.productionSystemsList}"/>
                                 </h:selectOneMenu>
                             </b:column>
 
@@ -164,45 +159,74 @@
                                        onclick="addSearchParameter('categories', 'productionSystems', false)"/>
                             </b:column>
                         </b:row>
-                        <ui:remove>
-                            <hr class="separator"/>
-                            <b:row>
-                                <b:column col-sm="5">
-                                    <!-- Filter Inputs -->
-                                    <h:outputLabel for="contextVariablesList" value="Other Filters:"/>
-                                    <h:selectOneMenu id="contextVariablesList" converter="javax.faces.Integer"
-                                                     value="#{searchController.selectedContextVariableId}"
-                                                     label="Other Filters">
-                                        <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
-                                        <f:selectItems value="#{searchController.contextVariablesList}"
-                                                       var="contextVariable"
-                                                       itemLabel="#{contextVariable.name}"
-                                                       itemValue="#{contextVariable.id}"/>
-                                        <f:ajax listener="#{searchController.updateContextValues}"
-                                                render="contextValuesList" onerror="logError"/>
-                                    </h:selectOneMenu>
-                                </b:column>
 
-                                <b:column col-sm="5">
-                                    <!-- Context Variables Values Inputs -->
-                                    <h:outputLabel for="contextValueList" value="Matching Value:"/>
-                                    <h:selectOneMenu id="contextValueList" converter="javax.faces.Integer"
-                                                     value="#{searchController.selectedContextValueId}"
-                                                     label="Matching Value">
-                                        <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
-                                        <f:selectItems value="#{searchController.contextValuesList}"
-                                                       var="contextValue"
-                                                       itemLabel="#{contextValue.name}"
-                                                       itemValue="#{contextValue.id}"/>
-                                    </h:selectOneMenu>
-                                </b:column>
+                        <hr class="separator"/>
+                        <b:row>
+                            <b:column col-sm="5">
+                                <!-- Indicator Inputs -->
+                                <h:outputLabel for="indicatorsList" value="Indicators:"/>
+                                <h:selectOneMenu id="indicatorsList" converter="javax.faces.Integer"
+                                                 value="#{searchController.selectedIndicatorId}"
+                                                 label="Indicators">
+                                    <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{searchController.indicatorList}"
+                                                   var="indicator"
+                                                   itemLabel="#{indicator.name}"
+                                                   itemValue="#{indicator.id}"/>
+                                    <p:ajax update="subIndicatorsList" onerror="logError"/>
+                                </h:selectOneMenu>
+                            </b:column>
 
-                                <b:column col-sm="2">
-                                    <input id="btn-add-article-value" class="btn-add" type="button" value="Add"
-                                           onclick="addSearchParameter('contextVariables', 'contextValues', false)"/>
-                                </b:column>
-                            </b:row>
-                        </ui:remove>
+                            <b:column col-sm="5">
+                                <!-- Sub indicator Inputs -->
+                                <h:outputLabel for="subIndicatorsList" value="Sub-indicators:"/>
+                                <h:selectOneMenu id="subIndicatorsList" converter="javax.faces.Integer"
+                                                 value="#{searchController.selectedSubIndicatorId}"
+                                                 label="Sub-indicators">
+                                    <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{searchController.subIndicatorsList}" />
+                                </h:selectOneMenu>
+                            </b:column>
+
+                            <b:column col-sm="2">
+                                <input id="btn-add-article-value" class="btn-add" type="button" value="Add"
+                                       onclick="addSearchParameter('indicators', 'subIndicators', false)"/>
+                            </b:column>
+                        </b:row>
+
+                        <hr class="separator"/>
+                        <b:row>
+                            <b:column col-sm="5">
+                                <!-- Filter Inputs -->
+                                <h:outputLabel for="contextVariablesList" value="Other Filters:"/>
+                                <h:selectOneMenu id="contextVariablesList" converter="javax.faces.Integer"
+                                                 value="#{searchController.selectedContextVariableId}"
+                                                 label="Other Filters">
+                                    <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{searchController.contextVariablesList}"
+                                                   var="contextVariable"
+                                                   itemLabel="#{contextVariable.name}"
+                                                   itemValue="#{contextVariable.id}"/>
+                                    <p:ajax update="contextValuesList" onerror="logError"/>
+                                </h:selectOneMenu>
+                            </b:column>
+
+                            <b:column col-sm="5">
+                                <!-- Context Variables Values Inputs -->
+                                <h:outputLabel for="contextValuesList" value="Context Variables:"/>
+                                <h:selectOneMenu id="contextValuesList" converter="javax.faces.Integer"
+                                                 value="#{searchController.selectedContextValueId}"
+                                                 label="Context Variables">
+                                    <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{searchController.contextValuesList}" />
+                                </h:selectOneMenu>
+                            </b:column>
+
+                            <b:column col-sm="2">
+                                <input id="btn-add-article-value" class="btn-add" type="button" value="Add"
+                                       onclick="addSearchParameter('contextVariables', 'contextValues', false)"/>
+                            </b:column>
+                        </b:row>
                     </b:column>
 
                     <b:column col-sm="4" styleClass="narrow" id="filters-list">

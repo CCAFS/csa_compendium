@@ -20,6 +20,22 @@ public class PracticeTheme extends AbstractInformationEntity {
     private List<PracticeLevel> practiceLevels = new ArrayList<>();
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PracticeTheme)) return false;
+
+        PracticeTheme that = (PracticeTheme) o;
+
+        return id.equals(that.id);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
     public Integer getId() {
         return this.id;
     }

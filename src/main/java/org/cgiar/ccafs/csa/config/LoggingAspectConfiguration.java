@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Profile;
 public class LoggingAspectConfiguration {
 
     @Bean
-    @Profile(Constants.SPRING_PROFILE_PRODUCTION)
+    @Profile("FULL_DEBUG")
     public LoggingAspect loggingAspect() {
         return new LoggingAspect();
     }

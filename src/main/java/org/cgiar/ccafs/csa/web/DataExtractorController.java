@@ -105,7 +105,7 @@ public class DataExtractorController {
                 workbook.close();
             }
             result += file.getFileName() + "  ";
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error("Can't process the file.", e);
             result = "Things didn't went well. Check logs.";
         }

@@ -1,5 +1,7 @@
 package org.cgiar.ccafs.csa.web;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.SetMultimap;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import org.cgiar.ccafs.csa.domain.*;
@@ -12,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @ManagedBean
@@ -42,7 +44,7 @@ public class SearchController implements Serializable {
     private PracticeThemeRepository practiceThemeRepository;
 
     @Autowired
-    private PracticeLevelRepository levelRepository;
+    private PracticeLevelRepository practiceLevelRepository;
 
     @Autowired
     private ProductionSystemCategoryRepository productionSystemCategoryRepository;
@@ -55,64 +57,176 @@ public class SearchController implements Serializable {
 
     @Autowired
     private ContextValueRepository contextValueRepository;
+
+    @Autowired
+    private IndicatorRepository indicatorRepository;
+
+    @Autowired
+    private SubIndicatorRepository subIndicatorRepository;
     // END Repositories
 
     // Variables BLOCK
     private Region selectedRegion;
     private Country selectedCountry;
-    private List<Country> countriesList;
+    private SetMultimap<Region, Country> regionsCountries;
+
     private FarmingSystem selectedFarmingSystem;
     private List<FarmingSystem> farmingSystemsList;
+    private Set<String> farmingSystemsNames;
 
     private PracticeTheme selectedPracticeTheme;
     private PracticeLevel selectedPracticeLevel;
-    private List<PracticeLevel> practiceLevelsList;
+    private SetMultimap<PracticeTheme, PracticeLevel> practiceThemesLevels;
 
     private ProductionSystemCategory selectedProductionSystemCategory;
     private ProductionSystem selectedProductionSystem;
-    private List<ProductionSystem> productionSystemsList;
+    private SetMultimap<ProductionSystemCategory, ProductionSystem> productionSystemsCategories;
+
+    private Indicator selectedIndicator;
+    private SubIndicator selectedSubIndicator;
+    private SetMultimap<Indicator, SubIndicator> indicatorSubIndicators;
 
     private ContextVariable selectedContextVariable;
     private ContextValue selectedContextValue;
-    private List<ContextValue> contextValuesList;
-
+    private SetMultimap<ContextVariable, ContextValue> contextVariablesValues;
     // END Variables
 
     @PostConstruct
     public void init() {
-        countriesList = new ArrayList<>();
+        regionsCountries = HashMultimap.create();
+        practiceThemesLevels = HashMultimap.create();
+        productionSystemsCategories = HashMultimap.create();
+        indicatorSubIndicators = HashMultimap.create();
+        contextVariablesValues = HashMultimap.create();
+
         farmingSystemsList = new ArrayList<>();
-        practiceLevelsList = new ArrayList<>();
-        productionSystemsList = new ArrayList<>();
-        contextValuesList = new ArrayList<>();
+        farmingSystemsNames = new HashSet<>();
+
+        for (FarmingSystem farmingSystem : farmingSystemRepository.findAll()) {
+            if (!farmingSystemsNames.contains(farmingSystem.getName())) {
+                farmingSystemsNames.add(farmingSystem.getName());
+                farmingSystemsList.add(farmingSystem);
+            }
+        }
+
+        Collections.sort(farmingSystemsList, new Comparator<FarmingSystem>() {
+            @Override
+            public int compare(FarmingSystem first, FarmingSystem second) {
+                return (first.getName().charAt(0) > second.getName().charAt(0)) ? 1 : -1;
+            }
+        });
+
+        for (Region region : regionRepository.findAll()) {
+            for (Country country : countryRepository.findByRegion(region)) {
+                regionsCountries.put(region, country);
+            }
+        }
+
+        for (PracticeTheme theme : practiceThemeRepository.findAll()) {
+            for (PracticeLevel level : practiceLevelRepository.findByTheme(theme)) {
+                practiceThemesLevels.put(theme, level);
+            }
+        }
+
+        for (ProductionSystemCategory category : productionSystemCategoryRepository.findAll()) {
+            for (ProductionSystem productionSystem : productionSystemRepository.findByCategory(category)) {
+                productionSystemsCategories.put(category, productionSystem);
+            }
+        }
+
+        for (Indicator indicator : indicatorRepository.findAll()) {
+            for (SubIndicator subIndicator : subIndicatorRepository.findByIndicator(indicator)) {
+                indicatorSubIndicators.put(indicator, subIndicator);
+            }
+        }
+
+        for (ContextVariable variable : contextVariableRepository.findAll()) {
+            for (ContextValue value : contextValueRepository.findByContextVariable(variable)) {
+                contextVariablesValues.put(variable, value);
+            }
+        }
     }
 
     // BLOCK Parent Filters
     public Iterable<Region> getRegionsList() {
-        return regionRepository.findAll();
+        return regionsCountries.keySet();
     }
 
     public Iterable<PracticeTheme> getThemesList() {
-        return practiceThemeRepository.findAll();
+        return practiceThemesLevels.keySet();
     }
 
     public Iterable<ProductionSystemCategory> getProductionSystemCategoriesList() {
-        return productionSystemCategoryRepository.findAll();
+        return productionSystemsCategories.keySet();
+    }
+
+    public Iterable<Indicator> getIndicatorList() {
+        return indicatorSubIndicators.keySet();
     }
 
     public Iterable<ContextVariable> getContextVariablesList() {
-        return contextVariableRepository.findAll();
+        return contextVariablesValues.keySet();
     }
     // END Parent Filters
 
-    // BLOCK Countries Filter
-    public List<Country> getCountriesList() {
-        return countriesList;
+    private SelectItemGroup filterItems(Object parent) {
+        SelectItemGroup group = new SelectItemGroup();
+        List<SelectItem> items = new LinkedList<>();
+
+        if (parent instanceof Region) {
+            Region region = (Region) parent;
+            group.setLabel(region.getName());
+            for (Country country : regionsCountries.get(region)) {
+                items.add(new SelectItem(country.getCode(), country.getName()));
+            }
+        } else if (parent instanceof PracticeTheme) {
+            PracticeTheme practiceTheme = (PracticeTheme) parent;
+            group.setLabel(practiceTheme.getName());
+            for (PracticeLevel level : practiceThemesLevels.get(practiceTheme)) {
+                items.add(new SelectItem(level.getId(), level.getName()));
+            }
+        } else if (parent instanceof ProductionSystemCategory) {
+            ProductionSystemCategory productionSystemCategory = (ProductionSystemCategory) parent;
+            group.setLabel(productionSystemCategory.getName());
+            for (ProductionSystem productionSystem : productionSystemsCategories.get(productionSystemCategory)) {
+                items.add(new SelectItem(productionSystem.getId(), productionSystem.getName()));
+            }
+        } else if (parent instanceof Indicator) {
+            Indicator indicator = (Indicator) parent;
+            group.setLabel(indicator.getName());
+            for (SubIndicator subIndicator : indicatorSubIndicators.get(indicator)) {
+                items.add(new SelectItem(subIndicator.getId(), subIndicator.getName()));
+            }
+        } else if (parent instanceof ContextVariable) {
+            ContextVariable contextVariable = (ContextVariable) parent;
+            group.setLabel(contextVariable.getName());
+            for (ContextValue value : contextVariablesValues.get(contextVariable)) {
+                items.add(new SelectItem(value.getId(), value.getName()));
+            }
+        }
+
+        SelectItem[] itemsArray = new SelectItem[items.size()];
+        group.setSelectItems(items.toArray(itemsArray));
+        return group;
     }
 
-    public void updateCountriesAndFarmingSystems(AjaxBehaviorEvent event) {
-        this.countriesList = countryRepository.findByRegion(selectedRegion);
-        this.farmingSystemsList = farmingSystemRepository.findByRegion(selectedRegion);
+    private List<SelectItem> formItemsList(Object selectedItemsParent, SetMultimap itemsMap) {
+        List<SelectItem> allItems = new LinkedList<>();
+
+        if (selectedItemsParent != null) {
+            allItems.add(filterItems(selectedItemsParent));
+        } else {
+            for (Object itemsParent : itemsMap.keySet()) {
+                allItems.add(filterItems(itemsParent));
+            }
+        }
+
+        return allItems;
+    }
+
+    // BLOCK Countries Filter
+    public List<SelectItem> getCountriesList() {
+        return formItemsList(selectedRegion, regionsCountries);
     }
 
     public String getSelectedRegionCode() {
@@ -132,7 +246,7 @@ public class SearchController implements Serializable {
     }
     // END Countries Filter
 
-    // BLOCK Farming Systems
+    // BLOCK Farming Systems Filter
     public List<FarmingSystem> getFarmingSystemsList() {
         return farmingSystemsList;
     }
@@ -144,16 +258,11 @@ public class SearchController implements Serializable {
     public void setSelectedFarmingSystemId(Integer selectedFarmingSystemId) {
         // Not required, as only the filers are used for search
     }
-
-    // END Farming Systems
+    // END Farming Systems Filter
 
     // BLOCK Practice Level Filter
-    public List<PracticeLevel> getPracticeLevelsList() {
-        return practiceLevelsList;
-    }
-
-    public void updatePracticeLevels(AjaxBehaviorEvent event) {
-        this.practiceLevelsList = levelRepository.findByTheme(selectedPracticeTheme);
+    public List<SelectItem> getPracticeLevelsList() {
+        return formItemsList(selectedPracticeTheme, practiceThemesLevels);
     }
 
     public Integer getSelectedThemeId() {
@@ -173,13 +282,9 @@ public class SearchController implements Serializable {
     }
     // END Practice Level Filter
 
-    // BLOCK Production System
-    public List<ProductionSystem> getProductionSystemsList() {
-        return productionSystemsList;
-    }
-
-    public void updateProductionSystems(AjaxBehaviorEvent event) {
-        this.productionSystemsList = productionSystemRepository.findByCategory(selectedProductionSystemCategory);
+    // BLOCK Production System Filter
+    public List<SelectItem> getProductionSystemsList() {
+        return formItemsList(selectedProductionSystemCategory, productionSystemsCategories);
     }
 
     public Integer getSelectedProductionSystemCategoryId() {
@@ -197,15 +302,33 @@ public class SearchController implements Serializable {
     public void setSelectedProductionSystemId(Integer selectedProductionSystemId) {
         // Not required, as only the filers are used for search
     }
-    // END Context Values Filter
+    // END Production System Filter
 
-    // BLOCK Context Values Filter
-    public List<ContextValue> getContextValuesList() {
-        return contextValuesList;
+    // BLOCK Sub-indicators Filter
+    public List<SelectItem> getSubIndicatorsList() {
+        return formItemsList(selectedIndicator, indicatorSubIndicators);
     }
 
-    public void updateContextValues(AjaxBehaviorEvent event) {
-        this.contextValuesList = contextValueRepository.findByContextVariable(selectedContextVariable);
+    public Integer getSelectedIndicatorId() {
+        return selectedIndicator != null ? selectedIndicator.getId() : null;
+    }
+
+    public void setSelectedIndicatorId(Integer selectedIndicatorId) {
+        this.selectedIndicator = indicatorRepository.findOne(selectedIndicatorId);
+    }
+
+    public Integer getSelectedSubIndicatorId() {
+        return selectedSubIndicator != null ? selectedSubIndicator.getId() : null;
+    }
+
+    public void setSelectedSubIndicatorId(Integer selectedSubIndicatorId) {
+
+    }
+    // END Sub-indicators Filter
+
+    // BLOCK Context Values Filter
+    public List<SelectItem> getContextValuesList() {
+        return formItemsList(selectedContextVariable, contextVariablesValues);
     }
 
     public Integer getSelectedContextVariableId() {

@@ -19,6 +19,22 @@ public class ProductionSystemCategory extends AbstractInformationEntity {
     @OneToMany(mappedBy = "category")
     private List<ProductionSystem> productionSystems;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProductionSystemCategory)) return false;
+
+        ProductionSystemCategory that = (ProductionSystemCategory) o;
+
+        return id.equals(that.id);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
     public List<ProductionSystem> getProductionSystems() {
         if (this.productionSystems == null) {
             this.productionSystems = new ArrayList<>();

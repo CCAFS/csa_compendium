@@ -14,7 +14,7 @@ import org.springframework.core.env.Environment;
 import java.util.Arrays;
 
 /**
- * Aspect for logging execution of service and repositorioT Spring components.
+ * Aspect for logging execution of service and repository Spring components.
  */
 @Aspect
 public class LoggingAspect {
@@ -24,11 +24,11 @@ public class LoggingAspect {
     @Autowired
     private Environment env;
 
-    @Pointcut("within(org.cgiar.ccafs.csa.repository..*) || within(org.cgiar.ccafs.csa.service..*) || within(org.cgiar.ccafs.csa.web.rest..*)")
-    public void loggingPoincut() {
+    @Pointcut("within(org.cgiar.ccafs.csa.repository..*) || within(org.cgiar.ccafs.csa.service..*)")
+    public void loggingPointcut() {
     }
 
-    @AfterThrowing(pointcut = "loggingPoincut()", throwing = "e")
+    @AfterThrowing(pointcut = "loggingPointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
             log.error("Exception in {}.{}() with cause = {}", joinPoint.getSignature().getDeclaringTypeName(),
@@ -39,7 +39,7 @@ public class LoggingAspect {
         }
     }
 
-    @Around("loggingPoincut()")
+    @Around("loggingPointcut()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         log.debug("Enter: {}.{}() with argument[s] = {}", joinPoint.getSignature().getDeclaringTypeName(),
                 joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));

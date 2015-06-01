@@ -39,11 +39,13 @@ public class DataExtractionService {
     private PracticeLevelRepository practiceLevelRepository;
     @Autowired
     private PracticeRepository practiceRepository;
-
-
-    // Status variables that indicate the stage of the file parsing process
     @Autowired
     private IndicatorRepository indicatorRepository;
+    @Autowired
+    private SubIndicatorRepository subIndicatorRepository;
+    @Autowired
+    private IndicatorPillarRepository indicatorPillarRepository;
+
 
     public void extractArticleInformation(Iterable<Row> sheet) {
 
@@ -56,7 +58,7 @@ public class DataExtractionService {
             Cell cell = row.getCell(0);
             if (cell == null || cell.getCellType() != Cell.CELL_TYPE_STRING) continue;
 
-            String info = cell.getStringCellValue();
+            String info = getCellStringValue(cell);
             cell = row.getCell(2);
             if (cell == null) continue;
 
@@ -117,8 +119,9 @@ public class DataExtractionService {
     }
 
     private String getCellStringValue(Cell cell) {
+        if (cell == null) return null;
         if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-            return String.valueOf((int) cell.getNumericCellValue());
+            return String.valueOf(Math.round(cell.getNumericCellValue()));
         } else {
             return cell.getStringCellValue();
         }
@@ -129,19 +132,19 @@ public class DataExtractionService {
         for (Row row : sheet) {
             // Read the code
             Cell cell = row.getCell(0);
-            String practiceCode = cell.getStringCellValue();
+            String practiceCode = getCellStringValue(cell);
 
             cell = row.getCell(1);
-            String practiceTheme = cell.getStringCellValue();
+            String practiceTheme = getCellStringValue(cell);
 
             cell = row.getCell(2);
-            String practiceLevel = cell.getStringCellValue();
+            String practiceLevel = getCellStringValue(cell);
 
             cell = row.getCell(3);
-            String practiceName = cell.getStringCellValue();
+            String practiceName = getCellStringValue(cell);
 
             cell = row.getCell(4);
-            String practiceDescription = cell.getStringCellValue();
+            String practiceDescription = getCellStringValue(cell);
 
             PracticeTheme theme = practiceThemeRepository.findByName(practiceTheme);
 
@@ -173,30 +176,44 @@ public class DataExtractionService {
         }
     }
 
-
     public void extractIndicatorsInformation(XSSFSheet sheet) {
         for (Row row : sheet) {
             Cell cell = row.getCell(0);
-            String indicatorCode = String.valueOf(cell.getNumericCellValue());
+            String subIndicatorCode = getCellStringValue(cell);
 
             cell = row.getCell(1);
-            String indicatorPillar = cell.getStringCellValue();
+            String indicatorPillar = getCellStringValue(cell);
 
             cell = row.getCell(2);
-            String indicatorCategory = cell.getStringCellValue();
+            String indicatorName = getCellStringValue(cell);
 
             cell = row.getCell(3);
-            String indicatorName = cell.getStringCellValue();
+            String subIndicatorName = getCellStringValue(cell);
 
-            Indicator indicator = new Indicator();
+            cell = row.getCell(4);
+            String subIndicatorDescription = getCellStringValue(cell);
 
-            indicator.setCode(indicatorCode);
-            indicator.setCategory(indicatorCategory);
-            indicator.setName(indicatorName);
+            Indicator indicator = indicatorRepository.findByName(indicatorName);
 
-            indicator.addPillar(new IndicatorPillar(Pillar.getByName(indicatorPillar), 1.0f));
+            if (indicator == null) {
+                indicator = new Indicator();
+                indicator.setName(indicatorName);
+                IndicatorPillar pillar = new IndicatorPillar(Pillar.getByName(indicatorPillar), 1.0f);
+                indicator.addPillar(pillar);
+                indicatorRepository.save(indicator);
+                indicatorPillarRepository.save(pillar);
+            }
 
-            indicatorRepository.save(indicator);
+            SubIndicator subIndicator = new SubIndicator();
+
+            subIndicator.setCode(subIndicatorCode);
+            subIndicator.setName(subIndicatorName);
+            if (subIndicatorDescription != null && !subIndicatorDescription.isEmpty()) {
+                subIndicator.setDescription(subIndicatorDescription);
+            }
+
+            indicator.addSubIndicator(subIndicator);
+            subIndicatorRepository.save(subIndicator);
         }
     }
 }

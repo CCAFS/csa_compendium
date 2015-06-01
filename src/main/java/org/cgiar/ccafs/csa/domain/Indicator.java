@@ -1,7 +1,9 @@
 package org.cgiar.ccafs.csa.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -9,28 +11,58 @@ import java.util.List;
  */
 @Entity
 @Table(name = "indicators")
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "from_compendium", discriminatorType = DiscriminatorType.INTEGER)
-@DiscriminatorValue(value = "1")
-public class Indicator extends AbstractInformationEntity {
+public class Indicator implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String name;
+
     @OneToMany(mappedBy = "indicator")
     private List<IndicatorPillar> pillars = new ArrayList<>();
 
-    private String category;
+    @OneToMany(mappedBy = "indicator", fetch = FetchType.EAGER)
+    private List<SubIndicator> subIndicators = new ArrayList<>();
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Indicator)) return false;
+
+        Indicator indicator = (Indicator) o;
+
+        if (!id.equals(indicator.id)) return false;
+        return name.equals(indicator.name);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
+    }
+
     public Integer getId() {
         return this.id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public List<IndicatorPillar> getPillars() {
         return this.pillars;
+    }
+
+    public List<SubIndicator> getSubIndicators() {
+        return subIndicators;
     }
 
     public IndicatorPillar addPillar(IndicatorPillar pillar) {
@@ -47,11 +79,22 @@ public class Indicator extends AbstractInformationEntity {
         return pillar;
     }
 
-    public String getCategory() {
-        return category;
+    public SubIndicator addSubIndicator(SubIndicator subIndicator) {
+        getSubIndicators().add(subIndicator);
+        subIndicator.setIndicator(this);
+
+        return subIndicator;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public SubIndicator removeSubIndicator(SubIndicator subIndicator) {
+        getSubIndicators().remove(subIndicator);
+        subIndicator.setIndicator(null);
+
+        return subIndicator;
+    }
+
+    public Pillar getPillar() {
+        IndicatorPillar indicatorPillar = Collections.max(pillars);
+        return indicatorPillar.getPillar();
     }
 }
