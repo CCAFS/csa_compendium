@@ -1,6 +1,6 @@
 package org.cgiar.ccafs.csa.domain.workshops;
 
-import org.cgiar.ccafs.csa.domain.Indicator;
+import org.cgiar.ccafs.csa.domain.SubIndicator;
 
 import javax.persistence.*;
 
@@ -8,9 +8,9 @@ import javax.persistence.*;
  * The persistent class for the barriers database table.
  */
 @Entity
-@Table(name = "workshop_indicators")
+@Table(name = "workshop_sub_indicators")
 @DiscriminatorValue(value = "0")
-public class WorkshopIndicator extends Indicator {
+public class WorkshopSubIndicator extends SubIndicator {
     private static final long serialVersionUID = 1L;
 
     @ManyToOne

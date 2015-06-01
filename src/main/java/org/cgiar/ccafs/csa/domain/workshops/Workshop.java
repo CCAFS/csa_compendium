@@ -53,7 +53,7 @@ public class Workshop implements Serializable {
     private List<WorkshopExperiment> newExperiments;
 
     @OneToMany(mappedBy = "originalWorkshop")
-    private List<WorkshopIndicator> newIndicators;
+    private List<WorkshopSubIndicator> newIndicators;
 
     @OneToMany(mappedBy = "originalWorkshop")
     private List<WorkshopPractice> newPractices;
