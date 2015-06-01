@@ -32,7 +32,8 @@ CREATE TABLE conditions (
     code character varying(255),
     name character varying(255),
     description text,
-    documentation text
+    documentation text,
+    unit_id integer
 );
 
 CREATE SEQUENCE conditions_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
@@ -124,12 +125,7 @@ ALTER SEQUENCE indicator_pillars_id_seq OWNED BY indicator_pillars.id;
 
 CREATE TABLE indicators (
     id integer NOT NULL,
-    code character varying(255),
-    name character varying(255),
-    description text,
-    documentation text,
-    category character varying(255),
-    from_compendium integer NOT NULL
+    name character varying(255)
 );
 
 CREATE SEQUENCE indicators_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
@@ -231,6 +227,19 @@ CREATE TABLE regions (
     name character varying(255)
 );
 
+CREATE TABLE sub_indicators (
+    from_compendium integer NOT NULL,
+    id integer NOT NULL,
+    code character varying(255),
+    description text,
+    documentation text,
+    name character varying(255),
+    indicator_id integer
+);
+
+CREATE SEQUENCE sub_indicators_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+
+ALTER SEQUENCE sub_indicators_id_seq OWNED BY sub_indicators.id;
 CREATE TABLE synergies (
     id integer NOT NULL,
     description character varying(255),
@@ -292,7 +301,6 @@ CREATE TABLE treatment_production_systems (
 
 CREATE TABLE treatments (
     id integer NOT NULL,
-    block_number integer,
     control_for_treatments boolean,
     control_id integer,
     experiment_id integer,
@@ -344,11 +352,6 @@ CREATE TABLE workshop_experiments (
     workshop_id integer
 );
 
-CREATE TABLE workshop_indicators (
-    id integer NOT NULL,
-    workshop_id integer
-);
-
 CREATE TABLE workshop_pillars (
     id integer NOT NULL,
     pillar character varying(255),
@@ -385,6 +388,11 @@ CREATE TABLE workshop_prioritizations (
 CREATE SEQUENCE workshop_prioritizations_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE workshop_prioritizations_id_seq OWNED BY workshop_prioritizations.id;
+
+CREATE TABLE workshop_sub_indicators (
+    id integer NOT NULL,
+    workshop_id integer
+);
 
 CREATE TABLE workshop_synergies (
     id integer NOT NULL,
@@ -450,6 +458,8 @@ ALTER TABLE ONLY practice_themes ALTER COLUMN id SET DEFAULT nextval('practice_t
 ALTER TABLE ONLY practices ALTER COLUMN id SET DEFAULT nextval('practices_id_seq'::regclass);
 
 ALTER TABLE ONLY production_systems ALTER COLUMN id SET DEFAULT nextval('production_systems_id_seq'::regclass);
+
+ALTER TABLE ONLY sub_indicators ALTER COLUMN id SET DEFAULT nextval('sub_indicators_id_seq'::regclass);
 
 ALTER TABLE ONLY synergies ALTER COLUMN id SET DEFAULT nextval('synergies_id_seq'::regclass);
 
@@ -533,6 +543,9 @@ ALTER TABLE ONLY production_systems
 ALTER TABLE ONLY regions
     ADD CONSTRAINT regions_pkey PRIMARY KEY (code);
 
+ALTER TABLE ONLY sub_indicators
+    ADD CONSTRAINT sub_indicators_pkey PRIMARY KEY (id);
+
 ALTER TABLE ONLY synergies
     ADD CONSTRAINT synergies_pkey PRIMARY KEY (id);
 
@@ -563,8 +576,6 @@ ALTER TABLE ONLY workshop_comments
 ALTER TABLE ONLY workshop_experiments
     ADD CONSTRAINT workshop_experiments_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY workshop_indicators
-    ADD CONSTRAINT workshop_indicators_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY workshop_pillars
     ADD CONSTRAINT workshop_pillars_pkey PRIMARY KEY (id);
@@ -577,6 +588,9 @@ ALTER TABLE ONLY workshop_practices
 
 ALTER TABLE ONLY workshop_prioritizations
     ADD CONSTRAINT workshop_prioritizations_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY workshop_sub_indicators
+    ADD CONSTRAINT workshop_sub_indicators_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY workshop_synergies
     ADD CONSTRAINT workshop_synergies_pkey PRIMARY KEY (id);
@@ -592,6 +606,8 @@ ALTER TABLE ONLY workshops
 ALTER TABLE ONLY experiment_articles
     ADD CONSTRAINT fk_1jyo6oufn86xrxgljrc87afxp FOREIGN KEY (location_id) REFERENCES locations(id);
 
+ALTER TABLE ONLY sub_indicators
+    ADD CONSTRAINT fk_1kqakbvk3ff3p4nsh6nrgv0le FOREIGN KEY (indicator_id) REFERENCES indicators(id);
 ALTER TABLE ONLY workshop_synergies
     ADD CONSTRAINT fk_205kejgb70l7jcnltnrfv9c7x FOREIGN KEY (id) REFERENCES synergies(id);
 
@@ -622,12 +638,18 @@ ALTER TABLE ONLY initial_conditions
 ALTER TABLE ONLY treatment_barriers
     ADD CONSTRAINT fk_4rttd27xmxwq1qrv69vcd0phq FOREIGN KEY (treatment_id) REFERENCES treatments(id);
 
+ALTER TABLE ONLY workshop_sub_indicators
+    ADD CONSTRAINT fk_5caj9y0bxnqgkq2ln0tbgrd7g FOREIGN KEY (workshop_id) REFERENCES workshops(id);
 ALTER TABLE ONLY workshop_prioritizations
     ADD CONSTRAINT fk_6o1dbd3yt4k8s89xuskycd8mt FOREIGN KEY (portfolio_id) REFERENCES workshop_portfolios(id);
 
+ALTER TABLE ONLY conditions
+    ADD CONSTRAINT fk_6oa01nrjf2ak8g4dcr9adbjjv FOREIGN KEY (unit_id) REFERENCES units(id);
 ALTER TABLE ONLY experiment_articles
     ADD CONSTRAINT fk_6uua9tagm438jdaxh8dgh4p44 FOREIGN KEY (farming_system_id) REFERENCES farming_systems(id);
 
+ALTER TABLE ONLY workshop_sub_indicators
+    ADD CONSTRAINT fk_767tmqbwlk3e9xlyafp4s46t FOREIGN KEY (id) REFERENCES sub_indicators(id);
 ALTER TABLE ONLY treatments
     ADD CONSTRAINT fk_7q7awii8op2kg32hwtgthcfg7 FOREIGN KEY (practice_id) REFERENCES practices(id);
 
@@ -655,8 +677,6 @@ ALTER TABLE ONLY workshop_portfolios
 ALTER TABLE ONLY treatment_outcomes
     ADD CONSTRAINT fk_clyb412hu2atb1cpu7nrl13h3 FOREIGN KEY (indicator_id) REFERENCES indicators(id);
 
-ALTER TABLE ONLY workshop_indicators
-    ADD CONSTRAINT fk_dy6xmln5u19cn1e1qyqsuxmj2 FOREIGN KEY (workshop_id) REFERENCES workshops(id);
 
 ALTER TABLE ONLY workshop_barriers
     ADD CONSTRAINT fk_e5c4kja99v0yhj63up5mg42lg FOREIGN KEY (id) REFERENCES barriers(id);
@@ -703,8 +723,6 @@ ALTER TABLE ONLY experiment_context_values
 ALTER TABLE ONLY practice_levels
     ADD CONSTRAINT fk_oy96a8jeoro58xcbfuty40gd FOREIGN KEY (theme_id) REFERENCES practice_themes(id);
 
-ALTER TABLE ONLY workshop_indicators
-    ADD CONSTRAINT fk_p3glgebivw7ptu614e4oebj36 FOREIGN KEY (id) REFERENCES indicators(id);
 
 ALTER TABLE ONLY experiment_articles
     ADD CONSTRAINT fk_qbntahilqnmg4l5b2b5839l04 FOREIGN KEY (language) REFERENCES languages(code);

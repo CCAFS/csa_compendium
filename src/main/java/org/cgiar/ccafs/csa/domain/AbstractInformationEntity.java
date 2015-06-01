@@ -1,5 +1,6 @@
 package org.cgiar.ccafs.csa.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
@@ -15,10 +16,10 @@ public abstract class AbstractInformationEntity implements Serializable {
 
     private String name;
 
-    @Lob
+    @Column(length=100000)
     private String description;
 
-    @Lob
+    @Column(length=100000)
     private String documentation;
 
     public abstract Integer getId();

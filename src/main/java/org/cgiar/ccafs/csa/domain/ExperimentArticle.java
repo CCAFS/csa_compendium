@@ -31,10 +31,10 @@ public class ExperimentArticle implements Serializable {
 
     private String code;
 
-    @Lob
+    @Column(length=100000)
     private String title;
 
-    @Lob
+    @Column(length=100000)
     private String outline;
 
     private String link;
@@ -45,13 +45,13 @@ public class ExperimentArticle implements Serializable {
     @JoinColumn(name = "farming_system_id")
     private FarmingSystem farmingSystem;
 
-    @Lob
+    @Column(length=100000)
     private String authors;
 
     @Transient
     private List<String> authorsList = new ArrayList<>();
 
-    @Lob
+    @Column(length=100000)
     private String contacts;
 
     @Transient

@@ -9,6 +9,7 @@ import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -46,7 +47,7 @@ public class DataExtractionService {
     @Autowired
     private IndicatorPillarRepository indicatorPillarRepository;
 
-
+    @Transactional
     public void extractArticleInformation(Iterable<Row> sheet) {
 
         ExperimentArticle article = new ExperimentArticle();
@@ -127,6 +128,7 @@ public class DataExtractionService {
         }
     }
 
+    @Transactional
     public void extractPracticesInformation(XSSFSheet sheet) {
 
         for (Row row : sheet) {
@@ -176,6 +178,7 @@ public class DataExtractionService {
         }
     }
 
+    @Transactional
     public void extractIndicatorsInformation(XSSFSheet sheet) {
         for (Row row : sheet) {
             Cell cell = row.getCell(0);

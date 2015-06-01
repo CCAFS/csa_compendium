@@ -50,7 +50,7 @@ public class PracticeLevel extends AbstractInformationEntity {
         return practice;
     }
 
-    public Practice removeCountry(Practice practice) {
+    public Practice removePractice(Practice practice) {
         getPractices().remove(practice);
         practice.setPracticeLevel(null);
 
