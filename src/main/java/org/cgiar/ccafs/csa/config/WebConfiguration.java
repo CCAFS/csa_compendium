@@ -76,7 +76,7 @@ public class WebConfiguration implements ServletContextInitializer {
                 .basePackage("org.cgiar.ccafs.csa.web.admin")
                 .baseUrl("/admin")
                 .fileStoragePath(tempStorageLocation)
-                .security(false)
+                .security(true)
                 .backToSiteUrl("/index.html")
                 .helpUrl("/index.html");
 
