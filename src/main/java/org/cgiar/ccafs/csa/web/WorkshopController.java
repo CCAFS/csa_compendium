@@ -5,6 +5,8 @@ import org.cgiar.ccafs.csa.domain.Pillar;
 import org.cgiar.ccafs.csa.domain.Practice;
 import org.cgiar.ccafs.csa.repository.IndicatorRepository;
 import org.cgiar.ccafs.csa.repository.PracticeRepository;
+import org.primefaces.component.slider.Slider;
+import org.primefaces.event.SlideEndEvent;
 import org.primefaces.model.DualListModel;
 import org.primefaces.model.chart.PieChartModel;
 import org.slf4j.Logger;
@@ -43,9 +45,9 @@ public class WorkshopController implements Serializable {
     private List<Practice> availablePractices;
 
     private PieChartModel pieModel;
-    private int mitigationValue = 33;
-    private int productionValue = 33;
-    private int adaptationValue = 33;
+    private int mitigationValue = 50;
+    private int productionValue = 50;
+    private int adaptationValue = 50;
 
     private List<Indicator> mitigationIndicators;
     private List<Indicator> productionIndicators;
@@ -54,7 +56,10 @@ public class WorkshopController implements Serializable {
     private List<Integer> selectedMitigationIndicators;
     private List<Integer> selectedProductionIndicators;
     private List<Integer> selectedAdaptationIndicators;
+
     private String workshopCountryCode;
+    private String workshopPlace;
+    private String workshopPartners;
 
     private List<Practice> getAvailablePractices() {
         if (availablePractices == null) {
@@ -89,7 +94,11 @@ public class WorkshopController implements Serializable {
         mitigationIndicators = indicatorRepository.findByPillar(Pillar.MITIGATION);
         productionIndicators = indicatorRepository.findByPillar(Pillar.PRODUCTION);
 
-        createPieModel();
+        pieModel = new PieChartModel();
+
+        pieModel.setTitle("CSA Pillars");
+        pieModel.setLegendPosition("e");
+        pieModel.setShowDataLabels(true);
     }
 
     public DualListModel<Practice> getPractices() {
@@ -100,17 +109,6 @@ public class WorkshopController implements Serializable {
         this.practices = practices;
     }
 
-    private void createPieModel() {
-        pieModel = new PieChartModel();
-
-        pieModel.setTitle("CSA Pillars");
-        pieModel.setLegendPosition("e");
-        pieModel.setShowDataLabels(true);
-        //pieModel.setLegendPlacement(LegendPlacement.INSIDE);
-
-        getPieModel();
-    }
-
     public PieChartModel getPieModel() {
         pieModel.set("Mitigation", mitigationValue);
         pieModel.set("Production", productionValue);
@@ -118,8 +116,15 @@ public class WorkshopController implements Serializable {
         return pieModel;
     }
 
-    public void checkSlider() {
-        int value = getMitigationValue();
+    public void checkSlider(SlideEndEvent event) {
+        String sliderId = ((Slider) event.getSource()).getId();
+        int newValue = event.getValue();
+
+        switch (sliderId) {
+            case "mitigation": mitigationValue = newValue; break;
+            case "production": productionValue = newValue; break;
+            case "adaptation": adaptationValue = newValue; break;
+        }
     }
 
     public void setMitigationValue(int mitigationValue) {
@@ -176,5 +181,21 @@ public class WorkshopController implements Serializable {
 
     public void setWorkshopCountryCode(String workshopCountryCode) {
         this.workshopCountryCode = workshopCountryCode;
+    }
+
+    public String getWorkshopPlace() {
+        return workshopPlace;
+    }
+
+    public void setWorkshopPlace(String workshopPlace) {
+        this.workshopPlace = workshopPlace;
+    }
+
+    public String getWorkshopPartners() {
+        return workshopPartners;
+    }
+
+    public void setWorkshopPartners(String workshopPartners) {
+        this.workshopPartners = workshopPartners;
     }
 }

@@ -48,7 +48,7 @@
 
                             <p>This is you what you have to do:</p>
                             <ol>
-                                <li>Enter the workshop information and Save. Don't worry: you can add more details afterwards.</li>
+                                <li>Enter the workshop information.</li>
                                 <li>Select from the practices found in the search, those you want to use in the process.
                                     You can also add your own data.
                                 </li>
@@ -60,39 +60,49 @@
                         </b:well>
                     </b:column>
                     <b:column span="6">
-                        <b:panel title="Workshop Information" id="workshopPanel">
-                        <p:outputLabel for="workshopCountryCode" value="Country:"/> <br/>
-                        <p:selectOneMenu id="workshopCountryCode" editable="true"
-                                         value="#{workshopController.workshopCountryCode}">
-                            <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
-                            <f:selectItems value="#{searchController.countriesList}"/>
-                        </p:selectOneMenu>
-                        <br/>
-                        <p:outputLabel for="workshopPlace" value="City/Town:"/> <br/>
-                        <p:inputText id="workshopPlace" autocomplete="true"/>
-                        <br/>
-                        <p:outputLabel for="partners" value="Partners:"/> <br/>
-                        <p:inputTextarea id="partners" rows="6" cols="33"/>
-
+                        <b:panel title="Workshop Information" styleClass="workshop-panel">
+                            <b:row>
+                                <b:column span="6">
+                                    <p:outputLabel for="workshopCountryCode" value="Country:"/> <br/>
+                                    <p:selectOneMenu id="workshopCountryCode" filter="true" filterMatchMode="startsWith"
+                                                     value="#{workshopController.workshopCountryCode}">
+                                        <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
+                                        <f:selectItems value="#{searchController.countriesList}"/>
+                                    </p:selectOneMenu>
+                                </b:column>
+                                <b:column span="6">
+                                    <p:outputLabel for="workshopPlace" value="City/Town:"/> <br/>
+                                    <p:inputText id="workshopPlace" value="#{workshopController.workshopPlace}" />
+                                </b:column>
+                            </b:row>
+                            <b:row style="margin-top:14px;">
+                                <b:column span="12">
+                                    <p:outputLabel for="partners" value="Partners and Stakeholders:"/> <br/>
+                                    <p:inputTextarea id="partners" rows="6" cols="66" value="#{workshopController.workshopPartners}" />
+                                </b:column>
+                            </b:row>
                         </b:panel>
-
-                        <h3>Search Parameters</h3>
-                        <ui:repeat value="#{resultsController.searchParametersList}" var="parameter">
-                            <strong>#{parameter}:</strong> #{resultsController.searchParametersInfo[parameter]}
-                            <br/>
-                        </ui:repeat>
                     </b:column>
                 </b:row>
 
                 <b:row>
-                    <b:column span="6" offset="3">
-                        <h2>Practices Selection</h2>
-                        <p:pickList value="#{workshopController.practices}" var="practice" itemLabel="#{practice.name}"
-                                    itemValue="#{practice}">
-                            <f:facet name="sourceCaption">Available practices</f:facet>
-                            <f:facet name="targetCaption">Selected practices</f:facet>
-                        </p:pickList>
-
+                    <b:column span="6">
+                        <b:panel title="Practices Selection">
+                            <p:pickList value="#{workshopController.practices}" var="practice"
+                                        itemLabel="#{practice.name}"
+                                        itemValue="#{practice}">
+                                <f:facet name="sourceCaption">Available practices</f:facet>
+                                <f:facet name="targetCaption">Selected practices</f:facet>
+                            </p:pickList>
+                        </b:panel>
+                    </b:column>
+                    <b:column span="4" offset="2">
+                        <b:panel title="Search Parameters">
+                            <ui:repeat value="#{resultsController.searchParametersList}" var="parameter">
+                                <strong>#{parameter}:</strong> #{resultsController.searchParametersInfo[parameter]}
+                                <br/>
+                            </ui:repeat>
+                        </b:panel>
                     </b:column>
                 </b:row>
                 <b:row>
@@ -107,33 +117,33 @@
                                     <h4>Assign Weight</h4>
 
                                     <div class="slider-box">
-                                        <h:inputHidden id="mitigation" value="#{workshopController.mitigationValue}"/>
-                                        <p:slider for="mitigation" display="mitigationOutput"
-                                                  style="width: 230px; background: #4BB2C5"
-                                                  displayTemplate="Mitigation: %{value}">
-                                            <p:ajax event="slideEnd" listener="#{workshopController.checkSlider()}"
+                                        <h:inputHidden id="mitigationValue" value="#{workshopController.mitigationValue}"/>
+                                        <p:slider id="mitigation" for="mitigationValue"
+                                                  style="width: 230px; background: #4BB2C5">
+                                            <p:ajax event="slideEnd" listener="#{workshopController.checkSlider}"
                                                     update="pillarsPie"/>
                                         </p:slider>
-                                        <h:outputText id="mitigationOutput"
-                                                      value="Mitigation: %#{workshopController.mitigationValue}"/>
+                                        <h:outputText id="mitigationOutput" value="Mitigation"/>
                                     </div>
 
                                     <div class="slider-box">
-                                        <h:inputHidden id="production" value="#{workshopController.productionValue}"/>
-                                        <p:slider for="production" display="productionOutput"
-                                                  style="width: 230px; background: #EAA228"
-                                                  displayTemplate="Production: %{value}"/>
-                                        <h:outputText id="productionOutput"
-                                                      value="Production: %#{workshopController.productionValue}"/>
+                                        <h:inputHidden id="productionValue" value="#{workshopController.productionValue}"/>
+                                        <p:slider id="production" for="productionValue"
+                                                  style="width: 230px; background: #EAA228">
+                                            <p:ajax event="slideEnd" listener="#{workshopController.checkSlider}"
+                                                    update="pillarsPie"/>
+                                        </p:slider>
+                                        <h:outputText id="productionOutput" value="Production"/>
                                     </div>
                                     <div class="slider-box">
 
-                                        <h:inputHidden id="adaptation" value="#{workshopController.adaptationValue}"/>
-                                        <p:slider for="adaptation" display="adaptationOutput"
-                                                  style="width: 230px; background: #C5B47F"
-                                                  displayTemplate="Adaptation: %{value}"/>
-                                        <h:outputText id="adaptationOutput"
-                                                      value="Adaptation: %#{workshopController.adaptationValue}"/>
+                                        <h:inputHidden id="adaptationValue" value="#{workshopController.adaptationValue}"/>
+                                        <p:slider id="adaptation" for="adaptationValue"
+                                                  style="width: 230px; background: #C5B47F">
+                                            <p:ajax event="slideEnd" listener="#{workshopController.checkSlider}"
+                                                    update="pillarsPie"/>
+                                        </p:slider>
+                                        <h:outputText id="adaptationOutput" value="Adaptation"/>
                                     </div>
                                 </b:column>
                             </b:row>

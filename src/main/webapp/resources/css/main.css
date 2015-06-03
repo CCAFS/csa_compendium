@@ -406,10 +406,6 @@ span.text {
     display: none;
 }
 
-.narrow {
-    padding-left: 0;
-}
-
 /* Prime Faces customization */
 .ui-widget {
     font-size: 0.9em;
@@ -425,6 +421,10 @@ span.text {
 }
 
 /* Workshops styles */
+
+.workshop-panel input, .workshop-panel textarea {
+    width: 100%;
+}
 
 .sliders-panel {
     text-align: center;
