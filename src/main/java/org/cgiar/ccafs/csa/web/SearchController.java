@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -19,7 +19,7 @@ import javax.faces.model.SelectItemGroup;
 import java.io.Serializable;
 import java.util.*;
 
-@RestController
+@Controller
 @ManagedBean
 @Scope("session")
 @URLMappings(mappings = {
@@ -29,6 +29,11 @@ import java.util.*;
 public class SearchController implements Serializable {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    // Search Parameters
+    private String searchKeywords;
+    private String filters;
+    private String filtersInfo;
 
     // BLOCK Repositories
     @Autowired
@@ -72,7 +77,6 @@ public class SearchController implements Serializable {
 
     private FarmingSystem selectedFarmingSystem;
     private List<FarmingSystem> farmingSystemsList;
-    private Set<String> farmingSystemsNames;
 
     private PracticeTheme selectedPracticeTheme;
     private PracticeLevel selectedPracticeLevel;
@@ -100,7 +104,7 @@ public class SearchController implements Serializable {
         contextVariablesValues = HashMultimap.create();
 
         farmingSystemsList = new ArrayList<>();
-        farmingSystemsNames = new HashSet<>();
+        Set<String> farmingSystemsNames = new HashSet<>();
 
         for (FarmingSystem farmingSystem : farmingSystemRepository.findAll()) {
             if (!farmingSystemsNames.contains(farmingSystem.getName())) {
@@ -348,4 +352,28 @@ public class SearchController implements Serializable {
     }
     // END Context Values Filter
 
+    // Search Properties
+    public String getSearchKeywords() {
+        return searchKeywords;
+    }
+
+    public void setSearchKeywords(String searchKeywords) {
+        this.searchKeywords = searchKeywords;
+    }
+
+    public String getFilters() {
+        return filters;
+    }
+
+    public void setFilters(String filters) {
+        this.filters = filters;
+    }
+
+    public String getFiltersInfo() {
+        return filtersInfo;
+    }
+
+    public void setFiltersInfo(String filtersInfo) {
+        this.filtersInfo = filtersInfo;
+    }
 }

@@ -30,10 +30,10 @@
 
                 <b:row id="keywords-row">
                     <b:column col-sm="2">
-                        <h:outputLabel for="keywords" value="Search Keywords:"/>
+                        <h:outputLabel for="searchKeywords" value="Search Keywords:"/>
                     </b:column>
                     <b:column col-sm="10">
-                        <h:inputText id="keywords"/>
+                        <h:inputText id="searchKeywords" value="#{searchController.searchKeywords}"/>
                     </b:column>
                 </b:row>
 
@@ -76,26 +76,26 @@
                             </b:column>
                         </b:row>
 
-                            <b:row>
-                                <b:column offset-sm="5" col-sm="5">
-                                    <!-- Farming System Inputs -->
-                                    <h:outputLabel for="farmingSystemsList" value="Farming System:"/>
-                                    <h:selectOneMenu id="farmingSystemsList" converter="javax.faces.Integer"
-                                                     value="#{searchController.selectedFarmingSystemId}"
-                                                     label="Farming System">
-                                        <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
-                                        <f:selectItems value="#{searchController.farmingSystemsList}"
-                                                       var="farmingSystem"
-                                                       itemLabel="#{farmingSystem.name}"
-                                                       itemValue="#{farmingSystem.id}"/>
-                                    </h:selectOneMenu>
-                                </b:column>
+                        <b:row>
+                            <b:column offset-sm="5" col-sm="5">
+                                <!-- Farming System Inputs -->
+                                <h:outputLabel for="farmingSystemsList" value="Farming System:"/>
+                                <h:selectOneMenu id="farmingSystemsList" converter="javax.faces.Integer"
+                                                 value="#{searchController.selectedFarmingSystemId}"
+                                                 label="Farming System">
+                                    <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{searchController.farmingSystemsList}"
+                                                   var="farmingSystem"
+                                                   itemLabel="#{farmingSystem.name}"
+                                                   itemValue="#{farmingSystem.id}"/>
+                                </h:selectOneMenu>
+                            </b:column>
 
-                                <b:column col-sm="2">
-                                    <input id="btn-add-farming-system" class="btn-add" type="button" value="Add"
-                                           onclick="addSearchParameter('regions', 'farmingSystems', true)"/>
-                                </b:column>
-                            </b:row>
+                            <b:column col-sm="2">
+                                <input id="btn-add-farming-system" class="btn-add" type="button" value="Add"
+                                       onclick="addSearchParameter('regions', 'farmingSystems', true)"/>
+                            </b:column>
+                        </b:row>
 
                         <hr class="separator"/>
                         <b:row>
@@ -184,7 +184,7 @@
                                                  value="#{searchController.selectedSubIndicatorId}"
                                                  label="Sub-indicators">
                                     <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
-                                    <f:selectItems value="#{searchController.subIndicatorsList}" />
+                                    <f:selectItems value="#{searchController.subIndicatorsList}"/>
                                 </h:selectOneMenu>
                             </b:column>
 
@@ -218,7 +218,7 @@
                                                  value="#{searchController.selectedContextValueId}"
                                                  label="Context Variables">
                                     <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
-                                    <f:selectItems value="#{searchController.contextValuesList}" />
+                                    <f:selectItems value="#{searchController.contextValuesList}"/>
                                 </h:selectOneMenu>
                             </b:column>
 
@@ -233,15 +233,15 @@
                         <h:outputLabel for="searchParams" value="Search Filters:"/>
                         <h:selectManyListbox id="searchParams" styleClass="filterSelect">
                         </h:selectManyListbox>
-                        <input id="btn-remove-filter" class="btn-add" type="button" value="Remove Selected"
+                        <input class="btn-secondary btn-add" type="button" value="Remove Selected"
                                onclick="removeSearchParameters()"/>
 
                         <div class="pull-right">
-                            <h:inputHidden id="filters"/>
-                            <h:inputHidden id="filtersInfo"/>
-                            <h:commandButton styleClass="btn-search" value="Search Practices"
+                            <h:inputHidden id="filters" value="#{searchController.filters}"/>
+                            <h:inputHidden id="filtersInfo" value="#{searchController.filtersInfo}"/>
+                            <h:commandButton styleClass="btn-primary" value="Search Practices"
                                              onclick="setSelectedFilters()"
-                                             action="#{resultsController.performSearch}">
+                                             action="results">
                             </h:commandButton>
                         </div>
                     </b:column>

@@ -125,7 +125,7 @@ dependencies {
 
     // Prime Faces for UI components
     compile "org.primefaces:primefaces:5.2"
-    compile "org.primefaces.themes:casablanca:1.0.10"
+    compile "org.primefaces.themes:smoothness:1.0.10"
 
     // Angular Faces For Angular integration
     //compile "de.beyondjava:angularFaces-core:2.1.4"

@@ -169,15 +169,16 @@ h2.title {
     background: #444;
 }
 
-#btn-remove-filter {
-    margin: 10px 0 0 0;
+.btn-secondary {
+    padding: 8px 8px;
+    margin: 0;
 }
 
 .filterSelect {
     height: 220px !important;
 }
 
-input.btn-search {
+input.btn-primary {
     background: #2F293D;
     color: #e7e7e7;
     border: 0;
@@ -186,7 +187,7 @@ input.btn-search {
     width: 130px;
 }
 
-input.btn-search:hover {
+input.btn-primary:hover {
     color: #FFF;
     background: #150e20;
 }
@@ -382,6 +383,7 @@ span.text {
     overflow-y: auto;
     padding-left: 6px;
     direction: rtl;
+    margin-bottom: 24px;
 }
 
 /* Overrides Bootstrap style */
@@ -410,12 +412,16 @@ span.text {
 
 /* Prime Faces customization */
 .ui-widget {
-    font-size: 0.85em;
+    font-size: 0.9em;
     font-family: 'Helvetica Neue', HelveticaNeue, Helvetica, Verdana, sans-serif;
 }
 
 .ui-slider-horizontal {
     margin-bottom: 6px;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+    width: auto !important;
 }
 
 /* Workshops styles */

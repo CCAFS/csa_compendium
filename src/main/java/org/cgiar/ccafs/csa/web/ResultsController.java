@@ -11,17 +11,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.*;
 
 import static com.google.common.base.CaseFormat.LOWER_CAMEL;
 import static com.google.common.base.CaseFormat.LOWER_HYPHEN;
+import static com.google.common.base.Strings.nullToEmpty;
 
-@RestController
+@Controller
 @ManagedBean
 @Scope("session")
 public class ResultsController implements Serializable {
@@ -30,32 +30,38 @@ public class ResultsController implements Serializable {
     @Autowired
     private ExperimentArticleRepository experimentArticleRepository;
 
-    private SortedSetMultimap<String, String> searchParametersMap;
-    private Map<String, String> searchParametersInfo;
-    private Set<ExperimentArticle> articles;
+    @Autowired
+    private SearchController searchController;
 
-    public String performSearch() {
-        articles = new LinkedHashSet<>();
-        searchParametersMap = TreeMultimap.create();
-        searchParametersInfo = null;
+    // Search Parameters
+    private String searchKeywords;
+    private String filters;
 
-        Map<String, String> parameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String[] parameterList;
-        String[] parameterInfoList;
-        String searchKeywords = parameterMap.get("search:keywords");
+    private SortedSetMultimap<String, String> searchParametersMap = TreeMultimap.create();
+    private Map<String, String> searchParametersInfo = new TreeMap<>();
+    private Set<ExperimentArticle> articles = new LinkedHashSet<>();
 
-        if (!searchKeywords.isEmpty()) {
-            parameterList = searchKeywords.split(",| ");
+    private void reset() {
+        searchParametersMap.clear();
+        searchParametersInfo.clear();
+        articles.clear();
+    }
+
+    public void performSearch() {
+        if (!nullToEmpty(searchKeywords).equals(searchController.getSearchKeywords())) {
+            reset();
+            searchKeywords = searchController.getSearchKeywords();
+            String[] parameterList = nullToEmpty(searchKeywords).split(",| ");
             for (String param : parameterList) {
                 articles.add(experimentArticleRepository.findByCode(param));
             }
             searchParametersMap.putAll("Keywords", Arrays.asList(parameterList));
-        } else {
-            String searchParams = parameterMap.get("search:filters");
-            parameterList = searchParams.split(",|:");
-
-            String searchParamsInfo = parameterMap.get("search:filtersInfo");
-            parameterInfoList = searchParamsInfo.split(":");
+        } else if (!nullToEmpty(filters).equals(searchController.getFilters())) {
+            reset();
+            filters = searchController.getFilters();
+            String filtersInfo = searchController.getFiltersInfo();
+            String[] parameterList = nullToEmpty(filters).split(",|:");
+            String[] parameterInfoList = nullToEmpty(filtersInfo).split(":");
 
             for (int infoPosition = 0, paramPosition = 0; infoPosition < parameterInfoList.length; infoPosition++, paramPosition += 2) {
                 if ("regions".equals(parameterList[paramPosition])) {
@@ -87,8 +93,6 @@ public class ResultsController implements Serializable {
                 searchParametersMap.put(parameterList[paramPosition], parameterInfoList[infoPosition]);
             }
         }
-
-        return "results";
     }
 
     public Set<ExperimentArticle> getArticles() {
@@ -96,8 +100,7 @@ public class ResultsController implements Serializable {
     }
 
     public Map<String, String> getSearchParametersInfo() {
-        if (searchParametersInfo == null) {
-            searchParametersInfo = new TreeMap<>();
+        if (searchParametersInfo.isEmpty()) {
             for (String key : searchParametersMap.keySet()) {
                 String newKey = WordUtils.capitalize(LOWER_CAMEL.to(LOWER_HYPHEN, key).replace('-', ' '));
                 String value = Joiner.on(", ").join(searchParametersMap.get(key));
@@ -110,5 +113,4 @@ public class ResultsController implements Serializable {
     public List<String> getSearchParametersList() {
         return Lists.newArrayList(getSearchParametersInfo().keySet());
     }
-
 }

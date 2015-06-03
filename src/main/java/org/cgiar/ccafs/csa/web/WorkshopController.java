@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@Controller
 @ManagedBean
 @Scope("session")
 public class WorkshopController implements Serializable {
@@ -85,9 +85,9 @@ public class WorkshopController implements Serializable {
         selectedMitigationIndicators = new ArrayList<>();
         selectedProductionIndicators = new ArrayList<>();
 
-        adaptationIndicators = indicatorRepository.findByPillar(Pillar.ADAPTATION) ;
-        mitigationIndicators = indicatorRepository.findByPillar(Pillar.MITIGATION) ;
-        productionIndicators = indicatorRepository.findByPillar(Pillar.PRODUCTION) ;
+        adaptationIndicators = indicatorRepository.findByPillar(Pillar.ADAPTATION);
+        mitigationIndicators = indicatorRepository.findByPillar(Pillar.MITIGATION);
+        productionIndicators = indicatorRepository.findByPillar(Pillar.PRODUCTION);
 
         createPieModel();
     }

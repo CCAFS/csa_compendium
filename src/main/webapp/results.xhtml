@@ -5,6 +5,10 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:b="http://bootsfaces.net/ui">
 
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{resultsController.performSearch()}"/>
+    </f:metadata>
+
     <ui:define name="resources">
         <h:outputScript name="js/compendium-gis.js" target="body"/>
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
@@ -42,14 +46,22 @@
                             </b:panel>
                         </ui:repeat>
                     </div>
-                    <div class="center-block" style="margin-top: 16px">
-                        <input id="search-btn" class="btn-search" type="button" value="Start Prioritization"
-                               onclick="window.location.href='workshop.xhtml'"/>
-                    </div>
+                    <b:row>
+                        <b:column span="4" offset="2">
+                            <h:button styleClass="btn-secondary btn-add" value="Search Again"
+                                      outcome="search">
+                            </h:button>
+                        </b:column>
+                        <b:column span="5">
+                            <h:button id="prioritize-btn" styleClass="btn-primary" value="Start Prioritization"
+                                      outcome="workshop">
+                            </h:button>
+                        </b:column>
+                    </b:row>
                 </b:column>
 
                 <b:column span="8">
-                    <div id="map" style="height:660px"></div>
+                    <div id="map" style="height:680px"></div>
                 </b:column>
             </b:row>
         </b:container>

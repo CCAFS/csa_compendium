@@ -97,10 +97,7 @@ public class WebConfiguration implements ServletContextInitializer {
         servletContext.setInitParameter("org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS", "false");
         servletContext.setInitParameter("javax.faces.SERIALIZE_SERVER_STATE", "true");
         servletContext.setInitParameter("javax.faces.STATE_SAVING_METHOD", "server");
-
-        servletContext.setInitParameter("primefaces.THEME", "casablanca");
-        //servletContext.setInitParameter("primefaces.THEME", "smoothness");
-
+        servletContext.setInitParameter("primefaces.THEME", "smoothness");
     }
 
     /**
