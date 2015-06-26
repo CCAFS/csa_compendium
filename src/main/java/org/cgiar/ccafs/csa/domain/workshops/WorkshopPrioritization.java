@@ -18,7 +18,7 @@ public class WorkshopPrioritization implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private float score;
+    private double score;
 
     @ManyToOne
     @JoinColumn(name = "portfolio_id")
@@ -36,11 +36,11 @@ public class WorkshopPrioritization implements Serializable {
         return this.id;
     }
 
-    public float getScore() {
+    public double getScore() {
         return this.score;
     }
 
-    public void setScore(float score) {
+    public void setScore(double score) {
         this.score = score;
     }
 

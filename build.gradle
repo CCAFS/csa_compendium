@@ -13,7 +13,7 @@ buildscript {
         // Spring boot integration with gradle
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE")
         // Plugin to reload changed classes with out restarting
-        classpath("org.springframework:springloaded:1.2.1.RELEASE")
+        classpath("org.springframework:springloaded:1.2.3.RELEASE")
         // Plugin to include optional dependencies
         classpath("org.springframework.build.gradle:propdeps-plugin:0.0.7")
         // Plugin to deploy the war file to a remote Tomcat
@@ -48,7 +48,6 @@ bootRun {
 repositories {
     //mavenLocal()
     mavenCentral()
-    maven { url "http://lightadmin.org/nexus/content/repositories/snapshots" }
     maven { url "http://repository.primefaces.org" }
 }
 
@@ -60,7 +59,7 @@ repositories {
  */
 dependencies {
 
-    def springBootVersion = "1.2.3.RELEASE"
+    def springBootVersion = "1.2.4.RELEASE"
     def springVersion = "4.1.6.RELEASE"
 
     compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
@@ -72,8 +71,8 @@ dependencies {
     compile "org.springframework:spring-orm:$springVersion"
 
     // Includes tomcat-embed-core, tomcat-embed-el, ecj
-    providedCompile "org.apache.tomcat.embed:tomcat-embed-jasper:8.0.22"
-    providedCompile "org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.22"
+    providedCompile "org.apache.tomcat.embed:tomcat-embed-jasper:8.0.23"
+    providedCompile "org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.23"
 
     compile("org.springframework.data:spring-data-jpa:1.7.2.RELEASE") {
         // Requests an older version with different name
@@ -108,7 +107,7 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-databind:2.5.1"
 
     // For backend administration. Excludes some apache tiles extras
-    compile ("org.lightadmin:lightadmin:1.2.0.BUILD-SNAPSHOT") {
+    compile ("org.lightadmin:lightadmin:1.2.0.RC1") {
         exclude module: "tiles-freemarker"
         exclude module: "tiles-request-mustache"
         exclude module: "tiles-velocity"

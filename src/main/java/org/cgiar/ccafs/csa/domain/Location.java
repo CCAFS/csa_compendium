@@ -19,7 +19,11 @@ public class Location {
 
     private float longitude;
 
-    private float altitude;
+    @Column(name = "max_altitude")
+    private float maxAltitude;
+
+    @Column(name = "min_altitude")
+    private float minAltitude;
 
     private String place;
 
@@ -55,12 +59,20 @@ public class Location {
         this.longitude = longitude;
     }
 
-    public float getAltitude() {
-        return altitude;
+    public float getMaxAltitude() {
+        return maxAltitude;
     }
 
-    public void setAltitude(float altitude) {
-        this.altitude = altitude;
+    public void setMaxAltitude(float maxAltitude) {
+        this.maxAltitude = maxAltitude;
+    }
+
+    public float getMinAltitude() {
+        return minAltitude;
+    }
+
+    public void setMinAltitude(float minAltitude) {
+        this.minAltitude = minAltitude;
     }
 
     public String getPlace() {

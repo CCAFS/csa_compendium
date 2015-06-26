@@ -30,7 +30,7 @@ public class InitialConditionAdministration extends AdministrationConfiguration<
     public FieldSetConfigurationUnit listView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
                 field("id").caption("ID").
-                field("experimentArticle").caption("Experiment").
+                field("experimentContext").caption("Experiment").
                 field("condition").caption("Condition").
                 field("value").caption("Value").
                 field("measureUnit").caption("Measure Unit").
@@ -40,7 +40,7 @@ public class InitialConditionAdministration extends AdministrationConfiguration<
     @Override
     public FieldSetConfigurationUnit quickView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
-                field("experimentArticle").caption("Experiment").
+                field("experimentContext").caption("Experiment").
                 field("condition").caption("Condition").
                 field("value").caption("Value").
                 field("measureUnit").caption("Measure Unit").
@@ -50,7 +50,7 @@ public class InitialConditionAdministration extends AdministrationConfiguration<
     @Override
     public FieldSetConfigurationUnit showView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
-                field("experimentArticle").caption("Experiment").
+                field("experimentContext").caption("Experiment").
                 field("condition").caption("Condition").
                 field("value").caption("Value").
                 field("measureUnit").caption("Measure Unit").
@@ -61,7 +61,7 @@ public class InitialConditionAdministration extends AdministrationConfiguration<
     @Override
     public FieldSetConfigurationUnit formView(PersistentFieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
-                field("experimentArticle").caption("Experiment").
+                field("experimentContext").caption("Experiment").
                 field("condition").caption("Condition").
                 field("value").caption("Value").
                 field("measureUnit").caption("Measure Unit").

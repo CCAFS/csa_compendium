@@ -32,7 +32,7 @@ public class ExperimentArticleAdministration extends AdministrationConfiguration
                 .field("id").caption("ID")
                 .field("title").caption("Title")
                 .field("publicationDate").caption("Publication Date")
-                .field("practiceTheme").caption("Practice Theme")
+                .field("theme").caption("CSA Theme")
                 .build();
     }
 
@@ -42,8 +42,7 @@ public class ExperimentArticleAdministration extends AdministrationConfiguration
                 .field("title").caption("Title")
                 .field("code").caption("Code")
                 .field("publicationDate").caption("Publication Date")
-                .field("practiceTheme").caption("Practice Theme")
-                .field("farmingSystem").caption("Farming System")
+                .field("theme").caption("CSA Theme")
                 .field("language").caption("Language")
                 .field("authors").caption("Authors")
                 .build();
@@ -56,13 +55,12 @@ public class ExperimentArticleAdministration extends AdministrationConfiguration
                 .field("outline").caption("Outline")
                 .field("code").caption("Code")
                 .field("publicationDate").caption("Publication Date")
-                .field("practiceTheme").caption("Practice Theme")
-                .field("farmingSystem").caption("Farming System")
+                .field("theme").caption("CSA Theme")
                 .field("language").caption("Language")
                 .field("authors").caption("Authors")
                 .field("contacts").caption("Contacts")
                 .field("contextValues").caption("Context Values")
-                .field("initialConditions").caption("Initial Conditions")
+                .field("contexts").caption("Experiment Locations")
                 .build();
     }
 
@@ -73,18 +71,17 @@ public class ExperimentArticleAdministration extends AdministrationConfiguration
                 .field("outline").caption("Outline").editor(textArea())
                 .field("code").caption("Code")
                 .field("publicationDate").caption("Publication Date")
-                .field("practiceTheme").caption("Practice Theme")
-                .field("farmingSystem").caption("Farming System")
+                .field("theme").caption("CSA Theme")
                 .field("language").caption("Language")
                 .field("authors").caption("Authors")
                 .field("contacts").caption("Contacts")
                 .field("contextValues").caption("Context Variables")
-                .field("initialConditions").caption("Initial Conditions")
+                .field("contexts").caption("Experiment Locations")
                 .build();
     }
 
     public SidebarsConfigurationUnit sidebars(SidebarsConfigurationUnitBuilder sidebarsBuilder) {
-        return sidebarsBuilder.sidebar("XLS File Upload", "/WEB-INF/admin/upload.jsp").build();
+        return sidebarsBuilder.sidebar("XLS File Upload", "/WEB-INF/lightadmin/upload.jsp").build();
     }
 
 }

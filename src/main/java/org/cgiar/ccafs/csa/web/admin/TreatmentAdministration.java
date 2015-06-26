@@ -28,7 +28,8 @@ public class TreatmentAdministration extends AdministrationConfiguration<Treatme
     public FieldSetConfigurationUnit listView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
                 field("id").caption("ID").
-                field("practice").caption("Related Practice").
+                field("information").caption("Additional Information").
+                field("practices").caption("Related Practices").
                 field("controlForTreatments").caption("Is a Control?").
                 build();
     }
@@ -36,41 +37,45 @@ public class TreatmentAdministration extends AdministrationConfiguration<Treatme
     @Override
     public FieldSetConfigurationUnit quickView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
-                field("practice").caption("Related Practice").
+                field("information").caption("Additional Information").
+                field("practices").caption("Related Practices").
                 field("controlForTreatments").caption("Is a Control?").
-                field("experimentArticle").caption("Experiment").
+                field("experimentContext").caption("Experiment").
                 build();
     }
 
     @Override
     public FieldSetConfigurationUnit showView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
-                field("practice").caption("Related Practice").
+                field("id").caption("ID").
+                field("information").caption("Additional Information").
+                field("practices").caption("Related Practices").
                 field("controlForTreatments").caption("Is a Control?").
                 field("control").caption("Control for this Treatment").
-                field("experimentArticle").caption("Experiment").
-                field("productionSystems").caption("Production Systems Involved").
+                field("experimentContext").caption("Experiment").
                 field("outcomes").caption("Outcomes").
+                field("barriers").caption("Barriers").
                 build();
     }
 
     @Override
     public FieldSetConfigurationUnit formView(PersistentFieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
-                field("practice").caption("Related Practice").
+                field("practices").caption("Related Practices").
+                field("information").caption("Additional Information").
                 field("controlForTreatments").caption("Is a Control?").
                 field("control").caption("Control for this Treatment").
-                field("experimentArticle").caption("Experiment").
-                field("productionSystems").caption("Production Systems Involved").
+                field("experimentContext").caption("Experiment").
                 field("outcomes").caption("Outcomes").
+                field("barriers").caption("Barriers").
                 build();
     }
 
     @Override
     public FiltersConfigurationUnit filters(FiltersConfigurationUnitBuilder filterBuilder) {
         return filterBuilder.
-                filter("Related Practice", "practice").
-                filter("Experiment", "experimentArticle").
+                filter("Related Practices", "practices").
+                filter("Experiment", "experimentContext").
                 build();
 
         //TODO Add Other filters

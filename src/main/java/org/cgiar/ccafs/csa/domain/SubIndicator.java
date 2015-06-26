@@ -23,6 +23,9 @@ public class SubIndicator extends AbstractInformationEntity {
     @JoinColumn(name = "indicator_id")
     private Indicator indicator;
 
+    @OneToMany(mappedBy = "subIndicator")
+    private List<TreatmentOutcome> treatmentOutcomes = new ArrayList<>();
+
     @Override
     public Integer getId() {
         return this.id;
@@ -34,5 +37,9 @@ public class SubIndicator extends AbstractInformationEntity {
 
     public void setIndicator(Indicator indicator) {
         this.indicator = indicator;
+    }
+
+    public List<TreatmentOutcome> getTreatmentOutcomes() {
+        return treatmentOutcomes;
     }
 }

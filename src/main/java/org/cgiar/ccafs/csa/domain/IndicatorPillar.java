@@ -19,7 +19,7 @@ public class IndicatorPillar implements Comparable<IndicatorPillar>, Serializabl
     @Enumerated(EnumType.STRING)
     private Pillar pillar;
 
-    private float weight = 1.0f;
+    private double weight = 1.0;
 
     @ManyToOne
     @JoinColumn(name = "indicator_id")
@@ -28,7 +28,7 @@ public class IndicatorPillar implements Comparable<IndicatorPillar>, Serializabl
     public IndicatorPillar() {
     }
 
-    public IndicatorPillar(Pillar pillar, float weight) {
+    public IndicatorPillar(Pillar pillar, double weight) {
         this.pillar = pillar;
         this.weight = weight;
     }
@@ -45,11 +45,11 @@ public class IndicatorPillar implements Comparable<IndicatorPillar>, Serializabl
         this.pillar = pillar;
     }
 
-    public float getWeight() {
+    public double getWeight() {
         return this.weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 

@@ -1,12 +1,7 @@
 package org.cgiar.ccafs.csa.domain;
 
-import org.apache.commons.lang3.StringUtils;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * The persistent class for the units database table.
@@ -22,15 +17,7 @@ public class MeasureUnit implements Serializable {
 
     private String name;
 
-    private String options;
-
-    @Transient
-    private List<String> optionsList;
-
-    private String symbols;
-
-    @Transient
-    private List<String> symbolsList;
+    private String symbol;
 
     public Integer getId() {
         return this.id;
@@ -44,46 +31,17 @@ public class MeasureUnit implements Serializable {
         this.name = name;
     }
 
-    public List<String> getOptionsList() {
-        if (this.optionsList == null) {
-            this.optionsList = new ArrayList<>();
-        }
-        return this.optionsList;
+    public String getSymbol() {
+        return symbol;
     }
 
-    public void addOption(String option) {
-        getOptionsList().add(option);
-    }
-
-    public List<String> getSymbolsList() {
-        if (this.symbolsList == null) {
-            this.symbolsList = new ArrayList<>();
-        }
-        return this.symbolsList;
-    }
-
-    public void addSymbol(String symbol) {
-        getSymbolsList().add(symbol);
-    }
-
-    @PrePersist
-    @PreUpdate
-    private void recordSaved() {
-        options = StringUtils.join(getOptionsList(), ";");
-        symbols = StringUtils.join(getSymbolsList(), ";");
-    }
-
-    @PostLoad
-    private void recordLoaded() {
-        if (options != null && options.trim().length() == 0) {
-            String[] data = options.split(";");
-            optionsList = Arrays.asList(data);
-        }
-
-        if (symbols != null && symbols.trim().length() == 0) {
-            String[] data = symbols.split(";");
-            symbolsList = Arrays.asList(data);
+    public void setSymbol(String symbol) {
+        try {
+            if (symbol.equals(" ") || symbol.equals("r2") || Integer.valueOf(symbol) > -1) {
+                throw new IllegalArgumentException("Incorrect unit: " + symbol);
+            }
+        } catch (NumberFormatException n) {
+            this.symbol = symbol;
         }
     }
-
 }

@@ -13,6 +13,8 @@ public interface BarrierRepository extends PagingAndSortingRepository<Barrier, I
 
     List<Barrier> findByName(@Param("name") String name);
 
-    @Query(value = "SELECT * FROM barriers WHERE compendium = 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM barriers WHERE from_compendium = 1", nativeQuery = true)
     List<Barrier> findCompendiumBarriers();
+
+    Barrier getByCode(String code);
 }

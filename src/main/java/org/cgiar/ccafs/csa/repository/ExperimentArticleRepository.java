@@ -8,16 +8,7 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "articles", path = "articles")
 public interface ExperimentArticleRepository extends PagingAndSortingRepository<ExperimentArticle, Integer> {
-
-    List<ExperimentArticle> findByLocationCountryRegionCode(String code);
-
-    List<ExperimentArticle> findByLocationCountryCode(String code);
-
-    List<ExperimentArticle> findByFarmingSystemId(Integer id);
-
-    List<ExperimentArticle> findByPracticeThemeId(Integer id);
-
-    List<ExperimentArticle> findByLocationCountryName(String code);
-
     ExperimentArticle findByCode(String code);
+
+    List<ExperimentArticle> findByThemeId(Integer id);
 }

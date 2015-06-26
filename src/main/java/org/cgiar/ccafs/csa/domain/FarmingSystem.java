@@ -7,8 +7,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "farming_systems")
-@NamedNativeQuery(name = "FarmingSystem.findAllByDistinctName",
-        query = "SELECT * FROM farming_systems WHERE id IN (SELECT MIN(id) FROM farming_systems GROUP BY name) ORDER BY name")
 public class FarmingSystem extends AbstractInformationEntity {
     private static final long serialVersionUID = 1L;
 

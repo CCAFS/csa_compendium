@@ -25,18 +25,12 @@ public class ContextVariable extends AbstractInformationEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ContextVariable)) return false;
-
-        ContextVariable that = (ContextVariable) o;
-
-        return id.equals(that.id);
-
+        return super.equals(o) && o instanceof ContextVariable && id.equals(((ContextVariable) o).getId());
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return id * super.hashCode();
     }
 
     @Override

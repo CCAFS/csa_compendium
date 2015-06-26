@@ -1,6 +1,8 @@
 package org.cgiar.ccafs.csa.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The persistent class for the productive_systems database table. Represents a
@@ -19,6 +21,9 @@ public class ProductionSystem extends AbstractInformationEntity {
     @JoinColumn(name = "category_id")
     private ProductionSystemCategory category;
 
+    @ManyToMany(mappedBy = "productionSystems")
+    private List<ExperimentContext> experimentContexts = new ArrayList<>();
+
     @Override
     public Integer getId() {
         return this.id;
@@ -30,5 +35,9 @@ public class ProductionSystem extends AbstractInformationEntity {
 
     public void setCategory(ProductionSystemCategory category) {
         this.category = category;
+    }
+
+    public List<ExperimentContext> getExperimentContexts() {
+        return experimentContexts;
     }
 }

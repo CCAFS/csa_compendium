@@ -11,4 +11,6 @@ import java.util.List;
 public interface SubIndicatorRepository extends PagingAndSortingRepository<SubIndicator, Integer> {
 
     List<SubIndicator> findByIndicator(Indicator indicator);
+
+    SubIndicator findByCode(String code);
 }

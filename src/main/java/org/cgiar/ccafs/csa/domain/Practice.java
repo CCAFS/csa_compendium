@@ -1,7 +1,5 @@
 package org.cgiar.ccafs.csa.domain;
 
-import org.apache.commons.lang3.StringUtils;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,11 +22,10 @@ public class Practice extends AbstractInformationEntity implements Contextualize
 
     private String tags;
 
+    private boolean active;
+
     @Transient
     private List<String> tagsList;
-
-    @OneToMany(mappedBy = "practice")
-    private List<Treatment> treatments;
 
     @ManyToOne
     @JoinColumn(name = "level_id")
@@ -68,15 +65,23 @@ public class Practice extends AbstractInformationEntity implements Contextualize
     @PrePersist
     @PreUpdate
     private void recordSaved() {
-        tags = StringUtils.join(getTagsList(), ";");
+        tags = joiner.join(getTagsList());
     }
 
     @PostLoad
     private void recordLoaded() {
-        if (tags != null && tags.trim().length() == 0) {
+        if (tags != null && tags.trim().length() != 0) {
             String[] data = tags.split(";");
             tagsList = Arrays.asList(data);
         }
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public PracticeLevel getPracticeLevel() {

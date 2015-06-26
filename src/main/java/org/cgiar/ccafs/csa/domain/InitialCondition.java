@@ -18,15 +18,15 @@ public class InitialCondition implements Serializable {
 
     private String state;
 
-    private float value;
+    private double value;
 
     @ManyToOne
     @JoinColumn(name = "condition_id")
     private Condition condition;
 
     @ManyToOne
-    @JoinColumn(name = "experiment_id")
-    private ExperimentArticle experimentArticle;
+    @JoinColumn(name = "experiment_context_id")
+    private ExperimentContext experimentContext;
 
     @ManyToOne
     @JoinColumn(name = "unit_id")
@@ -40,11 +40,11 @@ public class InitialCondition implements Serializable {
         this.state = state;
     }
 
-    public float getValue() {
+    public double getValue() {
         return this.value;
     }
 
-    public void setValue(float value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
@@ -56,12 +56,12 @@ public class InitialCondition implements Serializable {
         this.condition = condition;
     }
 
-    public ExperimentArticle getExperiment() {
-        return this.experimentArticle;
+    public ExperimentContext getExperimentContext() {
+        return this.experimentContext;
     }
 
-    public void setExperiment(ExperimentArticle experimentArticle) {
-        this.experimentArticle = experimentArticle;
+    public void setExperimentContext(ExperimentContext experimentContext) {
+        this.experimentContext = experimentContext;
     }
 
     public MeasureUnit getMeasureUnit() {

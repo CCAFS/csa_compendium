@@ -7,4 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(collectionResourceRel = "measure_units", path = "measure_units")
 public interface MeasureUnitRepository extends PagingAndSortingRepository<MeasureUnit, Integer> {
 
+    MeasureUnit findByName(String name);
+
+    MeasureUnit findBySymbolAndName(String symbol, String name);
 }

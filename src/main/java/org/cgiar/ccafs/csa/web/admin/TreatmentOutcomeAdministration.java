@@ -32,11 +32,10 @@ public class TreatmentOutcomeAdministration extends AdministrationConfiguration<
 
         return fragmentBuilder.
                 field("id").caption("ID").
-                field("indicator").caption("Indicator").
                 field("treatment").caption("Treatment").
-                field("measureUnit").caption("Measure Unit").
-                field("initialValue").caption("Initial Value").
-                field("finalValue").caption("Final Value").
+                field("subIndicator").caption("Indicator").
+                field("productionSystem").caption("Production System").
+                field("meanValue").caption("Mean Value").
                 build();
     }
 
@@ -44,11 +43,10 @@ public class TreatmentOutcomeAdministration extends AdministrationConfiguration<
     public FieldSetConfigurationUnit quickView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
                 field("id").caption("ID").
-                field("indicator").caption("Indicator").
                 field("treatment").caption("Treatment").
-                field("measureUnit").caption("Measure Unit").
-                field("initialValue").caption("Initial Value").
-                field("finalValue").caption("Final Value").
+                field("subIndicator").caption("Indicator").
+                field("productionSystem").caption("Production System").
+                field("meanValue").caption("Mean Value").
                 build();
     }
 
@@ -56,31 +54,34 @@ public class TreatmentOutcomeAdministration extends AdministrationConfiguration<
     public FieldSetConfigurationUnit showView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
                 field("id").caption("ID").
-                field("indicator").caption("Indicator").
                 field("treatment").caption("Treatment").
-                field("measureUnit").caption("Measure Unit").
+                field("subIndicator").caption("Indicator").
+                field("productionSystem").caption("Production System").
                 field("startDate").caption("Start Date").
                 field("endDate").caption("End Date").
-                field("initialValue").caption("Initial Value").
-                field("finalValue").caption("Final Value").
+                field("soilDepth").caption("Soil Depth").
+                field("meanValue").caption("Mean Value").
+                field("measureUnit").caption("Measure Unit").
+                field("standardError").caption("Standard Error").
+                field("standardDeviation").caption("Standard Deviation").
                 field("result").caption("Result").
-                field("perceivedChange").caption("Perceived Change").
                 build();
     }
 
     @Override
     public FieldSetConfigurationUnit formView(PersistentFieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.
-                field("id").caption("ID").
-                field("indicator").caption("Indicator").
                 field("treatment").caption("Treatment").
-                field("measureUnit").caption("Measure Unit").
+                field("subIndicator").caption("Indicator").
+                field("productionSystem").caption("Production System").
                 field("startDate").caption("Start Date").
                 field("endDate").caption("End Date").
-                field("initialValue").caption("Initial Value").
-                field("finalValue").caption("Final Value").
+                field("soilDepth").caption("Soil Depth").
+                field("meanValue").caption("Mean Value").
+                field("measureUnit").caption("Measure Unit").
+                field("standardError").caption("Standard Error").
+                field("standardDeviation").caption("Standard Deviation").
                 field("result").caption("Result").
-                field("perceivedChange").caption("Perceived Change").
                 build();
     }
 }

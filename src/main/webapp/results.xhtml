@@ -19,29 +19,32 @@
         <b:container>
             <b:row>
                 <b:column span="4">
+                    <p class="bg-info" style="padding: 10px 25px; font-size: small;">
+                        <strong>#{resultsController.experimentContexts.size()}</strong> experiments found.
+                    </p>
                     <div class="search-results">
-                        <ui:repeat id="article" value="#{resultsController.articles}" var="article">
+                        <ui:repeat id="article" value="#{resultsController.experimentContexts}" var="context">
                             <b:panel id="panel">
                                 <f:facet name="heading">
-                                    <a href="javascript:highlightArticle('#{article.code}')">#{article.code}</a>
+                                    <a href="javascript:highlightArticle('#{context.experiment.code}')">#{context.experiment.code}</a>
                                 </f:facet>
 
-                                <strong>Title: </strong> #{article.title} <br/>
-                                <strong>Year: </strong> #{article.publicationDate.year} <br/>
-                                <strong>Location: </strong> #{article.location.place}, #{article.location.country} <br/>
+                                <strong>Title: </strong> #{context.experiment.title} <br/>
+                                <strong>Year: </strong> #{context.experiment.publicationDate.year} <br/>
+                                <strong>Location: </strong> #{context.location.place}, #{context.location.country} <br/>
 
-                                <div id="details_panel_#{article.code}" class="details-panel">
-                                    <strong>Theme: </strong> #{article.practiceTheme.name}  <br/>
-                                    <strong>Farming System: </strong> #{article.farmingSystem.name} <br/>
-                                    <strong>Practice: </strong> #{article.treatments[0].practice.name} <br/>
-                                    <strong>Production system: </strong> #{article.treatments[0].productionSystems[0].name}
+                                <div id="details_panel_#{context.experiment.code}" class="details-panel">
+                                    <strong>Theme: </strong> #{context.experiment.theme.name}  <br/>
+                                    <strong>Farming System: </strong> #{context.farmingSystem.name} <br/>
+                                    <strong>Practices: </strong> #{context.listOfPractices} <br/>
+                                    <strong>Production Systems: </strong> #{context.listOfProductionSystems}
                                 </div>
 
-                                <h6 class="hide">#{article.code}/#{article.location.latitude}/#{article.location.longitude}</h6>
+                                <h6 class="hide">#{context.experiment.code}/#{context.location.latitude}/#{context.location.longitude}</h6>
 
                                 <f:facet name="footer">
-                                    <a id="details_link_#{article.code}"
-                                       href="javascript:toggleArticleDetails('#{article.code}')">Show Details</a>
+                                    <a id="details_link_#{context.experiment.code}"
+                                       href="javascript:toggleArticleDetails('#{context.experiment.code}')">Show Details</a>
                                 </f:facet>
                             </b:panel>
                         </ui:repeat>

@@ -23,19 +23,16 @@ public class Indicator implements Serializable {
     @OneToMany(mappedBy = "indicator")
     private List<IndicatorPillar> pillars = new ArrayList<>();
 
-    @OneToMany(mappedBy = "indicator", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "indicator")
     private List<SubIndicator> subIndicators = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Indicator)) return false;
-
         Indicator indicator = (Indicator) o;
-
         if (!id.equals(indicator.id)) return false;
         return name.equals(indicator.name);
-
     }
 
     @Override

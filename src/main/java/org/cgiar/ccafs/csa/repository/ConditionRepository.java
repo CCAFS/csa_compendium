@@ -7,4 +7,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(collectionResourceRel = "conditions", path = "conditions")
 public interface ConditionRepository extends PagingAndSortingRepository<Condition, Integer> {
 
+    Condition findByName(String name);
 }

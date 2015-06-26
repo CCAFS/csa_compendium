@@ -1,6 +1,8 @@
 package org.cgiar.ccafs.csa.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The persistent class for the context_filters database table.
@@ -18,6 +20,9 @@ public class ContextValue extends AbstractInformationEntity {
     @JoinColumn(name = "context_variable_id")
     private ContextVariable contextVariable;
 
+    @ManyToMany(mappedBy="contextValues")
+    private List<ExperimentArticle> experimentArticles = new ArrayList<>();
+
     @Override
     public Integer getId() {
         return this.id;
@@ -29,5 +34,9 @@ public class ContextValue extends AbstractInformationEntity {
 
     public void setContextVariable(ContextVariable contextVariable) {
         this.contextVariable = contextVariable;
+    }
+
+    public List<ExperimentArticle> getExperimentArticles() {
+        return experimentArticles;
     }
 }

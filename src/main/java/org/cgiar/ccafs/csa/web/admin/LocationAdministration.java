@@ -35,7 +35,8 @@ public class LocationAdministration extends AdministrationConfiguration<Location
                 field("country").caption("Country").
                 field("latitude").caption("Latitud (Northing)").
                 field("longitude").caption("Longitude (Easting)").
-                field("altitude").caption("Altitude (from Sea Lever)").
+                field("maxAltitude").caption("Max Altitude (from Sea Lever)").
+                field("minAltitude").caption("Min Altitude").
                 build();
     }
 
@@ -46,7 +47,8 @@ public class LocationAdministration extends AdministrationConfiguration<Location
                 field("country").caption("Country").
                 field("latitude").caption("Latitud (Northing)").
                 field("longitude").caption("Longitude (Easting)").
-                field("altitude").caption("Altitude (from Sea Lever)").
+                field("maxAltitude").caption("Max Altitude (from Sea Lever)").
+                field("minAltitude").caption("Min Altitude").
                 build();
     }
 
@@ -57,7 +59,8 @@ public class LocationAdministration extends AdministrationConfiguration<Location
                 field("country").caption("Country").
                 field("latitude").caption("Latitud (Northing)").
                 field("longitude").caption("Longitude (Easting)").
-                field("altitude").caption("Altitude (from Sea Lever)").
+                field("maxAltitude").caption("Max Altitude (from Sea Lever)").
+                field("minAltitude").caption("Min Altitude").
                 build();
     }
 
@@ -68,7 +71,8 @@ public class LocationAdministration extends AdministrationConfiguration<Location
                 field("country").caption("Country").
                 field("latitude").caption("Latitud (Northing)").
                 field("longitude").caption("Longitude (Easting)").
-                field("altitude").caption("Altitude (from Sea Lever)").
+                field("maxAltitude").caption("Max Altitude (from Sea Lever)").
+                field("minAltitude").caption("Min Altitude").
                 build();
     }
 

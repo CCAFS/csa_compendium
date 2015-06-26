@@ -21,18 +21,12 @@ public class PracticeTheme extends AbstractInformationEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof PracticeTheme)) return false;
-
-        PracticeTheme that = (PracticeTheme) o;
-
-        return id.equals(that.id);
-
+        return super.equals(o) && o instanceof PracticeTheme && id.equals(((PracticeTheme) o).getId());
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return id * super.hashCode();
     }
 
     @Override

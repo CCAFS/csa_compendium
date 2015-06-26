@@ -23,7 +23,6 @@ import javax.faces.bean.ManagedBean;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -83,7 +82,8 @@ public class DataExtractorController {
                     } catch (InvalidFormatException i) {
                         log.warn("Not a supported format: " + zipEntry.getName());
                     } catch (Exception e) {
-                        log.error("Fail to load: " + zipEntry.getName(), e);
+                        log.error("Fail to load: " + zipEntry.getName() + " - " + e.getMessage());
+                        //log.error("Fail to load: " + zipEntry.getName() + " - ", e);
                     }
                 }
 
@@ -96,9 +96,13 @@ public class DataExtractorController {
                 XSSFSheet sheet = workbook.getSheetAt(0);
 
                 if (file.getFileName().equals("Practices.xlsx")) {
-                    dataService.extractPracticesInformation(sheet);
+                    dataService.extractPracticesInformation(sheet, true);
+                }else if (file.getFileName().equals("OldPractices.xlsx")) {
+                        dataService.extractPracticesInformation(sheet, false);
                 } else if (file.getFileName().equals("Indicators.xlsx")) {
                     dataService.extractIndicatorsInformation(sheet);
+                } else if (file.getFileName().equals("ProductionSystems.xlsx")) {
+                    dataService.extractProductionSystemsInformation(sheet);
                 } else {
                     dataService.extractArticleInformation(sheet);
                 }

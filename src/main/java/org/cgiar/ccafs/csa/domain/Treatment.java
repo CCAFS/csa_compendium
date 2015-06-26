@@ -17,38 +17,48 @@ public class Treatment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(length = 100000)
+    private String information;
+
     @Column(name = "control_for_treatments")
     private boolean controlForTreatments;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "treatment_production_systems"
+            name = "treatment_practices"
             , joinColumns = {
             @JoinColumn(name = "treatment_id")
     }
             , inverseJoinColumns = {
-            @JoinColumn(name = "production_system_id")
+            @JoinColumn(name = "practice_id")
     }
     )
-    private List<ProductionSystem> productionSystems = new ArrayList<>();
-
-    @ManyToOne
-    @JoinColumn(name = "practice_id")
-    private Practice practice;
+    private List<Practice> practices = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "control_id")
     private Treatment control;
 
     @ManyToOne
-    @JoinColumn(name = "experiment_id")
-    private ExperimentArticle experimentArticle;
+    @JoinColumn(name = "context_id")
+    private ExperimentContext experimentContext;
 
     @OneToMany(mappedBy = "treatment", fetch = FetchType.EAGER)
     private List<TreatmentOutcome> outcomes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "treatment", fetch = FetchType.EAGER)
+    private List<TreatmentBarrier> barriers = new ArrayList<>();
+
     public Integer getId() {
         return this.id;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public boolean isControlForTreatments() {
@@ -67,34 +77,26 @@ public class Treatment implements Serializable {
         this.control = control;
     }
 
-    public List<ProductionSystem> getProductionSystems() {
-        return productionSystems;
+    public List<Practice> getPractices() {
+        return practices;
     }
 
-    public ProductionSystem addProductionSystem(ProductionSystem productionSystem) {
-        getProductionSystems().add(productionSystem);
-        return productionSystem;
+    public Practice addPractice(Practice practice) {
+        practices.add(practice);
+        return practice;
     }
 
-    public ProductionSystem removeOutcome(ProductionSystem productionSystem) {
-        getProductionSystems().remove(productionSystem);
-        return productionSystem;
+    public Practice removePractice(Practice practice) {
+        practices.remove(practice);
+        return practice;
     }
 
-    public Practice getPractice() {
-        return this.practice;
+    public ExperimentContext getExperimentContext() {
+        return experimentContext;
     }
 
-    public void setPractice(Practice practice) {
-        this.practice = practice;
-    }
-
-    public ExperimentArticle getExperiment() {
-        return experimentArticle;
-    }
-
-    public void setExperiment(ExperimentArticle experimentArticle) {
-        this.experimentArticle = experimentArticle;
+    public void setExperimentContext(ExperimentContext experimentArticle) {
+        this.experimentContext = experimentArticle;
     }
 
     public List<TreatmentOutcome> getOutcomes() {
@@ -115,4 +117,21 @@ public class Treatment implements Serializable {
         return outcome;
     }
 
+    public List<TreatmentBarrier> getBarriers() {
+        return barriers;
+    }
+
+    public TreatmentBarrier addBarrier(TreatmentBarrier barrier) {
+        getBarriers().add(barrier);
+        barrier.setTreatment(this);
+
+        return barrier;
+    }
+
+    public TreatmentBarrier removeBarrier(TreatmentBarrier barrier) {
+        getBarriers().remove(barrier);
+        barrier.setTreatment(null);
+
+        return barrier;
+    }
 }

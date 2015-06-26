@@ -1,6 +1,5 @@
 package org.cgiar.ccafs.csa.repository;
 
-import org.cgiar.ccafs.csa.domain.Indicator;
 import org.cgiar.ccafs.csa.domain.IndicatorPillar;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

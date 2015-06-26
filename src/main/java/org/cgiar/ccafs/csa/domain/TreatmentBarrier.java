@@ -16,7 +16,7 @@ public class TreatmentBarrier implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private float cost;
+    private double cost;
 
     @ManyToOne
     @JoinColumn(name = "treatment_id")
@@ -30,11 +30,11 @@ public class TreatmentBarrier implements Serializable {
         return id;
     }
 
-    public float getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public void setCost(float cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 

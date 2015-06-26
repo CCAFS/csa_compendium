@@ -1,6 +1,5 @@
 package org.cgiar.ccafs.csa.domain;
 
-import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,6 +10,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static org.cgiar.ccafs.csa.domain.AbstractInformationEntity.joiner;
 import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 
 
@@ -31,27 +31,23 @@ public class ExperimentArticle implements Serializable {
 
     private String code;
 
-    @Column(length=100000)
+    @Column(length = 100000)
     private String title;
 
-    @Column(length=100000)
+    @Column(length = 100000)
     private String outline;
 
     private String link;
 
     private Integer rating;
 
-    @ManyToOne
-    @JoinColumn(name = "farming_system_id")
-    private FarmingSystem farmingSystem;
-
-    @Column(length=100000)
+    @Column(length = 100000)
     private String authors;
 
     @Transient
     private List<String> authorsList = new ArrayList<>();
 
-    @Column(length=100000)
+    @Column(length = 100000)
     private String contacts;
 
     @Transient
@@ -68,14 +64,7 @@ public class ExperimentArticle implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "theme_id")
-    private PracticeTheme practiceTheme;
-
-    @ManyToOne
-    @JoinColumn(name = "location_id")
-    private Location location;
-
-    @OneToMany(mappedBy = "experimentArticle", fetch = FetchType.EAGER)
-    private List<InitialCondition> initialConditions = new ArrayList<>();
+    private PracticeTheme theme;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -89,8 +78,8 @@ public class ExperimentArticle implements Serializable {
     )
     private List<ContextValue> contextValues = new ArrayList<>();
 
-    @OneToMany(mappedBy = "experimentArticle", fetch = FetchType.EAGER)
-    private List<Treatment> treatments;
+    @OneToMany(mappedBy = "experiment", fetch = FetchType.EAGER)
+    private List<ExperimentContext> contexts = new ArrayList<>();
 
     // Methods //
 
@@ -122,43 +111,20 @@ public class ExperimentArticle implements Serializable {
         this.outline = outline;
     }
 
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
     public Integer getRating() {
         return this.rating;
     }
 
     public void setRating(Integer rating) {
         this.rating = rating;
-    }
-
-    public FarmingSystem getFarmingSystem() {
-        return farmingSystem;
-    }
-
-    public void setFarmingSystem(FarmingSystem farmingSystem) {
-        this.farmingSystem = farmingSystem;
-    }
-
-    public List<Treatment> getTreatments() {
-        if (treatments == null) {
-            treatments = new ArrayList<>();
-        }
-        return treatments;
-    }
-
-    public void setTreatments(List<Treatment> treatments) {
-        this.treatments = treatments;
-    }
-
-    public Treatment addTreatment(Treatment treatment) {
-        getTreatments().add(treatment);
-        treatment.setExperiment(this);
-        return treatment;
-    }
-
-    public Treatment removeTreatment(Treatment treatment) {
-        getTreatments().remove(treatment);
-        treatment.setExperiment(null);
-        return treatment;
     }
 
     public List<String> getAuthorsList() {
@@ -173,28 +139,36 @@ public class ExperimentArticle implements Serializable {
         return this.contactsList;
     }
 
-    public void addContact(String author) {
-        getContactsList().add(author);
+    public void addContact(String contactEmail) {
+        getContactsList().add(contactEmail);
     }
 
     @PrePersist
     @PreUpdate
     protected void recordSaved() {
-        authors = StringUtils.join(getAuthorsList(), ";");
-        contacts = StringUtils.join(getAuthorsList(), ";");
+        authors = joiner.join(getAuthorsList());
+        contacts = joiner.join(getContactsList());
     }
 
     @PostLoad
     protected void recordLoaded() {
-        if (authors != null && authors.trim().length() == 0) {
+        if (authors != null && authors.trim().length() != 0) {
             String[] data = authors.split(";");
             authorsList = Arrays.asList(data);
         }
 
-        if (contacts != null && contacts.trim().length() == 0) {
+        if (contacts != null && contacts.trim().length() != 0) {
             String[] data = contacts.split(";");
             contactsList = Arrays.asList(data);
         }
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
     public LocalDate getPublicationDate() {
@@ -205,40 +179,40 @@ public class ExperimentArticle implements Serializable {
         this.publicationDate = publicationDate.toDate();
     }
 
-    public PracticeTheme getPracticeTheme() {
-        return practiceTheme;
+    public PracticeTheme getTheme() {
+        return theme;
     }
 
-    public void setPracticeTheme(PracticeTheme practiceTheme) {
-        this.practiceTheme = practiceTheme;
-    }
-
-    public Location getLocation() {
-        return this.location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setTheme(PracticeTheme theme) {
+        this.theme = theme;
     }
 
     public List<ContextValue> getContextValues() {
         return this.contextValues;
     }
 
-    public List<InitialCondition> getInitialConditions() {
-        return this.initialConditions;
+    public ContextValue setContextVariable(ContextValue contextValue) {
+        if (contextValue != null) getContextValues().add(contextValue);
+        return contextValue;
     }
 
-    public InitialCondition addInitialCondition(InitialCondition initialCondition) {
-        getInitialConditions().add(initialCondition);
-        initialCondition.setExperiment(this);
-        return initialCondition;
+    public boolean unsetContextVariable(ContextValue contextValue) {
+        return getContextValues().remove(contextValue);
     }
 
-    public InitialCondition removeInitialCondition(InitialCondition initialCondition) {
-        getInitialConditions().remove(initialCondition);
-        initialCondition.setExperiment(null);
-        return initialCondition;
+    public List<ExperimentContext> getContexts() {
+        return contexts;
     }
 
+    public ExperimentContext addContext(ExperimentContext context) {
+        getContexts().add(context);
+        context.setExperiment(this);
+        return context;
+    }
+
+    public ExperimentContext removeExperimentContext(ExperimentContext context) {
+        getContexts().remove(context);
+        context.setExperiment(null);
+        return context;
+    }
 }

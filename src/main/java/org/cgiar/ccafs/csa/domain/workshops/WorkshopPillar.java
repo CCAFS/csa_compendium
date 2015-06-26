@@ -21,7 +21,7 @@ public class WorkshopPillar implements Serializable {
     @Enumerated(EnumType.STRING)
     private Pillar pillar;
 
-    private float weight;
+    private double weight;
 
     @ManyToOne
     @JoinColumn(name = "workshop_id")
@@ -39,11 +39,11 @@ public class WorkshopPillar implements Serializable {
         this.pillar = pillar;
     }
 
-    public float getWeight() {
+    public double getWeight() {
         return this.weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 

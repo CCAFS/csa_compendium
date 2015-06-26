@@ -10,4 +10,6 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "context_values", path = "context_values")
 public interface ContextValueRepository extends PagingAndSortingRepository<ContextValue, Integer> {
     List<ContextValue> findByContextVariable(ContextVariable contextVariable);
+
+    ContextValue findByContextVariableAndCode(ContextVariable contextVariable, String code);
 }

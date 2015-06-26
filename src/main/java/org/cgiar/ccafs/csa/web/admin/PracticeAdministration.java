@@ -46,9 +46,7 @@ public class PracticeAdministration extends AdministrationConfiguration<Practice
         return infoShowView(fragmentBuilder).
                 field("tags").caption("Tags").
                 field("contextValues").caption("Context Values").
-                //field("dimensions").caption("Dimensions").
-                        //field("synergies").caption("Synergies wiht other Practices").
-                        field("treatments").caption("Treatments").
+                field("synergies").caption("Synergies with other Practices").
                 build();
     }
 
@@ -58,9 +56,7 @@ public class PracticeAdministration extends AdministrationConfiguration<Practice
         return infoFormView(fragmentBuilder).
                 field("tags").caption("Tags").
                 field("contextValues").caption("Context Values").
-                //field("dimensions").caption("Dimensions").
-                        //field("synergies").caption("Synergies wiht other Practices").
-                        field("treatments").caption("Treatments").
+                field("synergies").caption("Synergies with other Practices").
                 build();
     }
 

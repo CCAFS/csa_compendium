@@ -2,11 +2,10 @@ package org.cgiar.ccafs.csa.repository;
 
 import org.cgiar.ccafs.csa.domain.Practice;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(collectionResourceRel = "practices", path = "practices")
 public interface PracticeRepository extends PagingAndSortingRepository<Practice, Integer> {
 
-    Practice findByCode(@Param("code") String code);
+    Practice findByCode(String code);
 }
