@@ -32,6 +32,10 @@ public class InitialCondition implements Serializable {
     @JoinColumn(name = "unit_id")
     private MeasureUnit measureUnit;
 
+    public Integer getId() {
+        return this.id;
+    }
+
     public String getState() {
         return this.state;
     }

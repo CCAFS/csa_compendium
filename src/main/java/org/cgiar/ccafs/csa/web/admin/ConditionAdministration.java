@@ -23,7 +23,7 @@ public class ConditionAdministration extends AdministrationConfiguration<Conditi
     public EntityMetadataConfigurationUnit configuration(EntityMetadataConfigurationUnitBuilder configurationBuilder) {
         return configurationBuilder
                 .nameField("name")
-                .pluralName("Experiment Conditions")
+                .pluralName("Conditions")
                 .singularName("Condition")
                 .build();
     }

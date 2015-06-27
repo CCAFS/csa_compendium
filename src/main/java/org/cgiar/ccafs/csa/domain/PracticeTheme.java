@@ -2,7 +2,9 @@ package org.cgiar.ccafs.csa.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The persistent class for the themes database table.
@@ -17,7 +19,7 @@ public class PracticeTheme extends AbstractInformationEntity {
     private Integer id;
 
     @OneToMany(mappedBy = "theme")
-    private List<PracticeLevel> practiceLevels = new ArrayList<>();
+    private Set<PracticeLevel> practiceLevels = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
@@ -34,7 +36,7 @@ public class PracticeTheme extends AbstractInformationEntity {
         return this.id;
     }
 
-    public List<PracticeLevel> getPracticeLevels() {
+    public Set<PracticeLevel> getPracticeLevels() {
         return this.practiceLevels;
     }
 

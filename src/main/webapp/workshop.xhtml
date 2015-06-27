@@ -67,12 +67,16 @@
                                     <p:selectOneMenu id="workshopCountryCode" filter="true" filterMatchMode="startsWith"
                                                      value="#{workshopController.workshopCountryCode}">
                                         <f:selectItem itemValue="0" itemLabel="--" noSelectionOption="true"/>
-                                        <f:selectItems value="#{searchController.countriesList}"/>
+                                        <f:selectItems value="#{workshopController.countriesList}" var="country"
+                                                       itemLabel="#{country.name}" itemValue="#{country.code}"/>
+                                        <p:ajax listener="#{workshopController.updateCountry}" update="workshopPlace"/>
                                     </p:selectOneMenu>
+
                                 </b:column>
                                 <b:column span="6">
                                     <p:outputLabel for="workshopPlace" value="City/Town:"/> <br/>
-                                    <p:inputText id="workshopPlace" value="#{workshopController.workshopPlace}" />
+                                    <p:autoComplete id="workshopPlace" value="#{workshopController.workshopPlace}"
+                                                    cache="true" completeMethod="#{workshopController.completePlaces}" />
                                 </b:column>
                             </b:row>
                             <b:row style="margin-top:14px;">

@@ -2,9 +2,7 @@ package org.cgiar.ccafs.csa.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * The persistent class for the indicators database table.
@@ -21,7 +19,7 @@ public class Indicator implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "indicator")
-    private List<IndicatorPillar> pillars = new ArrayList<>();
+    private Set<IndicatorPillar> pillars = new HashSet<>();
 
     @OneToMany(mappedBy = "indicator")
     private List<SubIndicator> subIndicators = new ArrayList<>();
@@ -54,7 +52,7 @@ public class Indicator implements Serializable {
         this.name = name;
     }
 
-    public List<IndicatorPillar> getPillars() {
+    public Set<IndicatorPillar> getPillars() {
         return this.pillars;
     }
 

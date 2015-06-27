@@ -3,10 +3,7 @@ package org.cgiar.ccafs.csa.web.admin;
 import org.cgiar.ccafs.csa.domain.ExperimentArticle;
 import org.lightadmin.api.config.AdministrationConfiguration;
 import org.lightadmin.api.config.builder.*;
-import org.lightadmin.api.config.unit.EntityMetadataConfigurationUnit;
-import org.lightadmin.api.config.unit.FieldSetConfigurationUnit;
-import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
-import org.lightadmin.api.config.unit.SidebarsConfigurationUnit;
+import org.lightadmin.api.config.unit.*;
 
 import static org.lightadmin.api.config.utils.Editors.textArea;
 
@@ -21,8 +18,8 @@ public class ExperimentArticleAdministration extends AdministrationConfiguration
     public EntityMetadataConfigurationUnit configuration(EntityMetadataConfigurationUnitBuilder configurationBuilder) {
         return configurationBuilder
                 .nameField("code")
-                .pluralName("Experiment Articles")
-                .singularName("Article")
+                .pluralName("Experiments")
+                .singularName("Experiment")
                 .build();
     }
 
@@ -42,9 +39,9 @@ public class ExperimentArticleAdministration extends AdministrationConfiguration
                 .field("title").caption("Title")
                 .field("code").caption("Code")
                 .field("publicationDate").caption("Publication Date")
-                .field("theme").caption("CSA Theme")
-                .field("language").caption("Language")
                 .field("authors").caption("Authors")
+                .field("language").caption("Language")
+                .field("contexts").caption("Experiment Contexts")
                 .build();
     }
 
@@ -56,11 +53,11 @@ public class ExperimentArticleAdministration extends AdministrationConfiguration
                 .field("code").caption("Code")
                 .field("publicationDate").caption("Publication Date")
                 .field("theme").caption("CSA Theme")
-                .field("language").caption("Language")
                 .field("authors").caption("Authors")
                 .field("contacts").caption("Contacts")
+                .field("language").caption("Language")
                 .field("contextValues").caption("Context Values")
-                .field("contexts").caption("Experiment Locations")
+                .field("contexts").caption("Experiment Contexts")
                 .build();
     }
 
@@ -72,12 +69,17 @@ public class ExperimentArticleAdministration extends AdministrationConfiguration
                 .field("code").caption("Code")
                 .field("publicationDate").caption("Publication Date")
                 .field("theme").caption("CSA Theme")
-                .field("language").caption("Language")
                 .field("authors").caption("Authors")
                 .field("contacts").caption("Contacts")
+                .field("language").caption("Language")
                 .field("contextValues").caption("Context Variables")
-                .field("contexts").caption("Experiment Locations")
+                .field("contexts").caption("Experiment Contexts")
                 .build();
+    }
+
+    @Override
+    public FiltersConfigurationUnit filters(FiltersConfigurationUnitBuilder filterBuilder) {
+        return filterBuilder.filter("CSA Theme", "theme").build();
     }
 
     public SidebarsConfigurationUnit sidebars(SidebarsConfigurationUnitBuilder sidebarsBuilder) {

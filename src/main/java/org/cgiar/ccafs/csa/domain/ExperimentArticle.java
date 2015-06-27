@@ -5,10 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.cgiar.ccafs.csa.domain.AbstractInformationEntity.joiner;
 import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
@@ -66,7 +63,7 @@ public class ExperimentArticle implements Serializable {
     @JoinColumn(name = "theme_id")
     private PracticeTheme theme;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "experiment_context_values"
             , joinColumns = {
@@ -76,9 +73,9 @@ public class ExperimentArticle implements Serializable {
             @JoinColumn(name = "context_value_id")
     }
     )
-    private List<ContextValue> contextValues = new ArrayList<>();
+    private Set<ContextValue> contextValues = new HashSet<>();
 
-    @OneToMany(mappedBy = "experiment", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "experiment")
     private List<ExperimentContext> contexts = new ArrayList<>();
 
     // Methods //
@@ -187,7 +184,7 @@ public class ExperimentArticle implements Serializable {
         this.theme = theme;
     }
 
-    public List<ContextValue> getContextValues() {
+    public Set<ContextValue> getContextValues() {
         return this.contextValues;
     }
 

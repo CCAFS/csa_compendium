@@ -422,7 +422,7 @@ span.text {
 
 /* Workshops styles */
 
-.workshop-panel input, .workshop-panel textarea {
+.workshop-panel input, .workshop-panel textarea, .ui-autocomplete {
     width: 100%;
 }
 

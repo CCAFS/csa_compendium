@@ -1,9 +1,10 @@
 package org.cgiar.ccafs.csa.web;
 
-import org.cgiar.ccafs.csa.domain.Indicator;
-import org.cgiar.ccafs.csa.domain.Pillar;
-import org.cgiar.ccafs.csa.domain.Practice;
+import com.google.common.collect.Lists;
+import org.cgiar.ccafs.csa.domain.*;
+import org.cgiar.ccafs.csa.repository.CountryRepository;
 import org.cgiar.ccafs.csa.repository.IndicatorRepository;
+import org.cgiar.ccafs.csa.repository.LocationRepository;
 import org.cgiar.ccafs.csa.repository.PracticeRepository;
 import org.primefaces.component.slider.Slider;
 import org.primefaces.event.SlideEndEvent;
@@ -18,8 +19,7 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @ManagedBean
@@ -34,10 +34,20 @@ public class WorkshopController implements Serializable {
     private ExperimentArticleRepository experimentArticleRepository;*/
 
     @Autowired
+    private CountryRepository countryRepository;
+
+    @Autowired
     private PracticeRepository practiceRepository;
 
     @Autowired
     private IndicatorRepository indicatorRepository;
+
+    @Autowired
+    private LocationRepository locationRepository;
+
+    private Iterable<Country> countriesList;
+
+    private Iterable<Location> countryPlaces;
 
     private DualListModel<Practice> practices;
 
@@ -75,6 +85,21 @@ public class WorkshopController implements Serializable {
         return availablePractices;
     }
 
+    public void updateCountry() {
+        countryPlaces = locationRepository.findByCountryCodeOrderByPlaceAsc(workshopCountryCode);
+    }
+
+    public List<String> completePlaces(String query) {
+        Set<String> results = new LinkedHashSet<>();
+        for(Location location : countryPlaces) {
+            if (location.getPlace().toLowerCase().startsWith(query)) {
+                results.add(location.getPlace());
+            }
+        }
+        return Lists.newArrayList(results);
+    }
+
+
     private List<Practice> getSelectedPractices() {
         if (selectedPractices == null) {
             selectedPractices = new ArrayList<>();
@@ -84,6 +109,8 @@ public class WorkshopController implements Serializable {
 
     @PostConstruct
     public void init() {
+        countriesList = countryRepository.findAll();
+
         practices = new DualListModel<>(getAvailablePractices(), getSelectedPractices());
 
         selectedAdaptationIndicators = new ArrayList<>();
@@ -121,18 +148,28 @@ public class WorkshopController implements Serializable {
         int newValue = event.getValue();
 
         switch (sliderId) {
-            case "mitigation": mitigationValue = newValue; break;
-            case "production": productionValue = newValue; break;
-            case "adaptation": adaptationValue = newValue; break;
+            case "mitigation":
+                mitigationValue = newValue;
+                break;
+            case "production":
+                productionValue = newValue;
+                break;
+            case "adaptation":
+                adaptationValue = newValue;
+                break;
         }
     }
 
-    public void setMitigationValue(int mitigationValue) {
-        this.mitigationValue = mitigationValue;
+    public Iterable<Country> getCountriesList() {
+        return countriesList;
     }
 
     public int getMitigationValue() {
         return mitigationValue;
+    }
+
+    public void setMitigationValue(int mitigationValue) {
+        this.mitigationValue = mitigationValue;
     }
 
     public int getProductionValue() {

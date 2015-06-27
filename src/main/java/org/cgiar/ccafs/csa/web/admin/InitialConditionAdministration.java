@@ -20,8 +20,8 @@ public class InitialConditionAdministration extends AdministrationConfiguration<
     @Override
     public EntityMetadataConfigurationUnit configuration(EntityMetadataConfigurationUnitBuilder configurationBuilder) {
         return configurationBuilder
-                .nameField("id")
-                .pluralName("Initial Conditions")
+                .nameField("condition")
+                .pluralName("Experiment Conditions")
                 .singularName("Experiment Condition")
                 .build();
     }
@@ -32,6 +32,7 @@ public class InitialConditionAdministration extends AdministrationConfiguration<
                 field("id").caption("ID").
                 field("experimentContext").caption("Experiment").
                 field("condition").caption("Condition").
+                field("state").caption("State").
                 field("value").caption("Value").
                 field("measureUnit").caption("Measure Unit").
                 build();
@@ -42,6 +43,7 @@ public class InitialConditionAdministration extends AdministrationConfiguration<
         return fragmentBuilder.
                 field("experimentContext").caption("Experiment").
                 field("condition").caption("Condition").
+                field("state").caption("State").
                 field("value").caption("Value").
                 field("measureUnit").caption("Measure Unit").
                 build();
@@ -52,9 +54,9 @@ public class InitialConditionAdministration extends AdministrationConfiguration<
         return fragmentBuilder.
                 field("experimentContext").caption("Experiment").
                 field("condition").caption("Condition").
+                field("state").caption("State").
                 field("value").caption("Value").
                 field("measureUnit").caption("Measure Unit").
-                field("state").caption("State").
                 build();
     }
 
@@ -63,9 +65,9 @@ public class InitialConditionAdministration extends AdministrationConfiguration<
         return fragmentBuilder.
                 field("experimentContext").caption("Experiment").
                 field("condition").caption("Condition").
+                field("state").caption("State").
                 field("value").caption("Value").
                 field("measureUnit").caption("Measure Unit").
-                field("state").caption("State").
                 build();
     }
 

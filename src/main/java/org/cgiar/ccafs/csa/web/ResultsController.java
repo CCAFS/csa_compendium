@@ -140,6 +140,10 @@ public class ResultsController implements Serializable {
 
                 searchParametersMap.put(parameterList[paramPosition], parameterInfoList[infoPosition]);
             }
+
+            for (ExperimentContext context : experimentContexts) {
+                context.initDescriptiveFields();
+            }
         }
     }
 

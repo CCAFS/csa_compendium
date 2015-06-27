@@ -25,7 +25,7 @@ public class ExperimentContext implements Serializable {
     @JoinColumn(name = "farming_system_id")
     private FarmingSystem farmingSystem;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "experiment_production_systems"
             , joinColumns = {
@@ -41,11 +41,16 @@ public class ExperimentContext implements Serializable {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @OneToMany(mappedBy = "experimentContext", fetch = FetchType.EAGER)
-    private List<InitialCondition> initialConditions = new ArrayList<>();
+    @OneToMany(mappedBy = "experimentContext")
+    private Set<InitialCondition> initialConditions = new HashSet<>();
 
-    @OneToMany(mappedBy = "experimentContext", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "experimentContext")
     private List<Treatment> treatments;
+
+    // Descriptive Fields //
+
+    private transient String listOfPractices;
+    private transient String listOfProductionSystems;
 
     // Methods //
 
@@ -110,7 +115,7 @@ public class ExperimentContext implements Serializable {
         this.location = location;
     }
 
-    public List<InitialCondition> getInitialConditions() {
+    public Set<InitialCondition> getInitialConditions() {
         return this.initialConditions;
     }
 
@@ -127,16 +132,22 @@ public class ExperimentContext implements Serializable {
     }
 
     public String getListOfProductionSystems() {
-        StringBuilder builder = new StringBuilder();
-        for (ProductionSystem productionSystem : productionSystems) {
-            builder.append("\n");
-            builder.append(productionSystem.getName());
-        }
-        return builder.toString();
+        return listOfProductionSystems;
     }
 
     public String getListOfPractices() {
+        return listOfPractices;
+    }
+
+    public void initDescriptiveFields() {
         StringBuilder builder = new StringBuilder();
+        for (ProductionSystem productionSystem : productionSystems) {
+            builder.append(", ");
+            builder.append(productionSystem.getName());
+        }
+        listOfProductionSystems = builder.length() > 2 ? builder.substring(2) : builder.toString();
+
+        builder = new StringBuilder();
         Set<Practice> treatmentPractices = new LinkedHashSet<>();
         for (Treatment treatment : treatments) {
             if (!treatment.isControlForTreatments()) {
@@ -146,9 +157,9 @@ public class ExperimentContext implements Serializable {
             }
         }
         for (Practice practice : treatmentPractices) {
-            builder.append("\n");
+            builder.append(", ");
             builder.append(practice.getName());
         }
-        return builder.toString();
+        listOfPractices = builder.length() > 2 ? builder.substring(2) : builder.toString();
     }
 }

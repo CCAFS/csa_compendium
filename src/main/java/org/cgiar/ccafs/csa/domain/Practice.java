@@ -1,9 +1,7 @@
 package org.cgiar.ccafs.csa.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * The persistent class for the practices database table.
@@ -44,7 +42,7 @@ public class Practice extends AbstractInformationEntity implements Contextualize
             @JoinColumn(name = "context_value_id")
     }
     )
-    private List<ContextValue> contextValues = new ArrayList<>();
+    private Set<ContextValue> contextValues = new HashSet<>();
 
     @Override
     public Integer getId() {
@@ -96,7 +94,7 @@ public class Practice extends AbstractInformationEntity implements Contextualize
         return this.synergies;
     }
 
-    public List<ContextValue> getContextValues() {
+    public Set<ContextValue> getContextValues() {
         return this.contextValues;
     }
 

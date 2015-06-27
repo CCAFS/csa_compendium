@@ -28,7 +28,7 @@ public class ContextValueAdministration extends AdministrationConfiguration<Cont
 
     @Override
     public FieldSetConfigurationUnit listView(FieldSetConfigurationUnitBuilder fragmentBuilder) {
-        //fragmentBuilder.field("contextVariable").caption("Context Variable");
+        fragmentBuilder.field("contextVariable").caption("Context Variable");
         return infoListView(fragmentBuilder).build();
     }
 

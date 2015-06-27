@@ -14,7 +14,7 @@ public class ProductionSystemAdministration extends AdministrationConfiguration<
 
     @Override
     public ScreenContextConfigurationUnit screenContext(ScreenContextConfigurationUnitBuilder screenContextBuilder) {
-        return screenContextBuilder.screenName("").build();
+        return screenContextBuilder.screenName("Production Systems (Crops, LiveStock, etc.)").build();
     }
 
     @Override

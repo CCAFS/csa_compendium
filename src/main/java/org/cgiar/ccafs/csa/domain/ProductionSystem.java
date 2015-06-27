@@ -22,7 +22,7 @@ public class ProductionSystem extends AbstractInformationEntity {
     private ProductionSystemCategory category;
 
     @ManyToMany(mappedBy = "productionSystems")
-    private List<ExperimentContext> experimentContexts = new ArrayList<>();
+    private List<ExperimentContext> experimentContexts;
 
     @Override
     public Integer getId() {
