@@ -45,6 +45,10 @@ public class IndicatorPillar implements Comparable<IndicatorPillar>, Serializabl
         this.pillar = pillar;
     }
 
+    public void setPillar(String pillarName) {
+        this.pillar = Pillar.getByName(pillarName);
+    }
+
     public double getWeight() {
         return this.weight;
     }

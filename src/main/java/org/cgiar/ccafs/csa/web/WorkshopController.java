@@ -27,11 +27,8 @@ import java.util.*;
 public class WorkshopController implements Serializable {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    /*@Autowired
-    private SearchController searchController;
-
     @Autowired
-    private ExperimentArticleRepository experimentArticleRepository;*/
+    private ResultsController resultsController;
 
     @Autowired
     private CountryRepository countryRepository;
@@ -73,7 +70,12 @@ public class WorkshopController implements Serializable {
 
     private List<Practice> getAvailablePractices() {
         if (availablePractices == null) {
-            availablePractices = new ArrayList<>();
+            Set<Practice> practices = new HashSet<>();
+
+            for (ExperimentContext context : resultsController.getExperimentContexts()) {
+                practices.addAll(context.getTreatmentsPractices());
+            }
+            /*
             availablePractices.add(practiceRepository.findByCode("a11"));
             availablePractices.add(practiceRepository.findByCode("c1"));
             availablePractices.add(practiceRepository.findByCode("b35"));
@@ -81,6 +83,8 @@ public class WorkshopController implements Serializable {
             availablePractices.add(practiceRepository.findByCode("b20"));
             availablePractices.add(practiceRepository.findByCode("a4"));
             availablePractices.add(practiceRepository.findByCode("d6"));
+            */
+            availablePractices = Lists.newArrayList(practices);
         }
         return availablePractices;
     }

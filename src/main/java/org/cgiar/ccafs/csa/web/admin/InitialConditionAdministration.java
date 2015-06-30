@@ -20,7 +20,7 @@ public class InitialConditionAdministration extends AdministrationConfiguration<
     @Override
     public EntityMetadataConfigurationUnit configuration(EntityMetadataConfigurationUnitBuilder configurationBuilder) {
         return configurationBuilder
-                .nameField("condition")
+                .nameField("id")
                 .pluralName("Experiment Conditions")
                 .singularName("Experiment Condition")
                 .build();

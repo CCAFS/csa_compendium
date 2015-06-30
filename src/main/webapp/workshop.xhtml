@@ -34,6 +34,12 @@
                 $("#workshop\\:selectedAdaptationIndicatorsBox\\:0").change(selectAllCheckBoxes);
             });
         </script>
+
+        <style>
+            .ui-autocomplete {
+                width: 100%;
+            }
+        </style>
     </ui:define>
 
     <ui:define name="content">
@@ -76,13 +82,14 @@
                                 <b:column span="6">
                                     <p:outputLabel for="workshopPlace" value="City/Town:"/> <br/>
                                     <p:autoComplete id="workshopPlace" value="#{workshopController.workshopPlace}"
-                                                    cache="true" completeMethod="#{workshopController.completePlaces}" />
+                                                    cache="true" completeMethod="#{workshopController.completePlaces}"/>
                                 </b:column>
                             </b:row>
                             <b:row style="margin-top:14px;">
                                 <b:column span="12">
                                     <p:outputLabel for="partners" value="Partners and Stakeholders:"/> <br/>
-                                    <p:inputTextarea id="partners" rows="6" cols="66" value="#{workshopController.workshopPartners}" />
+                                    <p:inputTextarea id="partners" rows="6" cols="66"
+                                                     value="#{workshopController.workshopPartners}"/>
                                 </b:column>
                             </b:row>
                         </b:panel>
@@ -121,7 +128,8 @@
                                     <h4>Assign Weight</h4>
 
                                     <div class="slider-box">
-                                        <h:inputHidden id="mitigationValue" value="#{workshopController.mitigationValue}"/>
+                                        <h:inputHidden id="mitigationValue"
+                                                       value="#{workshopController.mitigationValue}"/>
                                         <p:slider id="mitigation" for="mitigationValue"
                                                   style="width: 230px; background: #4BB2C5">
                                             <p:ajax event="slideEnd" listener="#{workshopController.checkSlider}"
@@ -131,7 +139,8 @@
                                     </div>
 
                                     <div class="slider-box">
-                                        <h:inputHidden id="productionValue" value="#{workshopController.productionValue}"/>
+                                        <h:inputHidden id="productionValue"
+                                                       value="#{workshopController.productionValue}"/>
                                         <p:slider id="production" for="productionValue"
                                                   style="width: 230px; background: #EAA228">
                                             <p:ajax event="slideEnd" listener="#{workshopController.checkSlider}"
@@ -141,7 +150,8 @@
                                     </div>
                                     <div class="slider-box">
 
-                                        <h:inputHidden id="adaptationValue" value="#{workshopController.adaptationValue}"/>
+                                        <h:inputHidden id="adaptationValue"
+                                                       value="#{workshopController.adaptationValue}"/>
                                         <p:slider id="adaptation" for="adaptationValue"
                                                   style="width: 230px; background: #C5B47F">
                                             <p:ajax event="slideEnd" listener="#{workshopController.checkSlider}"

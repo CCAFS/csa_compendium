@@ -1,4 +1,4 @@
-package org.cgiar.ccafs.csa.domain.workshops;
+package org.cgiar.ccafs.csa.domain.workshop;
 
 import org.cgiar.ccafs.csa.domain.SubIndicator;
 

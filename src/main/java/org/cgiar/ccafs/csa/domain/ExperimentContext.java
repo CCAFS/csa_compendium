@@ -47,8 +47,9 @@ public class ExperimentContext implements Serializable {
     @OneToMany(mappedBy = "experimentContext")
     private List<Treatment> treatments;
 
-    // Descriptive Fields //
+    // Other Fields //
 
+    private transient Set<Practice> treatmentsPractices;
     private transient String listOfPractices;
     private transient String listOfProductionSystems;
 
@@ -139,6 +140,10 @@ public class ExperimentContext implements Serializable {
         return listOfPractices;
     }
 
+    public Set<Practice> getTreatmentsPractices() {
+        return treatmentsPractices;
+    }
+
     public void initDescriptiveFields() {
         StringBuilder builder = new StringBuilder();
         for (ProductionSystem productionSystem : productionSystems) {
@@ -148,15 +153,17 @@ public class ExperimentContext implements Serializable {
         listOfProductionSystems = builder.length() > 2 ? builder.substring(2) : builder.toString();
 
         builder = new StringBuilder();
-        Set<Practice> treatmentPractices = new LinkedHashSet<>();
+        treatmentsPractices = new LinkedHashSet<>();
         for (Treatment treatment : treatments) {
             if (!treatment.isControlForTreatments()) {
                 for (Practice practice : treatment.getPractices()) {
-                    treatmentPractices.add(practice);
+                    if (!practice.getPracticeLevel().getName().equals("Non-CSA")) {
+                        treatmentsPractices.add(practice);
+                    }
                 }
             }
         }
-        for (Practice practice : treatmentPractices) {
+        for (Practice practice : treatmentsPractices) {
             builder.append(", ");
             builder.append(practice.getName());
         }

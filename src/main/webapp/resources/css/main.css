@@ -422,7 +422,7 @@ span.text {
 
 /* Workshops styles */
 
-.workshop-panel input, .workshop-panel textarea, .ui-autocomplete {
+.workshop-panel input, .workshop-panel textarea {
     width: 100%;
 }
 
@@ -450,4 +450,29 @@ table.ui-selectmanycheckbox label {
 
 label[for=selectedMitigationIndicatorsBox\:0], label[for=selectedProductionIndicatorsBox\:0], label[for=selectedAdaptationIndicatorsBox\:0] {
     font-style: italic;
+}
+
+/* Insert styles */
+
+#admin_column {
+    overflow: hidden;
+}
+
+#info_column {
+    position: fixed;
+    right: 5%;
+}
+
+#admin_iframe {
+    margin-left: -262px;
+    margin-top: -138px;
+}
+
+.input_row {
+    margin-bottom: 20px;
+}
+
+#info_column input {
+    width: 140px;
+    margin: 0;
 }

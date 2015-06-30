@@ -1,6 +1,6 @@
 package org.cgiar.ccafs.csa.domain;
 
-import org.cgiar.ccafs.csa.domain.workshops.WorkshopBarrier;
+import org.cgiar.ccafs.csa.domain.workshop.WorkshopBarrier;
 
 import javax.persistence.*;
 

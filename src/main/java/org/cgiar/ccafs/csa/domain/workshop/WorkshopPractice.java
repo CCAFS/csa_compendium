@@ -1,16 +1,16 @@
-package org.cgiar.ccafs.csa.domain.workshops;
+package org.cgiar.ccafs.csa.domain.workshop;
 
-import org.cgiar.ccafs.csa.domain.Barrier;
+import org.cgiar.ccafs.csa.domain.Practice;
 
 import javax.persistence.*;
 
 /**
- * The persistent class for the barriers database table.
+ * The persistent class for the practices database table.
  */
 @Entity
-@Table(name = "workshop_barriers")
+@Table(name = "workshop_practices")
 @DiscriminatorValue(value = "0")
-public class WorkshopBarrier extends Barrier {
+public class WorkshopPractice extends Practice {
     private static final long serialVersionUID = 1L;
 
     @ManyToOne

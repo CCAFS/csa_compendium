@@ -1,6 +1,6 @@
-package org.cgiar.ccafs.csa.web.admin;
+package org.cgiar.ccafs.csa.web.admin.workshop;
 
-import org.cgiar.ccafs.csa.domain.Practice;
+import org.cgiar.ccafs.csa.domain.workshop.WorkshopPractice;
 import org.lightadmin.api.config.AdministrationConfiguration;
 import org.lightadmin.api.config.builder.*;
 import org.lightadmin.api.config.unit.EntityMetadataConfigurationUnit;
@@ -10,19 +10,19 @@ import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
 
 import static org.cgiar.ccafs.csa.web.admin.AdministrationTemplates.*;
 
-public class PracticeAdministration extends AdministrationConfiguration<Practice> {
+public class WorkshopPracticeAdministration extends AdministrationConfiguration<WorkshopPractice> {
 
     @Override
     public ScreenContextConfigurationUnit screenContext(ScreenContextConfigurationUnitBuilder screenContextBuilder) {
-        return screenContextBuilder.screenName("Agricultural Practices").build();
+        return screenContextBuilder.screenName("Agricultural Practices from Workshop Experts").build();
     }
 
     @Override
     public EntityMetadataConfigurationUnit configuration(EntityMetadataConfigurationUnitBuilder configurationBuilder) {
         return configurationBuilder
                 .nameField("name")
-                .pluralName("Practices")
-                .singularName("Practice")
+                .pluralName("Workshop Practices")
+                .singularName("Workshops Practice")
                 .build();
     }
 

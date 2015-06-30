@@ -2,21 +2,143 @@
 <ui:composition template="/_main.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui"
                 xmlns:p="http://primefaces.org/ui">
+    <ui:define name="resources">
+        <script type="text/javascript">
+            function checkFormChange(box) {
+                var changedUrl = box.contentWindow.location.pathname;
+                var newSize = "1600px"; // Default for login form
+                console.log("location: " + changedUrl);
+
+                if (changedUrl.startsWith('/admin/login')) {
+                    newSize = "640px";
+                }
+
+                $('#admin_iframe').attr("height", newSize);
+                window.scrollTo(0, 0);
+            }
+        </script>
+    </ui:define>
 
     <ui:define name="content">
         <b:container>
             <b:row>
-                <b:column span="8" offset="2">
+                <b:column id="admin_column" span="9">
+                    <iframe name="admin_iframe" id="admin_iframe" onload="checkFormChange(this)"
+                            src="#{dataExtractorController.formLocation}"
+                            width="100%" height="1600px" frameborder="0">
+                        Create new Experiment Article
+                    </iframe>
+                </b:column>
+                <b:column id="info_column" span="5">
+                    <b:panel>
+                        <f:facet name="heading">
+                            <strong>Add new Experiment Articles</strong>
+                        </f:facet>
+
+                        <p style="font-size: small">Using the web form at the left , you can add new information of Experiments, Treatments
+                            and Outcomes. First, login with proper credentials, them press the Add New buttons below.
+                            <br/>
+                            Alternatively, you can also upload excel (xls, xlsx) files using the form below, they can be
+                            compressed within zip files.
+                        </p>
+
+                        <h:form id="info">
+                            <p:poll interval="6" listener="#{dataExtractorController.processInput}"
+                                    update="info_input"/>
+                            <b:well id="info_input">
+                                <b:row styleClass="input_row">
+                                    <b:column span="4">
+                                        <h:commandButton value="Add New Experiment" styleClass="btn-primary"
+                                                         actionListener="#{dataExtractorController.createNewExperiment}"
+                                                         update="admin_column"/>
+                                    </b:column>
+                                    <b:column span="8">
+                                        <h:outputText rendered="#{dataExtractorController.experimentInitialized}"
+                                                      value="Experiment # #{dataExtractorController.experiment.id}"/>
+                                    </b:column>
+                                </b:row>
+                                <b:row styleClass="input_row">
+                                    <b:column span="4" rendered="#{dataExtractorController.experimentInitialized}">
+                                        <h:commandButton value="Add New Context" styleClass="btn-add"
+                                                         actionListener="#{dataExtractorController.createNewContext}"
+                                                         update="admin_column"/>
+                                    </b:column>
+                                    <b:column span="4"
+                                              rendered="#{dataExtractorController.experimentContextsInitialized}">
+                                        <h:outputLabel for="currentContext" value="Active Context:"/>
+                                    </b:column>
+                                    <b:column span="4"
+                                              rendered="#{dataExtractorController.experimentContextsInitialized}">
+                                        <p:selectOneMenu id="currentContext" converter="javax.faces.Integer"
+                                                         value="#{dataExtractorController.currentContextId}">
+                                            <f:selectItems value="#{dataExtractorController.experiment.contexts}"
+                                                           var="context" itemLabel="#{context.id}"
+                                                           itemValue="#{context.id}"/>
+                                            <p:ajax partialSubmit="true" update="currentContext" />
+                                        </p:selectOneMenu>
+                                    </b:column>
+                                </b:row>
+                                <b:row styleClass="input_row">
+                                    <b:column span="4"
+                                              rendered="#{dataExtractorController.experimentContextsInitialized}">
+                                        <h:commandButton value="Add New Treatment" styleClass="btn-add"
+                                                         actionListener="#{dataExtractorController.createNewTreatment}"
+                                                         update="admin_column"/>
+                                    </b:column>
+                                    <b:column span="4"
+                                              rendered="#{dataExtractorController.experimentTreatmentsInitialized}">
+                                        <h:outputLabel for="currentTreatment" value="Active Treatment:"/>
+                                    </b:column>
+                                    <b:column span="4"
+                                              rendered="#{dataExtractorController.experimentTreatmentsInitialized}">
+                                        <p:selectOneMenu id="currentTreatment" converter="javax.faces.Integer"
+                                                         value="#{dataExtractorController.currentTreatmentId}">
+                                            <f:selectItems value="#{dataExtractorController.currentContext.treatments}"
+                                                           var="treatment" itemLabel="#{treatment.id}"
+                                                           itemValue="#{treatment.id}"/>
+                                            <p:ajax partialSubmit="true" update="currentTreatment" />
+                                        </p:selectOneMenu>
+                                    </b:column>
+                                </b:row>
+                                <b:row>
+                                    <b:column span="4"
+                                              rendered="#{dataExtractorController.experimentTreatmentsInitialized}">
+                                        <h:commandButton value="Add New Outcome" styleClass="btn-add"
+                                                         actionListener="#{dataExtractorController.createNewOutcome}"
+                                                         update="admin_column"/>
+                                    </b:column>
+                                    <b:column span="4"
+                                              rendered="#{dataExtractorController.experimentOutcomesInitialized}">
+                                        <h:outputLabel for="currentOutcome" value="Active Outcome:"/>
+                                    </b:column>
+                                    <b:column span="4"
+                                              rendered="#{dataExtractorController.experimentOutcomesInitialized}">
+                                        <p:selectOneMenu id="currentOutcome" converter="javax.faces.Integer"
+                                                         value="#{dataExtractorController.currentOutcomeId}">
+                                            <f:selectItems value="#{dataExtractorController.currentTreatment.outcomes}"
+                                                           var="outcome" itemLabel="#{outcome.id}"
+                                                           itemValue="#{outcome.id}"/>
+                                            <p:ajax partialSubmit="true" update="currentOutcome" />
+                                        </p:selectOneMenu>
+                                    </b:column>
+                                </b:row>
+                            </b:well>
+                        </h:form>
+                    </b:panel>
                     <h:form id="uploader" enctype="multipart/form-data">
                         <p:fileUpload fileUploadListener="#{dataExtractorController.uploadListener}"
                                       mode="advanced" dragDropSupport="true" multiple="true"
                                       sizeLimit="16000000" fileLimit="15"
                                       label="Add"
-                                      update="info" allowTypes="/(\.|\/)(xls|xlsx|zip)$/"/>
+                                      update="uploaded_files" allowTypes="/(\.|\/)(xls|xlsx|zip)$/"/>
                     </h:form>
-                    <h:outputText id="info" value="Uploaded: #{dataExtractorController.result}"/>
+                    <br/>
+                    <h:outputText style="font-weight: bold" id="uploaded_files"
+                                  rendered="#{not empty dataExtractorController.result}"
+                                  value="Uploaded: #{dataExtractorController.result}"/>
                 </b:column>
             </b:row>
         </b:container>

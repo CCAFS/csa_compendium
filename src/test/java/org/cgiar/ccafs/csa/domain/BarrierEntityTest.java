@@ -1,7 +1,7 @@
 package org.cgiar.ccafs.csa.domain;
 
 import org.cgiar.ccafs.csa.CSAToolApplication;
-import org.cgiar.ccafs.csa.domain.workshops.WorkshopBarrier;
+import org.cgiar.ccafs.csa.domain.workshop.WorkshopBarrier;
 import org.cgiar.ccafs.csa.repository.BarrierRepository;
 import org.junit.Before;
 import org.junit.Test;

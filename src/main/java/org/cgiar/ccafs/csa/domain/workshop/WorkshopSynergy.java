@@ -1,16 +1,16 @@
-package org.cgiar.ccafs.csa.domain.workshops;
+package org.cgiar.ccafs.csa.domain.workshop;
 
-import org.cgiar.ccafs.csa.domain.Practice;
+import org.cgiar.ccafs.csa.domain.Synergy;
 
 import javax.persistence.*;
 
 /**
- * The persistent class for the practices database table.
+ * The persistent class for the synergies database table.
  */
 @Entity
-@Table(name = "workshop_practices")
+@Table(name = "workshop_synergies")
 @DiscriminatorValue(value = "0")
-public class WorkshopPractice extends Practice {
+public class WorkshopSynergy extends Synergy {
     private static final long serialVersionUID = 1L;
 
     @ManyToOne

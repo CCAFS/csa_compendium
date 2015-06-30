@@ -1,4 +1,4 @@
-package org.cgiar.ccafs.csa.web.extra_admin;
+package org.cgiar.ccafs.csa.web.admin;
 
 import org.cgiar.ccafs.csa.domain.Translation;
 import org.lightadmin.api.config.AdministrationConfiguration;
