@@ -2,10 +2,18 @@ package org.cgiar.ccafs.csa.web;
 
 import com.google.common.collect.Lists;
 import org.cgiar.ccafs.csa.domain.*;
+import org.cgiar.ccafs.csa.domain.workshop.Workshop;
+import org.cgiar.ccafs.csa.domain.workshop.WorkshopComment;
+import org.cgiar.ccafs.csa.domain.workshop.WorkshopPillar;
+import org.cgiar.ccafs.csa.domain.workshop.WorkshopPrioritization;
 import org.cgiar.ccafs.csa.repository.CountryRepository;
 import org.cgiar.ccafs.csa.repository.IndicatorRepository;
 import org.cgiar.ccafs.csa.repository.LocationRepository;
 import org.cgiar.ccafs.csa.repository.PracticeRepository;
+import org.cgiar.ccafs.csa.repository.workshop.WorkshopCommentRepository;
+import org.cgiar.ccafs.csa.repository.workshop.WorkshopPillarRepository;
+import org.cgiar.ccafs.csa.repository.workshop.WorkshopPrioritizationRepository;
+import org.cgiar.ccafs.csa.repository.workshop.WorkshopRepository;
 import org.primefaces.component.slider.Slider;
 import org.primefaces.event.SlideEndEvent;
 import org.primefaces.model.DualListModel;
@@ -34,10 +42,22 @@ public class WorkshopController implements Serializable {
     private CountryRepository countryRepository;
 
     @Autowired
-    private PracticeRepository practiceRepository;
+    private WorkshopRepository workshopRepository;
+
+    @Autowired
+    private WorkshopCommentRepository workshopCommentRepository;
+
+    @Autowired
+    private WorkshopPrioritizationRepository workshopPrioritizationRepository;
+
+    @Autowired
+    private WorkshopPillarRepository workshopPillarRepository;
 
     @Autowired
     private IndicatorRepository indicatorRepository;
+
+    @Autowired
+    private PracticeRepository practiceRepository;
 
     @Autowired
     private LocationRepository locationRepository;
@@ -50,6 +70,10 @@ public class WorkshopController implements Serializable {
 
     private List<Practice> selectedPractices;
     private List<Practice> availablePractices;
+
+    private Workshop workshop;
+
+    private final Random randomGenerator = new Random(44574683);
 
     private PieChartModel pieModel;
     private int mitigationValue = 50;
@@ -75,15 +99,6 @@ public class WorkshopController implements Serializable {
             for (ExperimentContext context : resultsController.getExperimentContexts()) {
                 practices.addAll(context.getTreatmentsPractices());
             }
-            /*
-            availablePractices.add(practiceRepository.findByCode("a11"));
-            availablePractices.add(practiceRepository.findByCode("c1"));
-            availablePractices.add(practiceRepository.findByCode("b35"));
-            availablePractices.add(practiceRepository.findByCode("a11"));
-            availablePractices.add(practiceRepository.findByCode("b20"));
-            availablePractices.add(practiceRepository.findByCode("a4"));
-            availablePractices.add(practiceRepository.findByCode("d6"));
-            */
             availablePractices = Lists.newArrayList(practices);
         }
         return availablePractices;
@@ -104,7 +119,7 @@ public class WorkshopController implements Serializable {
     }
 
 
-    private List<Practice> getSelectedPractices() {
+    public List<Practice> getSelectedPractices() {
         if (selectedPractices == null) {
             selectedPractices = new ArrayList<>();
         }
@@ -164,6 +179,53 @@ public class WorkshopController implements Serializable {
         }
     }
 
+    public String createWorkshopAndPrioritize() {
+        workshop = new Workshop();
+        workshop = workshopRepository.save(workshop);
+        WorkshopComment comment = new WorkshopComment();
+        comment.setBody(getWorkshopPartners());
+        workshop.addComment(comment);
+        workshopCommentRepository.save(comment);
+
+        Country workshopCountry = countryRepository.findOne(workshopCountryCode);
+        Location workshopLocation = new Location();
+        workshopLocation.setCountry(workshopCountry);
+        workshopLocation.setPlace(workshopPlace);
+        workshop.setLocation(locationRepository.save(workshopLocation));
+
+        List praticeList = new ArrayList();
+        praticeList.addAll(practices.getTarget());
+
+        for (int i = 0, n = praticeList.size(); i < n; i++) {
+            WorkshopPrioritization prioritization = new WorkshopPrioritization();
+            prioritization.setPractice(practiceRepository.findByCode(praticeList.get(i).toString()));
+            prioritization.setScore(randomGenerator.nextDouble());
+            workshop.addPrioritization(workshopPrioritizationRepository.save(prioritization));
+        }
+
+        WorkshopPillar workshopPillar = new WorkshopPillar();
+        workshopPillar.setPillar(Pillar.PRODUCTION);
+        workshopPillar.setWeight(productionValue / 100);
+
+        workshop.addWorkshopPillar(workshopPillarRepository.save(workshopPillar));
+
+        workshopPillar = new WorkshopPillar();
+        workshopPillar.setPillar(Pillar.ADAPTATION);
+        workshopPillar.setWeight(adaptationValue / 100);
+
+        workshop.addWorkshopPillar(workshopPillarRepository.save(workshopPillar));
+
+        workshopPillar = new WorkshopPillar();
+        workshopPillar.setPillar(Pillar.MITIGATION);
+        workshopPillar.setWeight(mitigationValue / 100);
+
+        workshop.addWorkshopPillar(workshopPillarRepository.save(workshopPillar));
+
+        workshopRepository.save(workshop);
+
+        return "practices";
+    }
+
     public Iterable<Country> getCountriesList() {
         return countriesList;
     }
@@ -208,12 +270,24 @@ public class WorkshopController implements Serializable {
         return selectedMitigationIndicators;
     }
 
+    public void setSelectedMitigationIndicators(List<Integer> selectedMitigationIndicators) {
+        this.selectedMitigationIndicators = selectedMitigationIndicators;
+    }
+
     public List<Integer> getSelectedProductionIndicators() {
         return selectedProductionIndicators;
     }
 
+    public void setSelectedProductionIndicators(List<Integer> selectedProductionIndicators) {
+        this.selectedProductionIndicators = selectedProductionIndicators;
+    }
+
     public List<Integer> getSelectedAdaptationIndicators() {
         return selectedAdaptationIndicators;
+    }
+
+    public void setSelectedAdaptationIndicators(List<Integer> selectedAdaptationIndicators) {
+        this.selectedAdaptationIndicators = selectedAdaptationIndicators;
     }
 
     public String getWorkshopCountryCode() {
@@ -238,5 +312,9 @@ public class WorkshopController implements Serializable {
 
     public void setWorkshopPartners(String workshopPartners) {
         this.workshopPartners = workshopPartners;
+    }
+
+    public Workshop getWorkshop() {
+        return workshop;
     }
 }

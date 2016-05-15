@@ -10,5 +10,7 @@ import java.util.List;
 public interface ExperimentArticleRepository extends PagingAndSortingRepository<ExperimentArticle, Integer> {
     ExperimentArticle findByCode(String code);
 
+    List<ExperimentArticle> findByCodeStartingWith(String code);
+
     List<ExperimentArticle> findByThemeId(Integer id);
 }

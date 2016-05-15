@@ -8,58 +8,7 @@
 <ui:composition template="/_main.xhtml">
     <ui:define name="content">
         <b:container id="search-results">
-            <h2 class="title">CSA Compendium Search Results</h2>
-
-            <div id="legend">
-                <div class="title"><strong>Indicators</strong></div>
-                <ul>
-                    <li>
-                        <div class="code"><span class="text">YLD</span></div>
-                        <span class="text"> Yield</span></li>
-                    <li>
-                        <div class="code"><span class="text">VAR</span></div>
-                        <span class="text"> Variability</span></li>
-                    <li>
-                        <div class="code"><span class="text">LAB</span></div>
-                        <span class="text"> Labour</span></li>
-                    <li>
-                        <div class="code"><span class="text">INC</span></div>
-                        <span class="text"> Income</span></li>
-                    <li>
-                        <div class="code"><span class="text">FAC</span></div>
-                        <span class="text"> Food access</span></li>
-                    <li>
-                        <div class="code"><span class="text">WUE</span></div>
-                        <span class="text"> Water use efficiency</span></li>
-                    <li>
-                        <div class="code"><span class="text">NUE</span></div>
-                        <span class="text"> Nutrient efficiency</span></li>
-                    <li>
-                        <div class="code"><span class="text">EUE</span></div>
-                        <span class="text"> Energy use efficiency</span></li>
-                    <li>
-                        <div class="code"><span class="text">BD</span></div>
-                        <span class="text"> Biodiversity</span></li>
-                    <li>
-                        <div class="code"><span class="text">PP</span></div>
-                        <span class="text"> Pest-pathogen resistance and tolerance</span></li>
-                    <li>
-                        <div class="code"><span class="text">SOQ</span></div>
-                        <span class="text"> Soil erossion</span></li>
-                    <li>
-                        <div class="code"><span class="text">ERS</span></div>
-                        <span class="text"> Emissions intensity</span></li>
-                    <li>
-                        <div class="code"><span class="text">OFE</span></div>
-                        <span class="text"> On farm emissions</span></li>
-                    <li>
-                        <div class="code"><span class="text">OFFE</span></div>
-                        <span class="text"> Off farm emissions</span></li>
-                </ul>
-
-                <div class="title"><input class="btn-primary" type="button" value="Continue"
-                                          onClick="window.location.href='analysis.xhtml'"/></div>
-            </div>
+            <h2 class="title">CSA Compendium Prioritized Results</h2>
 
             <div id="search-results-table">
                 <div class="table-head">
@@ -67,231 +16,36 @@
                     <div class="indicators">
                         <div class="indicators-head">Indicators<br/>
                             <span style="font-size: small;">(Percentage Change)</span></div>
-                        <div class="indicator">YLD</div>
-                        <div class="indicator">VAR</div>
-                        <div class="indicator">LAB</div>
-                        <div class="indicator">INC</div>
-                        <div class="indicator">FAC</div>
-                        <div class="indicator">WUE</div>
-                        <div class="indicator">NUE</div>
-                        <div class="indicator">EUE</div>
-                        <div class="indicator">BD</div>
-                        <div class="indicator">PP</div>
-                        <div class="indicator">SOQ</div>
-                        <div class="indicator">ERS</div>
-                        <div class="indicator">OFE</div>
-                        <div class="indicator">OFFE</div>
+                        <ui:repeat id="indicators" value="#{practicesController.selectedIndicators}" var="indicator">
+                            <div class="indicator">#{indicator.name}</div>
+                        </ui:repeat>
+
                     </div>
                     <!--<div class="view">View</div>-->
                 </div>
                 <div class="table-body">
-                    <div class="row">
-                        <div class="practices">Silvopastoral Systems</div>
-                        <div class="indicators">
-                            <div class="indicator">54%</div>
-                            <div class="indicator">33%</div>
-                            <div class="indicator">41%</div>
-                            <div class="indicator">42%</div>
-                            <div class="indicator">56%</div>
-                            <div class="indicator">N/D</div>
-                            <div class="indicator">26%</div>
-                            <div class="indicator">52%</div>
-                            <div class="indicator">75%</div>
-                            <div class="indicator">31%</div>
-                            <div class="indicator">55%</div>
-                            <div class="indicator">53%</div>
-                            <div class="indicator">4%</div>
-                            <div class="indicator">59%</div>
-                        </div>
-                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
-                    </div>
+                    <ui:repeat id="practices" value="#{practicesController.practicesPriorities}"
+                               var="practicesPriority">
 
-                    <div class="row">
-                        <div class="practices">Biogas</div>
-                        <div class="indicators">
-                            <div class="indicator">54%</div>
-                            <div class="indicator">33%</div>
-                            <div class="indicator">41%</div>
-                            <div class="indicator">42%</div>
-                            <div class="indicator">56%</div>
-                            <div class="indicator">N/D</div>
-                            <div class="indicator">26%</div>
-                            <div class="indicator">52%</div>
-                            <div class="indicator">75%</div>
-                            <div class="indicator">31%</div>
-                            <div class="indicator">55%</div>
-                            <div class="indicator">53%</div>
-                            <div class="indicator">4%</div>
-                            <div class="indicator">59%</div>
-                        </div>
-                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
-                    </div>
-                    <div class="row">
-                        <div class="practices">Water Harvest Structure</div>
-                        <div class="indicators">
-                            <div class="indicator">54%</div>
-                            <div class="indicator">33%</div>
-                            <div class="indicator">41%</div>
-                            <div class="indicator">42%</div>
-                            <div class="indicator">56%</div>
-                            <div class="indicator">N/D</div>
-                            <div class="indicator">26%</div>
-                            <div class="indicator">52%</div>
-                            <div class="indicator">75%</div>
-                            <div class="indicator">31%</div>
-                            <div class="indicator">55%</div>
-                            <div class="indicator">53%</div>
-                            <div class="indicator">4%</div>
-                            <div class="indicator">59%</div>
-                        </div>
-                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
-                    </div>
-                    <div class="row">
-                        <div class="practices">Efficient Use of Fertilizer</div>
-                        <div class="indicators">
-                            <div class="indicator">54%</div>
-                            <div class="indicator">33%</div>
-                            <div class="indicator">41%</div>
-                            <div class="indicator">42%</div>
-                            <div class="indicator">56%</div>
-                            <div class="indicator">N/D</div>
-                            <div class="indicator">26%</div>
-                            <div class="indicator">52%</div>
-                            <div class="indicator">75%</div>
-                            <div class="indicator">31%</div>
-                            <div class="indicator">55%</div>
-                            <div class="indicator">53%</div>
-                            <div class="indicator">4%</div>
-                            <div class="indicator">59%</div>
-                        </div>
-                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
-                    </div>
-                    <div class="row">
-                        <div class="practices">Grass-Legume Association</div>
-                        <div class="indicators">
-                            <div class="indicator">54%</div>
-                            <div class="indicator">33%</div>
-                            <div class="indicator">41%</div>
-                            <div class="indicator">42%</div>
-                            <div class="indicator">56%</div>
-                            <div class="indicator">N/D</div>
-                            <div class="indicator">26%</div>
-                            <div class="indicator">52%</div>
-                            <div class="indicator">75%</div>
-                            <div class="indicator">31%</div>
-                            <div class="indicator">55%</div>
-                            <div class="indicator">53%</div>
-                            <div class="indicator">4%</div>
-                            <div class="indicator">59%</div>
-                        </div>
-                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
-                    </div>
-                    <div class="row">
-                        <div class="practices">Improved Forages</div>
-                        <div class="indicators">
-                            <div class="indicator">54%</div>
-                            <div class="indicator">33%</div>
-                            <div class="indicator">41%</div>
-                            <div class="indicator">42%</div>
-                            <div class="indicator">56%</div>
-                            <div class="indicator">N/D</div>
-                            <div class="indicator">26%</div>
-                            <div class="indicator">52%</div>
-                            <div class="indicator">75%</div>
-                            <div class="indicator">31%</div>
-                            <div class="indicator">55%</div>
-                            <div class="indicator">53%</div>
-                            <div class="indicator">4%</div>
-                            <div class="indicator">59%</div>
-                        </div>
-                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
-                    </div>
-                    <div class="row">
-                        <div class="practices">Diseases Management</div>
-                        <div class="indicators">
-                            <div class="indicator">54%</div>
-                            <div class="indicator">33%</div>
-                            <div class="indicator">41%</div>
-                            <div class="indicator">42%</div>
-                            <div class="indicator">56%</div>
-                            <div class="indicator">N/D</div>
-                            <div class="indicator">26%</div>
-                            <div class="indicator">52%</div>
-                            <div class="indicator">75%</div>
-                            <div class="indicator">31%</div>
-                            <div class="indicator">55%</div>
-                            <div class="indicator">53%</div>
-                            <div class="indicator">4%</div>
-                            <div class="indicator">59%</div>
-                        </div>
-                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
-                    </div>
-                    <div class="row">
-                        <div class="practices">Silage, Haylage and Nutritional Blocks</div>
-                        <div class="indicators">
-                            <div class="indicator">54%</div>
-                            <div class="indicator">33%</div>
-                            <div class="indicator">41%</div>
-                            <div class="indicator">42%</div>
-                            <div class="indicator">56%</div>
-                            <div class="indicator">N/D</div>
-                            <div class="indicator">26%</div>
-                            <div class="indicator">52%</div>
-                            <div class="indicator">75%</div>
-                            <div class="indicator">31%</div>
-                            <div class="indicator">55%</div>
-                            <div class="indicator">53%</div>
-                            <div class="indicator">4%</div>
-                            <div class="indicator">59%</div>
-                        </div>
-                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
-                    </div>
+                        <div class="row">
+                            <div class="practices">#{practicesPriority.practiceName}</div>
 
-                    <div class="row">
-                        <div class="practices">Early Warning Systems</div>
-                        <div class="indicators">
-                            <div class="indicator">54%</div>
-                            <div class="indicator">33%</div>
-                            <div class="indicator">41%</div>
-                            <div class="indicator">42%</div>
-                            <div class="indicator">56%</div>
-                            <div class="indicator">N/D</div>
-                            <div class="indicator">26%</div>
-                            <div class="indicator">52%</div>
-                            <div class="indicator">75%</div>
-                            <div class="indicator">31%</div>
-                            <div class="indicator">55%</div>
-                            <div class="indicator">53%</div>
-                            <div class="indicator">4%</div>
-                            <div class="indicator">59%</div>
+                            <div class="indicators">
+                                <ui:repeat id="indicatorValues" value="#{practicesPriority.indicatorValues}"
+                                           var="indicatorValue">
+                                    <div class="indicator">#{indicatorValue}%</div>
+                                </ui:repeat>
+                            </div>
+                            <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
                         </div>
-                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
-                    </div>
 
-                    <div class="row">
-                        <div class="practices">Harvest Residues in Livestock Diet</div>
-                        <div class="indicators">
-                            <div class="indicator">54%</div>
-                            <div class="indicator">33%</div>
-                            <div class="indicator">41%</div>
-                            <div class="indicator">42%</div>
-                            <div class="indicator">56%</div>
-                            <div class="indicator">N/D</div>
-                            <div class="indicator">26%</div>
-                            <div class="indicator">52%</div>
-                            <div class="indicator">75%</div>
-                            <div class="indicator">31%</div>
-                            <div class="indicator">55%</div>
-                            <div class="indicator">53%</div>
-                            <div class="indicator">4%</div>
-                            <div class="indicator">59%</div>
-                        </div>
-                        <!--<div class="view"><i class="fa fa-eye"></i> View Source</div>-->
-                    </div>
+                    </ui:repeat>
 
                     <div class="clearfix"></div>
                 </div>
             </div>
+            <div class="pull-right"><input class="btn-primary" type="button" value="Continue"
+                                           onClick="window.location.href='analysis.xhtml'"/></div>
 
         </b:container>
 

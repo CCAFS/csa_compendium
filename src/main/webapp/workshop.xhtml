@@ -101,7 +101,7 @@
                         <b:panel title="Practices Selection">
                             <p:pickList value="#{workshopController.practices}" var="practice"
                                         itemLabel="#{practice.name}"
-                                        itemValue="#{practice}">
+                                        itemValue="#{practice.code}">
                                 <f:facet name="sourceCaption">Available practices</f:facet>
                                 <f:facet name="targetCaption">Selected practices</f:facet>
                             </p:pickList>
@@ -219,8 +219,10 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="5">
-                        <div class="title"><input class="btn-primary" type="button" value="Continue"
-                                                  onClick="window.location.href='practices.xhtml'"/></div>
+                        <div class="title">
+                            <h:commandButton styleClass="btn-primary" value="Continue"
+                                             action="#{workshopController.createWorkshopAndPrioritize}"/>
+                        </div>
                     </b:column>
                 </b:row>
             </h:form>

@@ -73,8 +73,8 @@ public class ResultsController implements Serializable {
             searchKeywords = searchController.getSearchKeywords();
             String[] parameterList = nullToEmpty(searchKeywords).split(",| ");
             for (String param : parameterList) {
-                ExperimentArticle article = experimentArticleRepository.findByCode(param);
-                if (article != null) {
+                List<ExperimentArticle> articles = experimentArticleRepository.findByCodeStartingWith(param);
+                for (ExperimentArticle article : articles) {
                     experimentContexts.addAll(article.getContexts());
                 }
             }

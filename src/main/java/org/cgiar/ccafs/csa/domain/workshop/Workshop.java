@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,16 +36,16 @@ public class Workshop implements Serializable {
     private Date updatedDate;
 
     @OneToMany(mappedBy = "workshop")
-    private List<WorkshopComment> comments;
+    private List<WorkshopComment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "workshop")
-    private List<WorkshopPortfolio> portfolios;
+    private List<WorkshopPortfolio> portfolios = new ArrayList<>();
 
     @OneToMany(mappedBy = "workshop")
-    private List<WorkshopPrioritization> prioritizations;
+    private List<WorkshopPrioritization> prioritizations = new ArrayList<>();
 
     @OneToMany(mappedBy = "workshop")
-    private List<WorkshopPillar> workshopPillars;
+    private List<WorkshopPillar> workshopPillars = new ArrayList<>();
 
     @OneToMany(mappedBy = "originalWorkshop")
     private List<WorkshopBarrier> newBarriers;

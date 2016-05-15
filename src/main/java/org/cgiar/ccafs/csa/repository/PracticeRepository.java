@@ -8,4 +8,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface PracticeRepository extends PagingAndSortingRepository<Practice, Integer> {
 
     Practice findByCode(String code);
+
+    Practice findByName(String name);
 }
